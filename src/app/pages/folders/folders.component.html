@@ -4,7 +4,7 @@
     class="w-82 bg-gray-100 border-r border-gray-200 p-4 hidden sm:block h-full max-h-full overflow-auto"
   >
     <nav class="flex flex-col gap-2">
-      @for(item of structureFolders; track item.name) {
+      @for(item of $structureFolders(); track item.name) {
       <struct-folder [item]="item"></struct-folder>
       }
     </nav>
@@ -13,7 +13,7 @@
   <main class="flex-1 p-6 h-full max-h-full overflow-auto">
     <h1 class="text-2xl font-bold mb-4">
       <img
-        [src]="iconBaseUrl + $content().icon"
+        [src]="iconBaseUrl + ($content().name | iconName : $content().type)"
         [alt]="$content().name + ' icon'"
         class="w-4 h-4"
       />

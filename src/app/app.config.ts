@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FOLDER_SETTINGS } from '@bases/base.token';
 import { BehaviorSubject } from 'rxjs';
@@ -12,6 +13,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
@@ -20,8 +22,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: FOLDER_SETTINGS,
       useValue: new BehaviorSubject({
-        iconBaseUrl:
-          'https://raw.githubusercontent.com/material-extensions/vscode-material-icon-theme/main/icons/',
+        iconBaseUrl: '/public/material-icon-theme/icons/',
         content: {
           name: 'root',
           type: 'folder',

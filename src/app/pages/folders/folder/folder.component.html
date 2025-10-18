@@ -17,7 +17,11 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
     }
-    <img [src]="iconBaseUrl + item.icon" [alt]="item.name + ' icon'" class="w-4 h-4" />
+    <img
+      [src]="iconBaseUrl + (item.name | iconName : item.type)"
+      [alt]="item.name + ' icon'"
+      class="w-4 h-4"
+    />
     <!--  (error)="
         item.type === 'folder'
           ? ($event.target.src = iconBaseUrl + 'folder.svg')
