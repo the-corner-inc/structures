@@ -1,6 +1,8 @@
 @use 'tailwindcss';
 @use 'styles/markdown';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 html,
 body {
   height: 100%;

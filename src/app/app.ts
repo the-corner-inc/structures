@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ColorSchemeService } from 'ngx-color-scheme';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
@@ -10,7 +11,15 @@ import { NavbarComponent } from './navbar/navbar.component';
     // Components
     NavbarComponent,
   ],
+  providers: [ColorSchemeService],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  constructor(private _colorSchemeService: ColorSchemeService) {
+    const singleRender = afterNextRender(() => {
+      this._colorSchemeService.init();
+      singleRender.destroy();
+    });
+  }
+}

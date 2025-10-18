@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ColorSchemeService } from 'ngx-color-scheme';
 
 @Component({
   selector: 'struct-navbar',
@@ -8,4 +9,12 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  readonly #colorSchemeService = inject(ColorSchemeService);
+
+  readonly $darkMode = this.#colorSchemeService.$isDarkMode.asReadonly();
+
+  toggleScheme(): void {
+    this.#colorSchemeService.toggleColorScheme();
+  }
+}
