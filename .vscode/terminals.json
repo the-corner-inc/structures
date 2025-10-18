@@ -1,0 +1,13 @@
+{
+  "autorun": true,
+  "autokill": true,
+  "terminals": [
+    {
+      "name": "Strucutres",
+      "icon": "editor-layout",
+      "command": "npm start",
+      "open": true,
+      "execute": false
+    }
+  ]
+}
