@@ -1,0 +1,17 @@
+<div class="flex w-full h-full max-h-full">
+  <!-- Sidebar -->
+  <aside
+    class="w-82 bg-gray-100 border-r border-gray-200 p-4 hidden sm:block h-full max-h-full overflow-auto"
+  >
+    <nav class="flex flex-col gap-2">
+      @for(item of structureFolders; track item.name) {
+      <struct-folder [item]="item"></struct-folder>
+      }
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6 h-full max-h-full overflow-auto">
+    <h1 class="text-2xl font-bold mb-4">Structures</h1>
+    <p class="text-gray-600">Welcome to the structures page. Main content goes here.</p>
+  </main>
+</div>
