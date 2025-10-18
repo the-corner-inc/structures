@@ -10,5 +10,15 @@ body {
 }
 
 body {
+  background-color: #f9fafb;
+  color: #222;
+
+  &.dark {
+    background-color: #18181b;
+    color: #e5e7eb;
+  }
+}
+
+body {
   min-height: 100vh;
 }

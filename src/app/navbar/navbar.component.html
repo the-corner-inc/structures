@@ -1,22 +1,26 @@
 <nav
-  class="w-full bg-white shadow-sm rounded-b-lg px-4 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+  class="w-full bg-white dark:bg-gray-900 shadow-sm rounded-b-lg px-4 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
 >
   <!-- Top: Logo and Navigation -->
   <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
     <a routerLink="/" class="flex items-center">
-      <img src="/the_corner-logo.webp" alt="The Corner Logo" class="h-10 w-auto min-w-[40px]" />
+      <img
+        src="/the_corner-logo.webp"
+        alt="The Corner Logo"
+        class="h-10 w-auto min-w-[40px] dark:invert-100"
+      />
     </a>
     <div class="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
       <a
         routerLink="/folders"
-        routerLinkActive="border-b-2 border-indigo-600 text-gray-900 font-semibold"
-        class="px-2 py-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-colors"
+        routerLinkActive="border-b-2 border-indigo-600 dark:border-indigo-400 text-gray-900 dark:text-white font-semibold"
+        class="px-2 py-1 border-b-2 border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white transition-colors"
         >Folders</a
       >
       <a
         routerLink="/issues"
-        routerLinkActive="border-b-2 border-indigo-600 text-gray-900 font-semibold"
-        class="px-2 py-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-colors"
+        routerLinkActive="border-b-2 border-indigo-600 dark:border-indigo-400 text-gray-900 dark:text-white font-semibold"
+        class="px-2 py-1 border-b-2 border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white transition-colors"
         >Issues</a
       >
     </div>
@@ -28,9 +32,9 @@
       <input
         type="text"
         placeholder="Search"
-        class="pl-10 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full bg-gray-50"
+        class="pl-10 pr-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
       />
-      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"
@@ -48,31 +52,14 @@
       </span>
     </div>
 
+    <!-- Toggle Scheme Button -->
     <button
       type="button"
       (click)="toggleScheme()"
-      class="ml-auto flex items-center gap-2 px-3 py-2 rounded-md border border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors"
+      class="ml-auto flex items-center gap-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors"
       aria-label="Toggle color scheme"
-    ></button>
-
-    <button
-      class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300"
-      aria-label="Profile"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-gray-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.797.73 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
+      <span class="hidden sm:inline">Toggle Scheme</span>
     </button>
   </div>
 </nav>

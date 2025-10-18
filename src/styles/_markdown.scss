@@ -1,44 +1,62 @@
-// GitHub-like Markdown SCSS for Angular/Tailwind
-$markdown-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-  'Apple Color Emoji', 'Segoe UI Emoji';
-$markdown-color: #24292f;
-$markdown-bg: #fff;
-$markdown-radius: 6px;
-$markdown-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-$markdown-heading-color: #24292f;
-$markdown-heading-weight: 600;
-$markdown-heading-line: 1.25;
-$markdown-border: #eaecef;
-$markdown-muted: #6a737d;
-$markdown-link: #0969da;
-$markdown-blockquote-bg: #f6f8fa;
-$markdown-blockquote-border: #dfe2e5;
-$markdown-code-bg: #f6f8fa;
-$markdown-table-border: #dfe2e5;
-$markdown-table-header-bg: #f6f8fa;
+body {
+  --markdown-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  --markdown-radius: 6px;
+  --markdown-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --markdown-heading-weight: 600;
+  --markdown-heading-line: 1.25;
+
+  &:not(.dark) {
+    --markdown-color: #24292f;
+    --markdown-bg: #fff;
+    --markdown-heading-color: #24292f;
+    --markdown-border: #eaecef;
+    --markdown-muted: #6a737d;
+    --markdown-link: #0969da;
+    --markdown-blockquote-bg: #f6f8fa;
+    --markdown-blockquote-border: #dfe2e5;
+    --markdown-code-bg: #f6f8fa;
+    --markdown-table-border: #dfe2e5;
+    --markdown-table-header-bg: #f6f8fa;
+  }
+
+  &.dark {
+    --markdown-color: #e5e7eb;
+    --markdown-bg: #18181b;
+    --markdown-heading-color: #e5e7eb;
+    --markdown-border: #303034;
+    --markdown-muted: #9ca3af;
+    --markdown-link: #3b82f6;
+    --markdown-blockquote-bg: #1f1f23;
+    --markdown-blockquote-border: #37373d;
+    --markdown-code-bg: #1f1f23;
+    --markdown-table-border: #37373d;
+    --markdown-table-header-bg: #1f1f23;
+  }
+}
 
 @mixin heading($size, $border: false) {
   font-size: $size;
-  font-weight: $markdown-heading-weight;
-  line-height: $markdown-heading-line;
-  color: $markdown-heading-color;
+  font-weight: var(--markdown-heading-weight);
+  line-height: var(--markdown-heading-line);
+  color: var(--markdown-heading-color);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   @if $border {
-    border-bottom: 1px solid $markdown-border;
+    border-bottom: 1px solid var(--markdown-border);
     padding-bottom: 0.3em;
   }
 }
 
 .markdown-body {
-  font-family: $markdown-font;
+  font-family: var(--markdown-font);
   font-size: 16px;
   line-height: 1.6;
-  color: $markdown-color;
-  background: $markdown-bg;
+  color: var(--markdown-color);
+  background: var(--markdown-bg);
   padding: 32px;
-  border-radius: $markdown-radius;
-  box-shadow: $markdown-shadow;
+  border-radius: var(--markdown-radius);
+  box-shadow: var(--markdown-shadow);
 
   h1 {
     @include heading(2em, true);
@@ -57,7 +75,7 @@ $markdown-table-header-bg: #f6f8fa;
   }
   h6 {
     @include heading(0.85em);
-    color: $markdown-muted;
+    color: var(--markdown-muted);
   }
 
   p {
@@ -78,9 +96,9 @@ $markdown-table-header-bg: #f6f8fa;
   blockquote {
     margin: 0.8em 0;
     padding: 0.5em 1em;
-    color: $markdown-muted;
-    border-left: 0.25em solid $markdown-blockquote-border;
-    background: $markdown-blockquote-bg;
+    color: var(--markdown-muted);
+    border-left: 0.25em solid var(--markdown-blockquote-border);
+    background: var(--markdown-blockquote-bg);
   }
 
   code,
@@ -89,14 +107,16 @@ $markdown-table-header-bg: #f6f8fa;
     font-size: 0.95em;
   }
   code {
-    background: $markdown-code-bg;
+    background: var(--markdown-code-bg);
+    color: var(--markdown-color);
     padding: 0.2em 0.4em;
-    border-radius: $markdown-radius;
+    border-radius: var(--markdown-radius);
   }
   pre {
-    background: $markdown-code-bg;
+    background: var(--markdown-code-bg);
+    color: var(--markdown-color);
     padding: 1em;
-    border-radius: $markdown-radius;
+    border-radius: var(--markdown-radius);
     overflow: auto;
     code {
       background: none;
@@ -106,7 +126,7 @@ $markdown-table-header-bg: #f6f8fa;
   }
 
   a {
-    color: $markdown-link;
+    color: var(--markdown-link);
     text-decoration: underline;
   }
 
@@ -116,11 +136,11 @@ $markdown-table-header-bg: #f6f8fa;
     width: 100%;
     th,
     td {
-      border: 1px solid $markdown-table-border;
+      border: 1px solid var(--markdown-table-border);
       padding: 0.6em 1em;
     }
     th {
-      background: $markdown-table-header-bg;
+      background: var(--markdown-table-header-bg);
       font-weight: 600;
     }
   }
@@ -128,12 +148,12 @@ $markdown-table-header-bg: #f6f8fa;
   img {
     max-width: 100%;
     box-sizing: content-box;
-    background: $markdown-bg;
+    background: var(--markdown-bg);
   }
 
   hr {
     border: none;
-    border-top: 1px solid $markdown-border;
+    border-top: 1px solid var(--markdown-border);
     margin: 2em 0;
   }
 
@@ -161,9 +181,9 @@ $markdown-table-header-bg: #f6f8fa;
   }
 
   details {
-    background: $markdown-blockquote-bg;
+    background: var(--markdown-blockquote-bg);
     padding: 0.5em 1em;
-    border-radius: $markdown-radius;
+    border-radius: var(--markdown-radius);
     margin-bottom: 1em;
   }
   summary {
