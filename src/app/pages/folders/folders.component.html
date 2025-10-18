@@ -11,10 +11,10 @@
   </aside>
 
   <main class="flex-1 p-6 h-full max-h-full overflow-auto markdown-body">
-    @if($markDownContent()) {
-    <markdown class="variable-binding" [data]="$markDownContent()"></markdown>
-    } @else {
+    <!-- @if($markDownContent()) { -->
+    <markdown class="variable-binding" [data]="$markDownContent() || '# Not found'"></markdown>
+    <!-- } @else {
     <p>Loading...</p>
-    }
+    } -->
   </main>
 </div>

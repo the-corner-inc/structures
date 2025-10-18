@@ -18,7 +18,7 @@
     </svg>
     }
     <img
-      [src]="iconBaseUrl + (item.name | iconName : item.type)"
+      [src]="iconBaseUrl + (item.name | iconName : item.type : expanded)"
       [alt]="item.name + ' icon'"
       class="w-4 h-4"
     />

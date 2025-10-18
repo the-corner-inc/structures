@@ -29,6 +29,7 @@ export class FoldersService {
       next: (data) => {
         if (data.manifestConfig) {
           this.$manifest.set(generateManifest(data.manifestConfig));
+          console.log(this.$manifest());
         }
 
         if (data.folderStructures.length) {
@@ -51,10 +52,7 @@ export class FoldersService {
       )
       .subscribe({
         next: (data) => {
-          if (data)
-            this.$markdownContent.set(
-              (this.#sanitizer.bypassSecurityTrustHtml(data) as string) || null
-            );
+          if (data) this.$markdownContent.set(data || null);
         },
         error: () => {
           this.$markdownContent.set(null);

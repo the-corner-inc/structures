@@ -7,28 +7,63 @@ import { FoldersService } from './folders.service';
 export class IconNamePipe implements PipeTransform {
   readonly #foldersService = inject(FoldersService);
 
-  transform(name?: string, type: 'file' | 'folder' = 'file'): string {
-    if (!name) return 'file.svg';
+  transform(name: string, type: 'file' | 'folder' = 'file', expanded: boolean = false): string {
+    if (!name) return type === 'folder' ? 'folder.svg' : 'file.svg';
     const manifest = this.#foldersService.$manifest();
     let iconKey: string | undefined;
 
     if (type === 'folder') {
       const folderName = name.toLowerCase();
-      iconKey =
-        manifest.folderNames?.[folderName] || manifest.folderNames?.[folderName.replace(/s$/, '')];
-
+      // Expanded folder support
+      if (expanded && manifest.folderNamesExpanded) {
+        iconKey =
+          manifest.folderNamesExpanded[folderName] ||
+          manifest.folderNamesExpanded[folderName.replace(/s$/, '')] ||
+          manifest.folderNamesExpanded[folderName.replace(/_/g, '')];
+      }
+      if (!iconKey && manifest.folderNames) {
+        iconKey =
+          manifest.folderNames[folderName] ||
+          manifest.folderNames[folderName.replace(/s$/, '')] ||
+          manifest.folderNames[folderName.replace(/_/g, '')];
+      }
       if (!iconKey) {
-        iconKey = manifest.folder ?? 'folder';
+        iconKey = expanded ? manifest.folderExpanded ?? 'folder-open' : manifest.folder ?? 'folder';
       }
     } else {
       const fileName = name.toLowerCase();
-      const ext = name.split('.').pop()?.toLowerCase();
       // Exact file name match
       iconKey = manifest.fileNames?.[fileName];
-      // Extension match
-      if (!iconKey && ext) {
-        iconKey = manifest.fileExtensions?.[ext];
+
+      // Compound extension match (e.g. .html.vm)
+      if (!iconKey && fileName.includes('.')) {
+        const parts = fileName.split('.');
+        for (let i = 1; i < parts.length; i++) {
+          const ext = parts.slice(i).join('.');
+          if (manifest.fileExtensions?.[ext]) {
+            iconKey = manifest.fileExtensions[ext];
+            break;
+          }
+        }
       }
+
+      // Single extension match
+      if (!iconKey) {
+        const ext = fileName.split('.').pop();
+        if (ext && manifest.fileExtensions?.[ext]) {
+          iconKey = manifest.fileExtensions[ext];
+        }
+      }
+
+      // LanguageId match
+      if (!iconKey && manifest.languageIds) {
+        const ext = fileName.split('.').pop();
+        if (ext && manifest.languageIds[ext]) {
+          iconKey = manifest.languageIds[ext];
+        }
+      }
+
+      // Fallback to default file icon
       if (!iconKey) {
         iconKey = manifest.file ?? 'file';
       }
@@ -37,11 +72,10 @@ export class IconNamePipe implements PipeTransform {
     // Get icon file name from iconDefinitions
     const iconDef = manifest.iconDefinitions?.[iconKey];
     if (iconDef && iconDef.iconPath) {
-      // Only return the file name, not the path
       const parts = iconDef.iconPath.split('/');
       return parts[parts.length - 1];
     }
     // Fallback
-    return type === 'folder' ? 'folder.svg' : 'file.svg';
+    return type === 'folder' ? (expanded ? 'folder-open.svg' : 'folder.svg') : 'file.svg';
   }
 }
