@@ -29,7 +29,6 @@ export class FoldersService {
       next: (data) => {
         if (data.manifestConfig) {
           this.$manifest.set(generateManifest(data.manifestConfig));
-          console.log(this.$manifest());
         }
 
         if (data.folderStructures.length) {

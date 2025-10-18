@@ -1,7 +1,7 @@
 <div class="flex w-full h-full max-h-full">
   <!-- Sidebar -->
   <aside
-    class="w-82 bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 p-4 hidden sm:block h-full max-h-full overflow-auto"
+    class="w-82 bg-[#f6f8fa] dark:bg-[#161b22] border-r border-[#d8dee4] dark:border-[#21262d] p-4 hidden sm:block h-full max-h-full overflow-auto"
   >
     <nav class="flex flex-col gap-2">
       @for(item of $structureFolders(); track item.name) {
@@ -10,7 +10,9 @@
     </nav>
   </aside>
 
-  <main class="flex-1 p-6 h-full max-h-full overflow-auto markdown-body">
+  <main
+    class="flex-1 p-6 h-full max-h-full overflow-auto markdown-body bg-[#ffffff] dark:bg-[#0d1117] text-[#24292f] dark:text-[#c9d1d9] max-w-2xl mx-auto"
+  >
     <!-- @if($markDownContent()) { -->
     <markdown class="variable-binding" [data]="$markDownContent() || '# Not found'"></markdown>
     <!-- } @else {
