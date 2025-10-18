@@ -22,6 +22,11 @@ export const appConfig: ApplicationConfig = {
       useValue: new BehaviorSubject({
         iconBaseUrl:
           'https://raw.githubusercontent.com/material-extensions/vscode-material-icon-theme/main/icons/',
+        content: {
+          name: 'root',
+          type: 'folder',
+          children: [],
+        },
       }),
     },
   ],

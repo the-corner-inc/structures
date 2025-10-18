@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { BaseClass } from '@bases/base.class';
+import { FOLDER_SETTINGS } from '@bases/base.token';
+import { takeUntil } from 'rxjs';
 import { FolderComponent } from './folder/folder.component';
 import { FolderStructure } from './folders';
 
@@ -10,7 +13,12 @@ import { FolderStructure } from './folders';
   styleUrl: './folders.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FoldersComponent {
+export class FoldersComponent extends BaseClass implements OnInit {
+  #folderSettings = inject(FOLDER_SETTINGS);
+  $content = signal(this.#folderSettings.getValue().content);
+
+  iconBaseUrl = this.#folderSettings.getValue().iconBaseUrl;
+
   structureFolders: FolderStructure[] = [
     {
       name: 'src',
@@ -86,4 +94,10 @@ export class FoldersComponent {
     { name: 'package.json', type: 'file', icon: 'nodejs.svg' },
     { name: 'tsconfig.json', type: 'file', icon: 'json.svg' },
   ];
+
+  ngOnInit(): void {
+    this.#folderSettings.pipe(takeUntil(this._unsubscribe$)).subscribe((settings) => {
+      this.$content.set(settings.content);
+    });
+  }
 }

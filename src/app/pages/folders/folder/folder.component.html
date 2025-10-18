@@ -3,6 +3,7 @@
     class="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-gray-200 select-none"
     [ngClass]="{ 'font-semibold text-blue-700': item.type === 'folder' }"
     (click)="item.type === 'folder' && toggle()"
+    (mouseenter)="setFolderContent()"
   >
     @if(item.type === 'folder') {
     <svg
@@ -16,16 +17,12 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
     }
-    <img
-      [src]="iconBaseUrl + item.icon"
-      [alt]="item.name + ' icon'"
-      class="w-4 h-4"
-      (error)="
+    <img [src]="iconBaseUrl + item.icon" [alt]="item.name + ' icon'" class="w-4 h-4" />
+    <!--  (error)="
         item.type === 'folder'
           ? ($event.target.src = iconBaseUrl + 'folder.svg')
           : ($event.target.src = iconBaseUrl + 'file.svg')
-      "
-    />
+      " -->
     <span class="truncate flex-1">{{ item.name }}</span>
   </div>
 

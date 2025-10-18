@@ -21,4 +21,11 @@ export class FolderComponent {
   toggle() {
     this.expanded = !this.expanded;
   }
+
+  setFolderContent() {
+    this.folderSettings.next({
+      iconBaseUrl: this.iconBaseUrl,
+      content: this.item,
+    });
+  }
 }
