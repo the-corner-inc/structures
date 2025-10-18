@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { BaseClass } from '@bases/base.class';
 import { FOLDER_SETTINGS } from '@bases/base.token';
+import { MarkdownComponent } from 'ngx-markdown';
 import { takeUntil } from 'rxjs';
 import { FolderComponent } from './folder/folder.component';
-
 import { FoldersService } from './folders.service';
-import { IconNamePipe } from './icon-name.pipe';
 
 @Component({
   selector: 'struct-folders',
@@ -16,8 +15,8 @@ import { IconNamePipe } from './icon-name.pipe';
     // Components
     FolderComponent,
 
-    // Pipes
-    IconNamePipe,
+    // Vendors
+    MarkdownComponent,
   ],
   providers: [FoldersService],
   templateUrl: './folders.component.html',
@@ -27,10 +26,11 @@ import { IconNamePipe } from './icon-name.pipe';
 export class FoldersComponent extends BaseClass implements OnInit {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #foldersService = inject(FoldersService);
-  $content = signal(this.#folderSettings.getValue().content);
 
   iconBaseUrl = this.#folderSettings.getValue().iconBaseUrl;
 
+  $content = signal(this.#folderSettings.getValue().content);
+  $markDownContent = this.#foldersService.$markdownContent.asReadonly();
   $structureFolders = this.#foldersService.$structureFolders.asReadonly();
 
   ngOnInit(): void {

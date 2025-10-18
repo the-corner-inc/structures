@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FOLDER_SETTINGS } from '@bases/base.token';
+import { provideMarkdown } from 'ngx-markdown';
 import { BehaviorSubject } from 'rxjs';
 import { routes } from './app.routes';
 
@@ -30,5 +31,8 @@ export const appConfig: ApplicationConfig = {
         },
       }),
     },
+
+    // Vendors
+    provideMarkdown(),
   ],
 };
