@@ -22,6 +22,7 @@ export class LibrariesComponent {
   backEndFramework = [
     { name: 'go', folderUrl: '/folders/go/settings.json' },
     { name: 'Nest.js', folderUrl: '/folders/nestjs/settings.json', disabled: true },
+    { name: 'java', folderUrl: '/folders/java/settings.json', disabled: true },
   ];
 
   setFolderUrl(framework: LibraryFramework) {
