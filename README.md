@@ -1,59 +1,95 @@
 # Structures
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
 
-## Development server
+**Structures** is an open-source Angular platform by [The Corner](https://github.com/thecorner-inc) designed to help teams **visualize, document, and share project organization standards** — starting with folder structures.
 
-To start a local development server, run:
+---
 
+## Overview
+
+Modern development teams often struggle to keep their **project organization** consistent and understandable — especially when onboarding new members or collaborating across roles.
+
+**Structure** solves that by offering an **interactive, VS Code–like interface** where you can:
+
+- 🗂️ Explore a project’s folder structure visually  
+- 💬 Hover files and folders to see their purpose  
+- 🧭 Understand how everything connects  
+- 💾 Save and share structures (via JSON, later online)  
+
+---
+
+## Current Focus — *Folders for Angular*
+
+The first version focuses on **Angular folder structures**, letting you:
+
+- See an opinionated best-practice folder setup  
+- Read contextual explanations for each file/folder  
+- Explore an intuitive VS Code–inspired UI  
+- Prepare for full customization and export (coming soon)
+
+Later, other frameworks will follow: **React**, **Vue**, **NestJS**, and more.
+
+---
+
+## Roadmap
+
+| Phase    | Goal                                                   | Status        |
+| -------- | ------------------------------------------------------ | ------------- |
+| **v0.1** | Display static Angular folder structure + descriptions | 🚧 In progress |
+| **v0.2** | Add JSON import/export                                 | ⏳ Planned     |
+| **v0.3** | Enable users to edit and save their own structures     | ⏳ Planned     |
+| **v0.4** | Add theming (VS Code dark/light)                       | ⏳ Planned     |
+| **v0.5** | Add support for other frameworks                       | ⏳ Planned     |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm (v9+ recommended)
+
+### Setup
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### Development
 ```bash
-ng generate component component-name
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+### Build for Production
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
-
-To build the project run:
-
+### Run Tests
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Usage
+- Open the app in your browser (default: [http://localhost:4200](http://localhost:4200))
+- Browse the folder structure and read contextual markdown for each file/folder
+- Use the search and settings features to explore and customize
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Contributing
 
-## Running end-to-end tests
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-For end-to-end (e2e) testing, run:
+- Fork the repo and create a feature branch
+- Make your changes and add tests if needed
+- Open a pull request with a clear description
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Links
+- [Material Icon Theme](https://github.com/material-extensions/vscode-material-icon-theme)
+- [Angular](https://angular.io)
