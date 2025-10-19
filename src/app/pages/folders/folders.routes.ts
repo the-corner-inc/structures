@@ -8,13 +8,22 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('@pages/folders/libraries/libraries.component').then((m) => m.LibrariesComponent),
+          import('@pages/folders/markdown/markdown.component').then(
+            (m) => m.StructMarkdownComponent,
+          ),
       },
       {
         path: ':type',
         loadComponent: () =>
           import('@pages/folders/library/library.component').then((m) => m.LibraryComponent),
         children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('@pages/folders/markdown/markdown.component').then(
+                (m) => m.StructMarkdownComponent,
+              ),
+          },
           {
             path: ':element',
             loadComponent: () =>
