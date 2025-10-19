@@ -1,0 +1,14 @@
+<struct-with-sidenav-layout>
+  <nav class="flex flex-col gap-2" layout-aside>
+    @for (item of $structureFolders(); track item.name) {
+      <struct-folder [item]="item"></struct-folder>
+    }
+  </nav>
+
+  <markdown
+    clipboard
+    mermaid
+    class="variable-binding"
+    [data]="$markDownContent() || '# Not found'"
+  ></markdown>
+</struct-with-sidenav-layout>

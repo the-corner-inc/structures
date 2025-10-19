@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  width: 100%;
+
+  .with-sidenav__aside {
+    width: 20.5rem; /* w-82 */
+    max-width: 100%;
+    box-sizing: border-box;
+    border-right: 1px solid #d8dee4;
+    padding: 1rem; /* p-4 */
+    display: none;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+
+    @media (min-width: 640px) {
+      /* sm:block */
+      display: block;
+    }
+    &.dark {
+      border-right-color: #21262d;
+    }
+  }
+
+  .with-sidenav__main {
+    flex: 1 1 0%;
+    padding: 1.5rem; /* p-6 */
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+    color: #24292f;
+    max-width: var(--container-max-width); /* max-w-2xl */
+
+    .dark & {
+      color: #c9d1d9;
+    }
+  }
+}

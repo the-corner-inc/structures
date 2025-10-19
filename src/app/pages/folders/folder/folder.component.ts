@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FOLDER_SETTINGS } from '@bases/base.token';
 import { FolderStructure } from '../folders';
 import { IconNamePipe } from '../icon-name.pipe';
@@ -16,6 +17,9 @@ import { IconNamePipe } from '../icon-name.pipe';
 export class FolderComponent {
   public folderSettings = inject(FOLDER_SETTINGS);
 
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
+
   iconBaseUrl = this.folderSettings.getValue().iconBaseUrl;
 
   @Input({ required: true }) item!: FolderStructure;
@@ -30,5 +34,10 @@ export class FolderComponent {
       iconBaseUrl: this.iconBaseUrl,
       content: this.item,
     });
+
+    if (!this.#router.url.includes(this.item.name))
+      this.#router.navigate(['../', this.item.name], {
+        relativeTo: this.#route,
+      });
   }
 }

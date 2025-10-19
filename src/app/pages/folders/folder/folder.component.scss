@@ -1,5 +1,12 @@
-.folder {
-  .rotate-90 {
-    transform: rotate(90deg);
+:host {
+  .folder {
+    .rotate-90 {
+      transform: rotate(90deg);
+    }
+  }
+
+  button {
+    width: 100%;
+    text-align: left;
   }
 }

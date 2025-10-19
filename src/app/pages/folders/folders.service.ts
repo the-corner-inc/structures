@@ -4,7 +4,9 @@ import { FOLDER_SETTINGS } from '@bases/base.token';
 import { generateManifest } from 'material-icon-theme';
 import { FolderSettings, FolderStructure } from './folders';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FoldersService {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #http = inject(HttpClient);

@@ -3,11 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'folders',
-    loadComponent: () => import('@pages/folders/folders.component').then((m) => m.FoldersComponent),
-  },
-  {
-    path: 'folders/:id',
-    loadComponent: () => import('@pages/folders/folders.component').then((m) => m.FoldersComponent),
+    loadChildren: () => import('@pages/folders/folders.routes').then((m) => m.routes),
   },
   {
     path: 'issues',
