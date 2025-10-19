@@ -3,6 +3,15 @@
   height: 100%;
 }
 
+.settings-container {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-top: 1rem;
+  background: var(--bgColor-glass);
+  backdrop-filter: blur(4px);
+}
+
 .explorer-placeholder {
   display: flex;
   flex: 1 1 0%;
