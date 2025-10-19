@@ -2,6 +2,7 @@
 @use 'styles/markdown';
 
 @use '@o-pinion/scss/utilities/width';
+@use '@o-pinion/scss/utilities/spacing';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -24,8 +25,12 @@ body {
 
     --borderColor-light: #d8dee4;
 
+    --color-dark: #24292f;
     --color-default: #222222;
     --color-light: #57606a;
+    --color-primary: #0969da;
+
+    --shadow-primary: rgba(9, 105, 218, 0.3);
 
     --header-bg: #f6f8fa;
   }
@@ -38,8 +43,12 @@ body {
     --borderColor-default: #3d444d;
     --borderColor-light: #21262d;
 
+    --color-dark: #f0f6fc;
     --color-default: #e5e7eb;
     --color-light: #8b949e;
+    --color-primary: #3b82f6;
+
+    --shadow-primary: rgba(59, 130, 246, 0.3);
 
     --header-bg: #010409;
   }

@@ -31,6 +31,7 @@ export class ExplorerComponent extends BaseClass implements OnInit {
 
   $searchQuery = model<string>('');
   $structureFolders = signal<FolderStructure[]>([]);
+  $showSettings = signal<boolean>(false);
 
   ngOnInit(): void {
     // Listen to queryParams and update $structureFolders accordingly
