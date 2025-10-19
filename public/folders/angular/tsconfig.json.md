@@ -5,8 +5,6 @@ TypeScript configuration file. Specifies compiler options and path mappings for 
 ## Example
 
 ```json
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -63,3 +61,8 @@ TypeScript configuration file. Specifies compiler options and path mappings for 
   ]
 }
 ```
+
+## More
+
+- To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html.
+- To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options.

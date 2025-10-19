@@ -11,10 +11,15 @@
   </aside>
 
   <main
-    class="flex-1 p-6 h-full max-h-full overflow-auto markdown-body text-[#24292f] dark:text-[#c9d1d9] max-w-2xl mx-auto"
+    class="flex-1 p-6 h-full max-h-full overflow-auto markdown-body text-[#24292f] dark:text-[#c9d1d9] max-w-2xl"
   >
     <!-- @if($markDownContent()) { -->
-    <markdown class="variable-binding" [data]="$markDownContent() || '# Not found'"></markdown>
+    <markdown
+      clipboard
+      mermaid
+      class="variable-binding"
+      [data]="$markDownContent() || '# Not found'"
+    ></markdown>
     <!-- } @else {
     <p>Loading...</p>
     } -->

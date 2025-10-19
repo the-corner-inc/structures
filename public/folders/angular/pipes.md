@@ -2,6 +2,7 @@
 
 Data transformation pipes for formatting and converting data in templates.
 
-**Typical files:**
+## Naming
+
 - `date.pipe.ts`: Formats dates for display.
 - `currency.pipe.ts`: Formats currency values.

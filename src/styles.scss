@@ -1,6 +1,8 @@
 @use 'tailwindcss';
 @use 'styles/markdown';
 
+@use '@o-pinion/scss/utilities/width';
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 html,
