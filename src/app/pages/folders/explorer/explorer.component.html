@@ -23,7 +23,7 @@
 
       <button
         type="button"
-        class="ml-2 flex items-center justify-center px-2 py-2 rounded-md border border-[#d8dee4] dark:border-[#21262d] bg-[#ffffff] dark:bg-[#161b22] hover:bg-[#f6f8fa] dark:hover:bg-[#21262d] text-[#57606a] dark:text-[#8b949e] transition-colors"
+        class="icon-button"
         aria-label="Settings"
         (click)="$showSettings.set(!$showSettings())"
       >
@@ -76,11 +76,59 @@
 
     @if ($showSettings()) {
       <div class="settings-container">
-        <h3 class="font-semibold mb-2">Explorer Settings</h3>
-        <!-- Settings content goes here -->
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-          Settings options will be available soon.
-        </p>
+        <div class="settings-header">
+          <div class="settingsHeader-text">
+            <h3 class="font-semibold mb-2">Explorer Settings</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Add your own folder structure</p>
+          </div>
+
+          <button (click)="downloadSettings()" aria-label="Download Settings">
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                clip-rule="evenodd"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="relative w-full">
+          <input
+            type="text"
+            placeholder="folder structure URL"
+            class="input-text"
+            [(ngModel)]="$folderStructureUrl"
+          />
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] dark:text-[#6e7681]">
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M10.83 5a3.001 3.001 0 0 0-5.66 0H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17ZM4 11h9.17a3.001 3.001 0 0 1 5.66 0H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2Zm1.17 6H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17a3.001 3.001 0 0 0-5.66 0Z"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     }
   </header>

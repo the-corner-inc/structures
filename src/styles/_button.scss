@@ -1,0 +1,28 @@
+.icon-button {
+  margin-left: 0.5rem; /* ml-2 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem; /* px-2 py-2 */
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid var(--borderColor-light);
+  background: var(--bgColor-default);
+  color: var(--color-light);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+
+  &:hover {
+    background: var(--bgColor-light);
+  }
+
+  .dark & {
+    border-color: var(--borderColor-light);
+    background: var(--bgColor-light);
+    color: var(--color-light);
+    &:hover {
+      background: var(--borderColor-light);
+    }
+  }
+}

@@ -30,7 +30,7 @@ export const routes: Routes = [
             const foldersService = inject(FoldersService);
             const library = inject(SELECTED_LIBRARY);
 
-            foldersService.init();
+            foldersService.getFolderSettings();
 
             library.next(route.params['type']);
             return true;

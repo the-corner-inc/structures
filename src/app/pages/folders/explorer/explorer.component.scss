@@ -20,6 +20,16 @@
   .settings-container {
     padding-top: 1rem;
     padding-bottom: 1rem;
+
+    .settings-header {
+      padding-bottom: 0.5rem;
+      display: flex;
+
+      .settingsHeader-text {
+        flex-grow: 1;
+      }
+      gap: 0.1rem;
+    }
   }
 }
 
@@ -53,6 +63,10 @@
     border-color 0.2s,
     box-shadow 0.2s;
 
+  &::placeholder {
+    color: var(--color-light);
+    opacity: 1;
+  }
   &:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px var(--shadow-primary);

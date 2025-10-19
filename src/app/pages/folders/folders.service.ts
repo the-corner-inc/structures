@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
+import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
 import { generateManifest } from 'material-icon-theme';
 import { FolderSettings, FolderStructure } from './folders';
 
@@ -9,6 +9,7 @@ import { FolderSettings, FolderStructure } from './folders';
 })
 export class FoldersService {
   readonly #library = inject(SELECTED_LIBRARY);
+  readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #selectedElement = inject(SELECTED_ELEMENT);
   readonly #http = inject(HttpClient);
 
@@ -23,8 +24,9 @@ export class FoldersService {
     });
   }
 
-  public init() {
-    this.#http.get<FolderSettings>('/folders/angular/settings.json').subscribe({
+  public getFolderSettings() {
+    console.log(this.#folderSettings.getValue().folderUrl);
+    this.#http.get<FolderSettings>(this.#folderSettings.getValue().folderUrl).subscribe({
       next: (data) => {
         if (data.manifestConfig) {
           this.$manifest.set(generateManifest(data.manifestConfig));
@@ -32,10 +34,13 @@ export class FoldersService {
 
         if (data.folderStructures.length) {
           this.$structureFolders.set(data.folderStructures);
+          this.#library.next(data.folderStructures[0].name);
         }
       },
       error: (err) => {
         console.error('Failed to load folder settings', err);
+
+        this.clear();
       },
     });
   }

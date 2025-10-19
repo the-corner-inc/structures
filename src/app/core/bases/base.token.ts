@@ -3,6 +3,7 @@ import { FolderStructure } from '@pages/folders/folders';
 import { BehaviorSubject } from 'rxjs';
 
 export interface FolderSettings {
+  folderUrl: string;
   iconBaseUrl: string;
   content: FolderStructure;
 }

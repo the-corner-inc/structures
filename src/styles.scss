@@ -1,5 +1,7 @@
 @use 'tailwindcss';
+@use 'styles/button';
 @use 'styles/markdown';
+@use 'styles/reset';
 @use 'styles/scrollbar';
 
 @use '@o-pinion/scss/utilities/width';

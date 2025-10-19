@@ -1,17 +1,40 @@
 <main class="flex-1 p-6 h-full max-h-full overflow-auto max-w-2xl">
-  <div class="flex flex-col gap-4">
-    <h2 class="text-lg font-semibold mb-2">Select a language</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-      @for (lang of languages; track lang) {
-        <button
-          type="button"
-          class="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-          [routerLink]="lang"
-          [disabled]="lang !== 'angular'"
-        >
-          {{ lang }}
-        </button>
-      }
+  <h1 class="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100 tracking-tight">
+    Pick your framework
+  </h1>
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-lg font-semibold">Front-End</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        @for (framework of frontEndFramework; track framework.name) {
+          <button
+            type="button"
+            class="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            [routerLink]="framework.name"
+            (click)="setFolderUrl(framework)"
+            [disabled]="framework.disabled"
+          >
+            {{ framework.name }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h2 class="text-lg font-semibold">Back-End</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        @for (framework of backEndFramework; track framework.name) {
+          <button
+            type="button"
+            class="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            [routerLink]="framework.name"
+            (click)="setFolderUrl(framework)"
+            [disabled]="framework.disabled"
+          >
+            {{ framework.name }}
+          </button>
+        }
+      </div>
     </div>
   </div>
 </main>

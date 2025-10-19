@@ -1,0 +1,11 @@
+{
+  "manifestConfig": {
+    "activeIconPack": "nest"
+  },
+  "folderStructures": [
+    {
+      "name": "todo",
+      "type": "folder"
+    }
+  ]
+}
