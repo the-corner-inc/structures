@@ -2,5 +2,5 @@
 
 Dashboard feature module. Contains components for displaying user or application dashboards.
 
-**Typical files:**
+## Example
 - `dashboard.component.ts`: Main dashboard UI component.

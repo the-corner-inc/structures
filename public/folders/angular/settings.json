@@ -286,7 +286,19 @@
       "type": "file"
     },
     {
+      "name": "CONTRIBUTING.md",
+      "type": "file"
+    },
+    {
+      "name": "LICENSE",
+      "type": "file"
+    },
+    {
       "name": "package.json",
+      "type": "file"
+    },
+    {
+      "name": "README.md",
       "type": "file"
     },
     {

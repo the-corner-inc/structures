@@ -2,6 +2,6 @@
 
 Custom directives for DOM logic, event handling, and reusable behaviors.
 
-**Typical files:**
+## Example
 - `validation.directive.ts`: Adds validation logic to forms.
 - `longPress.directive.ts`: Handles long press events.

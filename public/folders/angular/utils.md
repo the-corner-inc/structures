@@ -2,6 +2,6 @@
 
 Utility functions and helpers used throughout the application.
 
-**Typical files:**
+## Example
 - `functions.ts`: Common utility functions.
 - `mixins.ts`: Reusable code snippets.
