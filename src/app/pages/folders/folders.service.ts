@@ -45,7 +45,7 @@ export class FoldersService {
     this.#http
       .get(
         'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/folders/angular/' +
-          fileName +
+          fileName.toLocaleLowerCase() +
           '.md',
         { responseType: 'text' }
       )
