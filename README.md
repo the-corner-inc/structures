@@ -1,8 +1,6 @@
 # Structures
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
-
-**Structures** is an open-source Angular platform by [The Corner](https://github.com/thecorner-inc) designed to help teams **visualize, document, and share project organization standards** — starting with folder structures.
+An open-source Angular platform by [The Corner](https://github.com/thecorner-inc) designed to help teams **visualize, document, and share project organization standards** — starting with folder structures.
 
 ---
 
