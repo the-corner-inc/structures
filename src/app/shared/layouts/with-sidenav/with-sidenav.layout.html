@@ -3,7 +3,9 @@
     <ng-content select="[layout-aside]"></ng-content>
   </aside>
 
-  <main class="with-sidenav__main markdown-body">
-    <ng-content></ng-content>
+  <main class="with-sidenav__main">
+    <div class="with-sidenav__mainContainer markdown-body">
+      <ng-content></ng-content>
+    </div>
   </main>
 </div>

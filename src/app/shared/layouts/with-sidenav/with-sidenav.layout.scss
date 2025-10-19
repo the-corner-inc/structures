@@ -36,11 +36,9 @@
     width: 100%;
     max-height: 100%;
     overflow: auto;
-    color: #24292f;
-    max-width: var(--container-max-width); /* max-w-2xl */
 
-    .dark & {
-      color: #c9d1d9;
+    .with-sidenav__mainContainer {
+      max-width: var(--container-max-width);
     }
   }
 }
