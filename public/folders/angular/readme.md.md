@@ -1,8 +1,4 @@
-# Readme
-
-Provide essential information about the project
-
-```markdown
+# Example
 # Project Title
 
 One Paragraph of project description goes here

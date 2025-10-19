@@ -2,6 +2,11 @@
   display: block;
   width: 100%;
 
+  .layout-container {
+    display: flex;
+    max-height: calc(100vh - 60px);
+  }
+
   .with-sidenav__aside {
     width: 20.5rem; /* w-82 */
     max-width: 100%;
