@@ -7,8 +7,6 @@ body {
   --markdown-heading-line: 1.25;
 
   &:not(.dark) {
-    --markdown-color: #24292f;
-    --markdown-bg: #fff;
     --markdown-heading-color: #24292f;
     --markdown-border: #eaecef;
     --markdown-muted: #6a737d;
@@ -21,8 +19,6 @@ body {
   }
 
   &.dark {
-    --markdown-color: #e5e7eb;
-    --markdown-bg: #18181b;
     --markdown-heading-color: #e5e7eb;
     --markdown-border: #303034;
     --markdown-muted: #9ca3af;
@@ -52,8 +48,6 @@ body {
   font-family: var(--markdown-font);
   font-size: 16px;
   line-height: 1.6;
-  color: var(--markdown-color);
-  background: var(--markdown-bg);
   padding: 32px;
   border-radius: var(--markdown-radius);
   box-shadow: var(--markdown-shadow);
@@ -99,6 +93,10 @@ body {
     color: var(--markdown-muted);
     border-left: 0.25em solid var(--markdown-blockquote-border);
     background: var(--markdown-blockquote-bg);
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   code,

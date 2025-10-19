@@ -1,4 +1,4 @@
-# `src`
+# src
 
 > The `src` folder is the heart of any Angular application. It contains all the source code, configuration, and assets needed to build and run your app.
 

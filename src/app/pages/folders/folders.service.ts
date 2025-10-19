@@ -25,7 +25,7 @@ export class FoldersService {
   }
 
   private _init() {
-    this.#http.get<FolderSettings>('/folders/angular-folders.json').subscribe({
+    this.#http.get<FolderSettings>('/folders/angular/settings.json').subscribe({
       next: (data) => {
         if (data.manifestConfig) {
           this.$manifest.set(generateManifest(data.manifestConfig));
@@ -44,7 +44,7 @@ export class FoldersService {
   private _getMarkdownContent(fileName: string) {
     this.#http
       .get(
-        'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/folders/' +
+        'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/folders/angular/' +
           fileName +
           '.md',
         { responseType: 'text' }

@@ -38,6 +38,7 @@ export class IconNamePipe implements PipeTransform {
       // Compound extension match (e.g. .html.vm)
       if (!iconKey && fileName.includes('.')) {
         const parts = fileName.split('.');
+
         for (let i = 1; i < parts.length; i++) {
           const ext = parts.slice(i).join('.');
           if (manifest.fileExtensions?.[ext]) {

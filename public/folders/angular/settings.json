@@ -1,0 +1,297 @@
+{
+  "manifestConfig": {
+    "activeIconPack": "angular"
+  },
+  "folderStructures": [
+    {
+      "name": "public",
+      "type": "folder",
+      "children": [
+        {
+          "name": "fonts",
+          "type": "folder"
+        },
+        {
+          "name": "i18n",
+          "type": "folder"
+        },
+        {
+          "name": "icons",
+          "type": "folder",
+          "children": [
+            {
+              "name": "[name]-[direction]-[color].svg",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "img",
+          "type": "folder",
+          "children": [
+            {
+              "name": "components",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "[type]-[name]",
+                  "type": "folder"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "js",
+          "type": "folder"
+        },
+        {
+          "name": "json",
+          "type": "folder"
+        },
+        {
+          "name": "pdf",
+          "type": "folder"
+        },
+        {
+          "name": "video",
+          "type": "folder"
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "type": "folder",
+      "children": [
+        {
+          "name": "app",
+          "type": "folder",
+          "children": [
+            {
+              "name": "configs",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "global.config.ts",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "core",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "directives",
+                  "type": "folder"
+                },
+                {
+                  "name": "guards",
+                  "type": "folder"
+                },
+                {
+                  "name": "interceptors",
+                  "type": "folder"
+                },
+                {
+                  "name": "models",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "core.enum.ts",
+                      "type": "file"
+                    },
+                    {
+                      "name": "core.d.ts",
+                      "type": "file"
+                    },
+                    {
+                      "name": "core.model.ts",
+                      "type": "file"
+                    },
+                    {
+                      "name": "core.types.ts",
+                      "type": "file"
+                    }
+                  ]
+                },
+                {
+                  "name": "services",
+                  "type": "folder"
+                },
+                {
+                  "name": "utils",
+                  "type": "folder"
+                }
+              ]
+            },
+            {
+              "name": "pages",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "auth",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "auth.component.ts",
+                      "type": "file"
+                    },
+                    {
+                      "name": "auth.service.ts",
+                      "type": "file"
+                    }
+                  ]
+                },
+                {
+                  "name": "dashboard",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "dashboard.component.ts",
+                      "type": "file"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "shared",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "components",
+                  "type": "folder"
+                },
+                {
+                  "name": "layouts",
+                  "type": "folder"
+                },
+                {
+                  "name": "dialogs",
+                  "type": "folder"
+                },
+                {
+                  "name": "directives",
+                  "type": "folder"
+                },
+                {
+                  "name": "services",
+                  "type": "folder"
+                },
+                {
+                  "name": "pipes",
+                  "type": "folder"
+                },
+                {
+                  "name": "vendors",
+                  "type": "folder"
+                }
+              ]
+            },
+            {
+              "name": "app.component.ts",
+              "type": "file"
+            },
+            {
+              "name": "app.component.html",
+              "type": "file"
+            },
+            {
+              "name": "app.component.scss",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "environments",
+          "type": "folder",
+          "children": [
+            {
+              "name": "environment.ts",
+              "type": "file"
+            },
+            {
+              "name": "environment.prod.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "styles",
+          "type": "folder",
+          "children": [
+            {
+              "name": "base",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "_animations.scss",
+                  "type": "file"
+                },
+                {
+                  "name": "_colors.scss",
+                  "type": "file"
+                },
+                {
+                  "name": "_reset.scss",
+                  "type": "file"
+                },
+                {
+                  "name": "_typography.scss",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "components",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "_button.scss",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "themes",
+              "type": "folder"
+            },
+            {
+              "name": "utils",
+              "type": "folder"
+            },
+            {
+              "name": "main.scss",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "index.html",
+          "type": "file"
+        },
+        {
+          "name": "main.ts",
+          "type": "file"
+        },
+        {
+          "name": "styles.scss",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "angular.json",
+      "type": "file"
+    },
+    {
+      "name": "package.json",
+      "type": "file"
+    },
+    {
+      "name": "tsconfig.json",
+      "type": "file"
+    }
+  ]
+}
