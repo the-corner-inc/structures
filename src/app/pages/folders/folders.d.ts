@@ -1,13 +1,13 @@
 import { ManifestConfig } from 'material-icon-theme';
 
-export type FolderStructure = {
+export interface FolderStructure {
   name: string;
   type: 'folder' | 'file';
   icon?: string;
   children?: FolderStructure[];
-};
+}
 
-export type FolderSettings = {
+export interface FolderSettings {
   manifestConfig: ManifestConfig;
   folderStructures: FolderStructure[];
-};
+}

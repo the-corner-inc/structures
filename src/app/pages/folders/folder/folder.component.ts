@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { FOLDER_SETTINGS } from '@bases/base.token';
 import { FolderStructure } from '../folders';
@@ -10,8 +9,6 @@ import { IconNamePipe } from '../icon-name.pipe';
   styleUrl: './folder.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgClass,
-
     // Pipes
     IconNamePipe,
   ],

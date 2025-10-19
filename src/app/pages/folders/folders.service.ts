@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FOLDER_SETTINGS } from '@bases/base.token';
 import { generateManifest } from 'material-icon-theme';
 import { FolderSettings, FolderStructure } from './folders';
@@ -9,7 +8,6 @@ import { FolderSettings, FolderStructure } from './folders';
 export class FoldersService {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #http = inject(HttpClient);
-  readonly #sanitizer = inject(DomSanitizer);
 
   $markdownContent = signal<string | null>(null);
   $manifest = signal(generateManifest());
@@ -47,7 +45,7 @@ export class FoldersService {
         'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/folders/angular/' +
           fileName.toLocaleLowerCase() +
           '.md',
-        { responseType: 'text' }
+        { responseType: 'text' },
       )
       .subscribe({
         next: (data) => {

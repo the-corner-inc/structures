@@ -17,9 +17,7 @@ Node.js package manifest. Lists dependencies, scripts, and project metadata.
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
 ```

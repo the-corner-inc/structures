@@ -4,8 +4,8 @@
     class="w-82 border-r border-[#d8dee4] dark:border-[#21262d] p-4 hidden sm:block h-full max-h-full overflow-auto"
   >
     <nav class="flex flex-col gap-2">
-      @for(item of $structureFolders(); track item.name) {
-      <struct-folder [item]="item"></struct-folder>
+      @for (item of $structureFolders(); track item.name) {
+        <struct-folder [item]="item"></struct-folder>
       }
     </nav>
   </aside>

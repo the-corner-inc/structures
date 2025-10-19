@@ -1,10 +1,10 @@
-import { afterNextRender, Component } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ColorSchemeService } from 'ngx-color-scheme';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'struct-root',
   imports: [
     RouterOutlet,
 
@@ -16,9 +16,11 @@ import { NavbarComponent } from './navbar/navbar.component';
   styleUrl: './app.scss',
 })
 export class App {
-  constructor(private _colorSchemeService: ColorSchemeService) {
+  readonly #colorSchemeService = inject(ColorSchemeService);
+
+  constructor() {
     const singleRender = afterNextRender(() => {
-      this._colorSchemeService.init();
+      this.#colorSchemeService.init();
       singleRender.destroy();
     });
   }

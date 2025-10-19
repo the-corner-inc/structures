@@ -7,7 +7,7 @@ import { FoldersService } from './folders.service';
 export class IconNamePipe implements PipeTransform {
   readonly #foldersService = inject(FoldersService);
 
-  transform(name: string, type: 'file' | 'folder' = 'file', expanded: boolean = false): string {
+  transform(name: string, type: 'file' | 'folder' = 'file', expanded = false): string {
     if (!name) return type === 'folder' ? 'folder.svg' : 'file.svg';
     const manifest = this.#foldersService.$manifest();
     let iconKey: string | undefined;
@@ -28,7 +28,9 @@ export class IconNamePipe implements PipeTransform {
           manifest.folderNames[folderName.replace(/_/g, '')];
       }
       if (!iconKey) {
-        iconKey = expanded ? manifest.folderExpanded ?? 'folder-open' : manifest.folder ?? 'folder';
+        iconKey = expanded
+          ? (manifest.folderExpanded ?? 'folder-open')
+          : (manifest.folder ?? 'folder');
       }
     } else {
       const fileName = name.toLowerCase();

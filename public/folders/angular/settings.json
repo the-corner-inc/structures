@@ -4,6 +4,14 @@
   },
   "folderStructures": [
     {
+      "name": ".github",
+      "type": "folder"
+    },
+    {
+      "name": ".vscode",
+      "type": "folder"
+    },
+    {
       "name": "public",
       "type": "folder",
       "children": [

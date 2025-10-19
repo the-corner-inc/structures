@@ -4,13 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface FolderSettings {
   iconBaseUrl: string;
-  content: FolderContent;
-}
-
-export interface FolderContent extends FolderStructure {
-  // @TODO: add content
+  content: FolderStructure;
 }
 
 export const FOLDER_SETTINGS = new InjectionToken<BehaviorSubject<FolderSettings>>(
-  'tc.folder.settings'
+  'tc.folder.settings',
 );

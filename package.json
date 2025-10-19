@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:structures": "node dist/tc-structures/server/server.mjs"
+    "serve:ssr:structures": "node dist/tc-structures/server/server.mjs",
+    "lint": "ng lint"
   },
   "prettier": {
     "printWidth": 100,
@@ -52,12 +53,16 @@
     "@types/express": "5.0.3",
     "@types/jasmine": "5.1.12",
     "@types/node": "20.19.22",
+    "angular-eslint": "20.4.0",
+    "eslint": "^9.37.0",
     "jasmine-core": "5.9.0",
     "karma": "6.4.0",
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.0",
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
-    "typescript": "5.9.3"
+    "prettier": "3.6.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.46.0"
   }
 }

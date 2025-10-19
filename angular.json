@@ -41,6 +41,7 @@
               "./node_modules/mermaid/dist/mermaid.min.js",
               "./node_modules/prismjs/components/prism-typescript.min.js",
               "./node_modules/prismjs/components/prism-css.min.js",
+              "./node_modules/prismjs/components/prism-markdown.min.js",
               "./node_modules/prismjs/components/prism-json.min.js",
               "./node_modules/clipboard/dist/clipboard.min.js"
             ],
@@ -100,12 +101,19 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": ["angular-eslint"]
   }
 }
