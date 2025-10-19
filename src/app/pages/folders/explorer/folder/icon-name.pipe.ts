@@ -1,5 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-import { FoldersService } from './folders.service';
+import { FoldersService } from '../../folders.service';
 
 @Pipe({
   name: 'iconName',

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FolderStructure } from './folders';
+import { FolderStructure } from '../folders';
 
 @Pipe({
   name: 'filterFolders',

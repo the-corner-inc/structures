@@ -17,15 +17,27 @@ body {
 
   &:not(.dark) {
     --bgColor-default: #f9fafb;
+    --bgColor-light: #f6f8fa;
+
     --borderColor-default: #3d444d;
+    --borderColor-light: #d8dee4;
+
     --color-default: #222222;
+    --color-light: #57606a;
+
     --header-bg: #f6f8fa;
   }
 
   &.dark {
     --bgColor-default: #0d1117;
+    --bgColor-light: #161b22;
+
     --borderColor-default: #3d444d;
+    --borderColor-light: #21262d;
+
     --color-default: #e5e7eb;
+    --color-light: #8b949e;
+
     --header-bg: #010409;
   }
 }

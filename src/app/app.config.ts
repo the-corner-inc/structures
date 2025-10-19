@@ -7,7 +7,8 @@ import { provideRouter } from '@angular/router';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { FOLDER_SETTINGS } from '@bases/base.token';
+import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
+import { FolderStructure } from '@pages/folders/folders';
 import { COLOR_SCHEME_OPTIONS } from 'ngx-color-scheme';
 import { provideMarkdown } from 'ngx-markdown';
 import { BehaviorSubject } from 'rxjs';
@@ -31,6 +32,14 @@ export const appConfig: ApplicationConfig = {
           children: [],
         },
       }),
+    },
+    {
+      provide: SELECTED_LIBRARY,
+      useValue: new BehaviorSubject<string>(''),
+    },
+    {
+      provide: SELECTED_ELEMENT,
+      useValue: new BehaviorSubject<FolderStructure | null>(null),
     },
 
     // Vendors

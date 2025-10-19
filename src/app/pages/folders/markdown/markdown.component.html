@@ -1,39 +1,6 @@
-<struct-with-sidenav-layout>
-  <nav class="flex flex-col gap-2" layout-aside>
-    <div class="relative w-full">
-      <input
-        type="text"
-        placeholder="Search"
-        class="pl-10 pr-3 py-2 rounded-md border border-[#d8dee4] dark:border-[#21262d] focus:outline-none focus:ring-2 focus:ring-[#0969da] dark:focus:ring-[#2f81f7] w-full bg-[#ffffff] dark:bg-[#161b22] text-[#24292f] dark:text-[#f0f6fc]"
-        [(ngModel)]="$searchQuery"
-      />
-      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] dark:text-[#6e7681]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-          />
-        </svg>
-      </span>
-    </div>
-
-    @for (item of $structureFolders() | filterFolders: $searchQuery(); track item.name) {
-      <struct-folder [item]="item"></struct-folder>
-    }
-  </nav>
-
-  <markdown
-    clipboard
-    mermaid
-    class="variable-binding"
-    [data]="$markDownContent() || '# Not found'"
-  ></markdown>
-</struct-with-sidenav-layout>
+<markdown
+  clipboard
+  mermaid
+  class="variable-binding"
+  [data]="$markDownContent() || '# Not found'"
+></markdown>
