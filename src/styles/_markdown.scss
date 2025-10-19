@@ -175,13 +175,8 @@ body {
     margin-right: 0.4em;
   }
 
-  ul.task-list {
-    list-style-type: none;
-    padding-left: 0;
-    li {
-      display: flex;
-      align-items: center;
-    }
+  ul {
+    list-style: disc;
   }
 
   details {

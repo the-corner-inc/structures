@@ -35,7 +35,6 @@ export const appConfig: ApplicationConfig = {
 
     // Vendors
     provideMarkdown(),
-
     {
       provide: COLOR_SCHEME_OPTIONS,
       useValue: {
