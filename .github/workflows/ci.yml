@@ -34,8 +34,6 @@ jobs:
       - name: 🏗️ Build
         run: npm run build
 
-      - name: 🚀 Release
-        run: cd dist/structures && npx semantic-release --branches main
       - name: ⬆️ Upload ftp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -44,3 +42,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: ./
+
+      - name: 🚀 Release
+        run: npx semantic-release --branches main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
