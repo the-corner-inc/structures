@@ -1,6 +1,6 @@
 # angular.json
 
-Angular workspace configuration file. Defines project structure, build options, and settings.
+CLI configuration for all projects in the workspace, including configuration options for how to build, serve, and test each project. For details, see [Angular Workspace Configuration](reference/configs/workspace-config).
 
 ## Example
 

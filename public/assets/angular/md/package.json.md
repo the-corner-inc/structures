@@ -1,6 +1,6 @@
 # package.json
 
-Node.js package manifest. Lists dependencies, scripts, and project metadata.
+Configures [npm package dependencies](reference/configs/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.
 
 ## Example
 

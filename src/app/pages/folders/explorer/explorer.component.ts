@@ -48,7 +48,6 @@ export class ExplorerComponent extends BaseClass implements OnInit {
 
     effect(() => {
       if (this.$folderStructureUrl()) {
-        console.log(this.$folderStructureUrl());
         this.#folderSettings.next({
           ...this.#folderSettings.getValue(),
           settingsUrl: this.$folderStructureUrl(),

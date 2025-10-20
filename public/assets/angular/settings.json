@@ -13,62 +13,6 @@
       "type": "folder"
     },
     {
-      "name": "public",
-      "type": "folder",
-      "children": [
-        {
-          "name": "fonts",
-          "type": "folder"
-        },
-        {
-          "name": "i18n",
-          "type": "folder"
-        },
-        {
-          "name": "icons",
-          "type": "folder",
-          "children": [
-            {
-              "name": "[name]-[direction]-[color].svg",
-              "type": "file"
-            }
-          ]
-        },
-        {
-          "name": "img",
-          "type": "folder",
-          "children": [
-            {
-              "name": "components",
-              "type": "folder",
-              "children": [
-                {
-                  "name": "[type]-[name]",
-                  "type": "folder"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "js",
-          "type": "folder"
-        },
-        {
-          "name": "json",
-          "type": "folder"
-        },
-        {
-          "name": "pdf",
-          "type": "folder"
-        },
-        {
-          "name": "video",
-          "type": "folder"
-        }
-      ]
-    },
-    {
       "name": "src",
       "type": "folder",
       "children": [

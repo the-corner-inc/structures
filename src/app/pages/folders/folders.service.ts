@@ -25,7 +25,6 @@ export class FoldersService {
   }
 
   public getFolderSettings() {
-    console.log('getFolderSettings', this.#folderSettings.getValue().settingsUrl);
     this.#http
       .get<FolderSettings>(this.#folderSettings.getValue().settingsUrl + 'settings.json')
       .subscribe({

@@ -1,6 +1,6 @@
 # tsconfig.json
 
-TypeScript configuration file. Specifies compiler options and path mappings for the project.
+The base [TypeScript](https://www.typescriptlang.org) configuration for projects in the workspace. All other configuration files inherit from this base file. For more information, see the [relevant TypeScript documentation](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#tsconfig-bases).
 
 ## Example
 
