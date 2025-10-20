@@ -1,7 +1,31 @@
-<div class="layout-container flex w-full h-full max-h-full">
+<div class="layout-container flex w-full h-full max-h-full" [class.minimized]="$minimized()">
   <aside class="with-sidenav__aside">
     <ng-content select="[layout-aside]"></ng-content>
   </aside>
+
+  <button
+    class="minimize-button icon-button-simple"
+    (click)="$minimized.set(!$minimized())"
+    aria-label="Minimize Explorer"
+  >
+    <svg
+      class="w-6 h-6 text-gray-800 dark:text-white"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m15 19-7-7 7-7"
+      />
+    </svg>
+  </button>
 
   <main class="with-sidenav__main">
     <div class="with-sidenav__mainContainer markdown-body">

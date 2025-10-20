@@ -40,6 +40,7 @@ export class ExplorerComponent extends BaseClass implements OnInit {
 
   $searchQuery = model<string>('');
   $folderStructureUrl = model<string>(this.#folderSettings.getValue().settingsUrl);
+  $iconThemeUrl = model<string>(this.#folderSettings.getValue().iconBaseUrl);
   $structureFolders = signal<FolderStructure[]>([]);
   $showSettings = signal<boolean>(false);
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
   selector: 'struct-with-sidenav-layout',
@@ -7,4 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './with-sidenav.layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WithSidenavLayout {}
+export class WithSidenavLayout {
+  $minimized = signal(false);
+}

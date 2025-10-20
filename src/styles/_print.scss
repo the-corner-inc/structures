@@ -15,7 +15,8 @@ main.isPrintMode {
 
   struct-navbar,
   .nav-header,
-  .with-sidenav__main {
+  .with-sidenav__main,
+  .minimize-button {
     display: none !important;
   }
 

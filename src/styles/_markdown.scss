@@ -55,7 +55,7 @@ body {
   border-radius: var(--markdown-radius);
   box-shadow: var(--markdown-shadow);
   margin: 0 auto;
-
+  min-width: 260px;
   max-width: var(--container-max-width);
 
   h1 {
