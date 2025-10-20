@@ -79,10 +79,14 @@
         <div class="settings-header">
           <div class="settingsHeader-text">
             <h3 class="font-semibold mb-2">Explorer Settings</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Add your own folder structure</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Enter your own Gist URL</p>
           </div>
 
-          <button (click)="downloadSettings()" aria-label="Download Settings">
+          <button
+            (click)="downloadSettings()"
+            aria-label="Download Settings"
+            class="icon-button-simple"
+          >
             <svg
               class="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"

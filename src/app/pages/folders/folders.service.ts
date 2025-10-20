@@ -25,25 +25,29 @@ export class FoldersService {
   }
 
   public getFolderSettings() {
-    this.#http
-      .get<FolderSettings>(this.#folderSettings.getValue().settingsUrl + 'settings.json')
-      .subscribe({
-        next: (data) => {
-          if (data.manifestConfig) {
-            this.$manifest.set(generateManifest(data.manifestConfig));
-          }
+    const settingsUrl = this.#folderSettings.getValue().settingsUrl;
+    let url = settingsUrl;
+    if (!settingsUrl.startsWith('https://')) {
+      url = settingsUrl + 'settings.json';
+    }
 
-          if (data.folderStructures.length) {
-            this.$structureFolders.set(data.folderStructures);
-            this.#selectedLibrary.next(data.libraryName);
-          }
-        },
-        error: (err) => {
-          console.error('Failed to load folder settings', err);
+    this.#http.get<FolderSettings>(url).subscribe({
+      next: (data) => {
+        if (data.manifestConfig) {
+          this.$manifest.set(generateManifest(data.manifestConfig));
+        }
 
-          this.clear();
-        },
-      });
+        if (data.folderStructures.length) {
+          this.$structureFolders.set(data.folderStructures);
+          this.#selectedLibrary.next(data.libraryName);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load folder settings', err);
+
+        this.clear();
+      },
+    });
   }
 
   public clear() {

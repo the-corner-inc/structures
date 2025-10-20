@@ -1,0 +1,25 @@
+.input-text {
+  padding-left: 2.5rem; /* pl-10 */
+  padding-right: 0.75rem; /* pr-3 */
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid var(--borderColor-light);
+  outline: none;
+  width: 100%;
+  background: var(--bgColor-light);
+  color: var(--color-dark);
+  font-size: 1rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &::placeholder {
+    color: var(--color-light);
+    opacity: 1;
+  }
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--shadow-primary);
+  }
+}
