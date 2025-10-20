@@ -13,6 +13,10 @@
       "type": "folder"
     },
     {
+      "name": "public",
+      "type": "folder"
+    },
+    {
       "name": "src",
       "type": "folder",
       "children": [
