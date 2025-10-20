@@ -11,7 +11,7 @@
             type="button"
             class="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
             [routerLink]="framework.name"
-            (click)="setFolderUrl(framework)"
+            (click)="setSettingsUrl(framework)"
             [disabled]="framework.disabled"
           >
             {{ framework.name }}
@@ -28,7 +28,7 @@
             type="button"
             class="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
             [routerLink]="framework.name"
-            (click)="setFolderUrl(framework)"
+            (click)="setSettingsUrl(framework)"
             [disabled]="framework.disabled"
           >
             {{ framework.name }}

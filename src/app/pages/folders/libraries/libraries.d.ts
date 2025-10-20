@@ -1,5 +1,5 @@
 export interface LibraryFramework {
   name: string;
-  folderUrl: string;
+  settingsUrl: string;
   disabled?: boolean;
 }

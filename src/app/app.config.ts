@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
       provide: FOLDER_SETTINGS,
       useValue: new BehaviorSubject({
         iconBaseUrl: '/material-icon-theme/icons/',
-        folderUrl: '/assets/folders/angular/settings.json',
+        folderUrl: '/assets/angular/',
         content: {
           name: 'root',
           type: 'folder',

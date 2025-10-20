@@ -28,11 +28,10 @@ export const routes: Routes = [
         canActivate: [
           (route) => {
             const foldersService = inject(FoldersService);
-            const library = inject(SELECTED_LIBRARY);
+            const selectedLibrary = inject(SELECTED_LIBRARY);
+            selectedLibrary.next(route.params['type']);
 
             foldersService.getFolderSettings();
-
-            library.next(route.params['type']);
             return true;
           },
         ],

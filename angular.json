@@ -44,6 +44,8 @@
               "./node_modules/prismjs/components/prism-markdown.min.js",
               "./node_modules/prismjs/components/prism-json.min.js",
               "./node_modules/prismjs/components/prism-scss.min.js",
+              "./node_modules/prismjs/components/prism-go.min.js",
+              "./node_modules/prismjs/components/prism-go-module.min.js",
               "./node_modules/clipboard/dist/clipboard.min.js"
             ],
             "outputMode": "static"

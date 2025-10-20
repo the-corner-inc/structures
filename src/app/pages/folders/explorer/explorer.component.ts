@@ -34,12 +34,12 @@ import { FolderComponent } from './folder/folder.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExplorerComponent extends BaseClass implements OnInit {
-  readonly #library = inject(SELECTED_LIBRARY);
+  readonly #selectedLibrary = inject(SELECTED_LIBRARY);
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #foldersService = inject(FoldersService);
 
   $searchQuery = model<string>('');
-  $folderStructureUrl = model<string>(this.#folderSettings.getValue().folderUrl);
+  $folderStructureUrl = model<string>(this.#folderSettings.getValue().settingsUrl);
   $structureFolders = signal<FolderStructure[]>([]);
   $showSettings = signal<boolean>(false);
 
@@ -51,7 +51,7 @@ export class ExplorerComponent extends BaseClass implements OnInit {
         console.log(this.$folderStructureUrl());
         this.#folderSettings.next({
           ...this.#folderSettings.getValue(),
-          folderUrl: this.$folderStructureUrl(),
+          settingsUrl: this.$folderStructureUrl(),
         });
 
         this.#foldersService.getFolderSettings();
@@ -60,7 +60,7 @@ export class ExplorerComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.#library.pipe(takeUntil(this._unsubscribe$)).subscribe((name) => {
+    this.#selectedLibrary.pipe(takeUntil(this._unsubscribe$)).subscribe((name) => {
       if (!name) {
         this.$structureFolders.set([]);
       } else {

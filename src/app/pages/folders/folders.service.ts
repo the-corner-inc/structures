@@ -8,7 +8,7 @@ import { FolderSettings, FolderStructure } from './folders';
   providedIn: 'root',
 })
 export class FoldersService {
-  readonly #library = inject(SELECTED_LIBRARY);
+  readonly #selectedLibrary = inject(SELECTED_LIBRARY);
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #selectedElement = inject(SELECTED_ELEMENT);
   readonly #http = inject(HttpClient);
@@ -25,29 +25,30 @@ export class FoldersService {
   }
 
   public getFolderSettings() {
-    console.log(this.#folderSettings.getValue().folderUrl);
-    this.#http.get<FolderSettings>(this.#folderSettings.getValue().folderUrl).subscribe({
-      next: (data) => {
-        if (data.manifestConfig) {
-          this.$manifest.set(generateManifest(data.manifestConfig));
-        }
+    this.#http
+      .get<FolderSettings>(this.#folderSettings.getValue().settingsUrl + 'settings.json')
+      .subscribe({
+        next: (data) => {
+          if (data.manifestConfig) {
+            this.$manifest.set(generateManifest(data.manifestConfig));
+          }
 
-        if (data.folderStructures.length) {
-          this.$structureFolders.set(data.folderStructures);
-          this.#library.next(data.folderStructures[0].name);
-        }
-      },
-      error: (err) => {
-        console.error('Failed to load folder settings', err);
+          if (data.folderStructures.length) {
+            this.$structureFolders.set(data.folderStructures);
+            this.#selectedLibrary.next(data.libraryName);
+          }
+        },
+        error: (err) => {
+          console.error('Failed to load folder settings', err);
 
-        this.clear();
-      },
-    });
+          this.clear();
+        },
+      });
   }
 
   public clear() {
     this.$markdownContent.set(null);
-    this.#library.next('');
+    this.#selectedLibrary.next('');
     this.#selectedElement.next(null);
   }
 
@@ -78,20 +79,21 @@ export class FoldersService {
       return;
     }
 
-    this.#http
-      .get(
-        'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/assets/angular/md/' +
-          fileName.toLocaleLowerCase() +
-          '.md',
-        { responseType: 'text' },
-      )
-      .subscribe({
-        next: (data) => {
-          if (data) this.$markdownContent.set(data || null);
-        },
-        error: () => {
-          this.$markdownContent.set(null);
-        },
-      });
+    const settingsUrl = this.#folderSettings.getValue().settingsUrl;
+    let url: string;
+    if (settingsUrl.startsWith('https://')) {
+      url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md';
+    } else {
+      url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}`;
+    }
+
+    this.#http.get(url + '.md', { responseType: 'text' }).subscribe({
+      next: (data) => {
+        if (data) this.$markdownContent.set(data || null);
+      },
+      error: () => {
+        this.$markdownContent.set(null);
+      },
+    });
   }
 }

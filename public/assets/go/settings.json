@@ -1,4 +1,5 @@
 {
+  "libraryName": "go",
   "manifestConfig": {
     "activeIconPack": "nest"
   },

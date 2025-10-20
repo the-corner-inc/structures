@@ -1,4 +1,5 @@
 {
+  "libraryName": "angular",
   "manifestConfig": {
     "activeIconPack": "angular"
   },
