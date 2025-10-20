@@ -2,5 +2,5 @@
   clipboard
   mermaid
   class="variable-binding"
-  [data]="$markDownContent() || '# Not found'"
+  [data]="$markDownContent() || ($loading() ? '# Loading...' : '# Not found')"
 ></markdown>

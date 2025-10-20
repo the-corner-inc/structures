@@ -7,10 +7,9 @@ Global styles for the Angular application. Contains base styles and theme defini
 ```scss
 @use '@vendors';
 
-@use 'styles/bases/typography';
-@use 'styles/components/button';
+@use 'styles/index';
 
 body {
-  // Global generic styles
+  // Global generic styles 
 }
 ```

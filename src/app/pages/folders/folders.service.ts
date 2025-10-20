@@ -14,6 +14,7 @@ export class FoldersService {
   readonly #http = inject(HttpClient);
 
   $markdownContent = signal<string | null>(null);
+  $loadingMarkdownContent = signal<boolean>(true);
   $manifest = signal(generateManifest());
 
   $structureFolders: WritableSignal<FolderStructure[]> = signal([]);
@@ -83,6 +84,8 @@ export class FoldersService {
       return;
     }
 
+    this.$loadingMarkdownContent.set(true);
+
     const settingsUrl = this.#folderSettings.getValue().settingsUrl;
     let url: string;
     if (settingsUrl.startsWith('https://')) {
@@ -94,9 +97,13 @@ export class FoldersService {
     this.#http.get(url + '.md', { responseType: 'text' }).subscribe({
       next: (data) => {
         if (data) this.$markdownContent.set(data || null);
+
+        this.$loadingMarkdownContent.set(false);
       },
       error: () => {
         this.$markdownContent.set(null);
+
+        this.$loadingMarkdownContent.set(false);
       },
     });
   }

@@ -52,25 +52,7 @@
                 },
                 {
                   "name": "models",
-                  "type": "folder",
-                  "children": [
-                    {
-                      "name": "core.enum.ts",
-                      "type": "file"
-                    },
-                    {
-                      "name": "core.d.ts",
-                      "type": "file"
-                    },
-                    {
-                      "name": "core.model.ts",
-                      "type": "file"
-                    },
-                    {
-                      "name": "core.types.ts",
-                      "type": "file"
-                    }
-                  ]
+                  "type": "folder"
                 },
                 {
                   "name": "services",
@@ -88,24 +70,18 @@
               "children": [
                 {
                   "name": "auth",
+                  "type": "folder"
+                },
+                {
+                  "name": "example",
                   "type": "folder",
                   "children": [
                     {
-                      "name": "auth.component.ts",
+                      "name": "example.component.ts",
                       "type": "file"
                     },
                     {
-                      "name": "auth.service.ts",
-                      "type": "file"
-                    }
-                  ]
-                },
-                {
-                  "name": "dashboard",
-                  "type": "folder",
-                  "children": [
-                    {
-                      "name": "dashboard.component.ts",
+                      "name": "example.service.ts",
                       "type": "file"
                     }
                   ]
@@ -179,7 +155,7 @@
           "type": "folder",
           "children": [
             {
-              "name": "base",
+              "name": "core",
               "type": "folder",
               "children": [
                 {
@@ -219,7 +195,7 @@
               "type": "folder"
             },
             {
-              "name": "main.scss",
+              "name": "index.scss",
               "type": "file"
             }
           ]

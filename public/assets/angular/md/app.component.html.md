@@ -9,7 +9,7 @@ Root component template file. Defines the HTML structure for the application's r
   <h1>Welcome to Structures</h1>
 </header>
 <main>
-  <router-outlet></router-outlet>
+   <router-outlet />
 </main>
 <footer>
   <p>&copy; 2025 Structures</p>

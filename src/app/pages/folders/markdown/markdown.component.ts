@@ -23,6 +23,7 @@ export class StructMarkdownComponent extends BaseClass implements OnInit {
 
   $content = signal(this.#selectedElement.getValue());
   $markDownContent = this.#foldersService.$markdownContent.asReadonly();
+  $loading = this.#foldersService.$loadingMarkdownContent.asReadonly();
 
   constructor() {
     super();

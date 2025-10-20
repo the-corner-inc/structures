@@ -7,3 +7,15 @@ Implements cross-cutting concerns and application-wide logic. Contains services,
 - `models/`: TypeScript models, enums, and interfaces.
 - `services/`: Singleton services for business logic and API calls.
 - `utils/`: Utility functions and helpers.
+
+## Services
+**Every** services in this folder should be provided in root to ensure singleton behavior across the app. 
+
+```typescript
+@Injectable({
+  providedIn: 'root',
+})
+export class SingletonService {
+  // Service logic here
+}
+```

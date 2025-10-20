@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
 import { IconNamePipe } from '@pages/folders/explorer/folder/icon-name.pipe';
 import { FolderStructure } from '@pages/folders/folders';
@@ -20,7 +20,6 @@ export class FolderComponent {
   readonly #selectedElement = inject(SELECTED_ELEMENT);
 
   readonly #router = inject(Router);
-  readonly #route = inject(ActivatedRoute);
 
   iconBaseUrl = this.#folderSettings.getValue().iconBaseUrl;
 
@@ -35,8 +34,6 @@ export class FolderComponent {
     this.#selectedElement.next(this.item);
 
     if (!this.#router.url.includes(this.item.name))
-      this.#router.navigate(['../', this.#selectedLibrary.getValue(), this.item.name], {
-        relativeTo: this.#route.children[0],
-      });
+      this.#router.navigate(['/folders', this.#selectedLibrary.getValue(), this.item.name]);
   }
 }

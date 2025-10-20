@@ -6,6 +6,6 @@ Reusable UI elements used across multiple pages and layouts.
 
 - `footer.component.ts`: Shared footer for the app.
 - `card.component.ts`: Generic card UI component.
-
-**Usage:**
+- 
+## Usage
 Import shared components into pages or layouts for consistent UI.
