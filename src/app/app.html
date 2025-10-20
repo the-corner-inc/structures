@@ -1,5 +1,5 @@
 <struct-navbar></struct-navbar>
 
-<main class="h-full min-h-0">
+<main class="h-full min-h-0" [class.isPrintMode]="isPrintMode$()">
   <router-outlet />
 </main>

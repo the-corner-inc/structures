@@ -1,0 +1,45 @@
+main.isPrintMode {
+  background: #0f2027 !important; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #2c5364,
+    #203a43,
+    #0f2027
+  ) !important; /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2c5364,
+    #203a43,
+    #0f2027
+  ) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  struct-navbar,
+  .nav-header,
+  .with-sidenav__main {
+    display: none !important;
+  }
+
+  struct-folders {
+    display: flex !important;
+    align-items: center !important;
+  }
+  struct-with-sidenav-layout {
+    overflow: hidden;
+  }
+
+  .layout-container {
+    height: auto !important;
+    grid-template-columns: 20.5rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 26px;
+  }
+
+  .with-sidenav__aside {
+    border: solid 1px var(--borderColor-light);
+    overflow: hidden !important;
+    background: var(--bgColor-default);
+    padding: 1rem !important;
+    border-radius: 16px !important;
+  }
+}

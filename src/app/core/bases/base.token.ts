@@ -8,6 +8,8 @@ export interface FolderSettings {
   content: FolderStructure;
 }
 
+export const IS_PRINT_MODE = new InjectionToken<BehaviorSubject<boolean>>('tc.is.print.mode');
+
 export const FOLDER_SETTINGS = new InjectionToken<BehaviorSubject<FolderSettings>>(
   'tc.folder.settings',
 );
