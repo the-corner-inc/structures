@@ -42,7 +42,7 @@ jobs:
           server: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
+          local-dir: ./dist/structures/
           server-dir: ./
 
       - name: 🚀 Release
