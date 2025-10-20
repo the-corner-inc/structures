@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
+import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
 import { FoldersService } from './folders.service';
 
 export const routes: Routes = [
@@ -29,6 +29,17 @@ export const routes: Routes = [
           (route) => {
             const foldersService = inject(FoldersService);
             const selectedLibrary = inject(SELECTED_LIBRARY);
+            const folderSettings = inject(FOLDER_SETTINGS);
+
+            folderSettings.next({
+              ...folderSettings.getValue(),
+              settingsUrl: `/assets/${route.params['type']}/`,
+              content: {
+                name: 'root',
+                type: 'folder',
+                children: [],
+              },
+            });
             selectedLibrary.next(route.params['type']);
 
             foldersService.getFolderSettings();
