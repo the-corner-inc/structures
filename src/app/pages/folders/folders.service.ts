@@ -80,7 +80,7 @@ export class FoldersService {
 
     this.#http
       .get(
-        'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/folders/angular/' +
+        'https://raw.githubusercontent.com/the-corner-inc/structures/main/public/assets/angular/md/' +
           fileName.toLocaleLowerCase() +
           '.md',
         { responseType: 'text' },

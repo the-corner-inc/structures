@@ -14,15 +14,15 @@ export class LibrariesComponent {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
 
   frontEndFramework = [
-    { name: 'Angular', folderUrl: '/folders/angular/settings.json' },
-    { name: 'React', folderUrl: '/folders/react/settings.json', disabled: true },
-    { name: 'Vue', folderUrl: '/folders/vue/settings.json', disabled: true },
+    { name: 'Angular', folderUrl: '/assets/angular/settings.json' },
+    { name: 'React', folderUrl: '/assets/react/settings.json', disabled: true },
+    { name: 'Vue', folderUrl: '/assets/vue/settings.json', disabled: true },
   ];
 
   backEndFramework = [
-    { name: 'go', folderUrl: '/folders/go/settings.json' },
-    { name: 'Nest.js', folderUrl: '/folders/nestjs/settings.json', disabled: true },
-    { name: 'java', folderUrl: '/folders/java/settings.json', disabled: true },
+    { name: 'go', folderUrl: '/assets/go/settings.json' },
+    { name: 'Nest.js', folderUrl: '/assets/nestjs/settings.json', disabled: true },
+    { name: 'java', folderUrl: '/assets/java/settings.json', disabled: true },
   ];
 
   setFolderUrl(framework: LibraryFramework) {

@@ -28,7 +28,7 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/material-icon-theme/icons",
-                "output": "/public/material-icon-theme/icons"
+                "output": "/material-icon-theme/icons"
               }
             ],
             "styles": [
@@ -78,6 +78,18 @@
               "src/styles.scss"
             ]
           }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "structures:build:production"
+            },
+            "development": {
+              "buildTarget": "structures:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

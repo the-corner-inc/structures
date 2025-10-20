@@ -1,0 +1,19 @@
+{
+  "manifestConfig": {
+    "activeIconPack": "nest"
+  },
+  "folderStructures": [
+    {
+      "name": "main.go",
+      "type": "file"
+    },
+    {
+      "name": "go.mod",
+      "type": "file"
+    },
+    {
+      "name": "go.sum",
+      "type": "file"
+    }
+  ]
+}
