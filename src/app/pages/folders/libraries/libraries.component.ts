@@ -14,14 +14,14 @@ export class LibrariesComponent {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
 
   frontEndFramework = [
-    { name: 'Angular', settingsUrl: '/assets/angular/' },
-    { name: 'React', settingsUrl: '/assets/react/', disabled: true },
-    { name: 'Vue', settingsUrl: '/assets/vue/', disabled: true },
+    { name: 'angular', settingsUrl: '/assets/angular/' },
+    { name: 'react', settingsUrl: '/assets/react/', disabled: true },
+    { name: 'vue', settingsUrl: '/assets/vue/', disabled: true },
   ];
 
   backEndFramework = [
     { name: 'go', settingsUrl: '/assets/go/' },
-    { name: 'Nest.js', settingsUrl: '/assets/nestjs/', disabled: true },
+    { name: 'nest.js', settingsUrl: '/assets/nestjs/', disabled: true },
     { name: 'java', settingsUrl: '/assets/java/', disabled: true },
   ];
 
