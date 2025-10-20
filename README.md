@@ -35,18 +35,14 @@ Later, other frameworks will follow: **React**, **Vue**, **NestJS**, and more.
 | Phase    | Goal                                                   | Status        |
 | -------- | ------------------------------------------------------ | ------------- |
 | **v0.1** | Display static Angular folder structure + descriptions | 🚧 In progress |
-| **v0.2** | Add JSON import/export                                 | ⏳ Planned     |
-| **v0.3** | Enable users to edit and save their own structures     | ⏳ Planned     |
-| **v0.4** | Add theming (VS Code dark/light)                       | ⏳ Planned     |
+| **v0.2** | Add JSON import/export                                 | 🚧 Planned     |
+| **v0.3** | Enable users to edit and save their own structures     | 🚧 Planned     |
 | **v0.5** | Add support for other frameworks                       | ⏳ Planned     |
+| **v0.4** | Add theming (VS Code dark/light)                       | ⏳ Planned     |
 
 ---
 
 ## Getting Started
-
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm (v9+ recommended)
 
 ### Setup
 ```bash
@@ -56,16 +52,6 @@ npm install
 ### Development
 ```bash
 npm start
-```
-
-### Build for Production
-```bash
-npm run build
-```
-
-### Run Tests
-```bash
-npm test
 ```
 
 ---
@@ -85,6 +71,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - Make your changes and add tests if needed
 - Open a pull request with a clear description
 
+### Folder structure proposal
+The structure can be found under `public/assets/[language]/settings.json`. 
+Feel free to suggest improvements or new structures by opening an issue or pull request.
+
+### Page & component content
+Content for files and folders is stored as markdown files under `public/assets/[language]/md/`. 
+You can contribute by adding new explanations or improving existing ones.
 
 ---
 
