@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: FOLDER_SETTINGS,
       useValue: new BehaviorSubject({
-        settingsUrl: '/assets/angular/',
+        settingsUrl: '/assets/user/',
         iconBaseUrl: '/material-icon-theme/icons/',
         content: {
           name: 'root',

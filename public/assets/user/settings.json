@@ -1,0 +1,64 @@
+{
+  "libraryName": "user",
+  "manifestConfig": {
+    "activeIconPack": "angular"
+  },
+  "folderStructures": [
+    {
+      "name": "UserName",
+      "type": "folder",
+      "children": [
+        {
+          "name": "Documents",
+          "type": "folder",
+          "children": [
+            {
+              "name": "OpenSource",
+              "type": "folder"
+            },
+            {
+              "name": "EnterpriseName",
+              "type": "folder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "public",
+      "type": "folder",
+      "children": [
+        {
+          "name": "images",
+          "type": "folder"
+        },
+        {
+          "name": "logos",
+          "type": "folder",
+          "children": [
+            {
+              "name": "the_corner-logo-filled.png",
+              "type": "file"
+            },
+            {
+              "name": "...",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "pdfs",
+          "type": "folder"
+        },
+        {
+          "name": "svgs",
+          "type": "folder"
+        },
+        {
+          "name": "videos",
+          "type": "folder"
+        }
+      ]
+    }
+  ]
+}

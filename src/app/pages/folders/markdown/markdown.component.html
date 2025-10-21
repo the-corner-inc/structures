@@ -2,5 +2,12 @@
   clipboard
   mermaid
   class="variable-binding"
-  [data]="$markDownContent() || ($loading() ? '# Loading...' : '# Not found')"
+  [data]="
+    $markDownContent() ||
+    ($loading()
+      ? '# Loading...'
+      : `# Workin' on it
+      Feel free to make a PR, it would be really appreciated ;)
+      https://github.com/the-corner-inc/structures/tree/main/public/assets`)
+  "
 ></markdown>
