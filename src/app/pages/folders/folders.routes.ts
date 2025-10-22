@@ -62,9 +62,9 @@ export const routes: Routes = [
               ),
             canActivate: [
               (route) => {
-                const element = inject(SELECTED_ELEMENT);
+                const selectedElement = inject(SELECTED_ELEMENT);
 
-                element.next(route.params['element']);
+                selectedElement.next(route.params['element']);
                 return true;
               },
             ],

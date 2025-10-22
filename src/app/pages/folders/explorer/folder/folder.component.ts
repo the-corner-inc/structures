@@ -41,7 +41,7 @@ export class FolderComponent implements OnDestroy {
 
     this._mouseMoveTimeout = setTimeout(() => {
       this._navigate();
-    }, 150);
+    }, 80);
   }
 
   onMouseLeave() {

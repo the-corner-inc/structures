@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FOLDER_SETTINGS } from '@bases/base.token';
 import { FoldersService } from '../folders.service';
-import { LibraryFramework } from './libraries';
 
 @Component({
   selector: 'struct-libraries',
@@ -39,20 +38,17 @@ export class LibrariesComponent {
   constructor() {
     effect(() => {
       if (this.$folderStructureUrl()) {
-        this.#folderSettings.next({
-          ...this.#folderSettings.getValue(),
-          settingsUrl: this.$folderStructureUrl(),
-        });
-
-        this.#foldersService.getFolderSettings();
+        this.setSettingsUrl(this.$folderStructureUrl());
       }
     });
   }
 
-  setSettingsUrl(framework: LibraryFramework) {
+  setSettingsUrl(url: string) {
     this.#folderSettings.next({
       ...this.#folderSettings.getValue(),
-      settingsUrl: framework.settingsUrl,
+      settingsUrl: url,
     });
+
+    this.#foldersService.getFolderSettings();
   }
 }
