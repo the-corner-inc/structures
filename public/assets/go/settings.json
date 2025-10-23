@@ -4,17 +4,32 @@
     "activeIconPack": "nest"
   },
   "folderStructures": [
-    {
-      "name": "main.go",
-      "type": "file"
-    },
-    {
-      "name": "go.mod",
-      "type": "file"
-    },
-    {
-      "name": "go.sum",
-      "type": "file"
-    }
+    { "name": "api", "type": "folder" },
+    { "name": "assets", "type": "folder" },
+    { "name": "build", "type": "folder" },
+    { "name": "cmd", "type": "folder" },
+    { "name": "configs", "type": "folder" },
+    { "name": "deployments", "type": "folder" },
+    { "name": "docs", "type": "folder" },
+    { "name": "examples", "type": "folder" },
+    { "name": "githooks", "type": "folder" },
+    { "name": "init", "type": "folder" },
+    { "name": "internal", "type": "folder" },
+    { "name": "pkg", "type": "folder" },
+    { "name": "scripts", "type": "folder" },
+    { "name": "test", "type": "folder" },
+    { "name": "third_party", "type": "folder" },
+    { "name": "tools", "type": "folder" },
+    { "name": "vendor", "type": "folder" },
+    { "name": "web", "type": "folder" },
+    { "name": "website", "type": "folder" },
+    { "name": ".editorconfig", "type": "file" },
+    { "name": ".gitattributes", "type": "file" },
+    { "name": ".gitignore", "type": "file" },
+    { "name": "LICENSE.md", "type": "file" },
+    { "name": "Makefile", "type": "file" },
+    { "name": "README.md", "type": "file" },
+    { "name": "go.mod", "type": "file" },
+    { "name": "go.sum", "type": "file" }
   ]
 }
