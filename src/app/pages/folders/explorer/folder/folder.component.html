@@ -1,8 +1,9 @@
 <div>
   <button
     class="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-[#eaeef2] dark:hover:bg-[#21262d] select-none"
-    (click)="item.type === 'folder' && toggle()"
-    (mouseenter)="setFolderContent()"
+    (click)="onClick()"
+    (mousemove)="onMouseMove()"
+    (mouseleave)="onMouseLeave()"
   >
     @if (item.type === 'folder') {
       <svg
