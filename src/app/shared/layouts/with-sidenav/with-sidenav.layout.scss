@@ -1,3 +1,5 @@
+@use '@o-pinion/scss/mixins/grid' as grid;
+
 :host {
   display: block;
   width: 100%;
@@ -9,7 +11,13 @@
     grid-template-rows: 1fr;
     overflow: auto;
     position: relative;
-    transition: grid-template-columns 0.2s ease-in-out;
+
+    @include grid.smUp {
+      transition: grid-template-columns 0.2s ease-in-out;
+    }
+    @include grid.sm {
+      grid-template-columns: 80vw 1fr;
+    }
 
     &.minimized {
       grid-template-columns: 4rem 1fr;
@@ -34,9 +42,15 @@
       position: absolute;
       top: 16px;
       left: 346px;
-      transition:
-        left 0.2s ease-in-out,
-        transform 0.2s ease-in-out;
+
+      @include grid.smUp {
+        transition:
+          left 0.2s ease-in-out,
+          transform 0.2s ease-in-out;
+      }
+      @include grid.sm {
+        left: 80vw;
+      }
     }
 
     .with-sidenav__main {
