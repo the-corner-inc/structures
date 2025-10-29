@@ -1,4 +1,4 @@
-<nav class="flex flex-col gap-2 h-full">
+<nav class="nav-container">
   <header class="nav-header">
     <div class="actions-container">
       <div class="relative w-full">
@@ -134,39 +134,16 @@
           </span>
         </div>
 
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-4">Icons: #todo</p>
-        <div class="relative w-full">
-          <input
-            type="text"
-            placeholder="folder structure URL"
-            class="input-text disabled:opacity-50 disabled:cursor-not-allowed"
-            [(ngModel)]="$iconThemeUrl"
-            disabled
-          />
-          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] dark:text-[#6e7681]">
-            <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M10.83 5a3.001 3.001 0 0 0-5.66 0H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17ZM4 11h9.17a3.001 3.001 0 0 1 5.66 0H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2Zm1.17 6H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17a3.001 3.001 0 0 0-5.66 0Z"
-              />
-            </svg>
-          </span>
-        </div>
+        <ng-content select="[layout-header]"></ng-content>
       </div>
     }
   </header>
-  @for (item of $structureFolders() | filterFolders: $searchQuery(); track item.name) {
-    <struct-folder [item]="item"></struct-folder>
-  } @empty {
+
+  <div class="nav-body">
+    <ng-content></ng-content>
+
     <div class="explorer-placeholder">
       <span class="text-center"> Please select a language </span>
     </div>
-  }
+  </div>
 </nav>

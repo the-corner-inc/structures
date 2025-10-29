@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WithSidenavLayout } from '@layouts/with-sidenav/with-sidenav.layout';
-import { ExplorerComponent } from './explorer/explorer.component';
+import { FoldersSidenavComponent } from './folders-sidenav/folders-sidenav.component';
 
 @Component({
-  selector: 'struct-folders',
+  selector: 'struct-folders-page',
   imports: [
     RouterModule,
 
     // Components
-    ExplorerComponent,
+    FoldersSidenavComponent,
 
     // Layouts
     WithSidenavLayout,
   ],
-  templateUrl: './folders.component.html',
-  styleUrl: './folders.component.scss',
+  templateUrl: './folders.page.html',
+  styleUrl: './folders.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FoldersComponent {}
+export class FoldersPage {}

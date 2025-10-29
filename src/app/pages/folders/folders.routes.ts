@@ -6,7 +6,7 @@ import { FoldersService } from './folders.service';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('@pages/folders/folders.component').then((m) => m.FoldersComponent),
+    loadComponent: () => import('@pages/folders/folders.page').then((m) => m.FoldersPage),
     children: [
       {
         path: '',

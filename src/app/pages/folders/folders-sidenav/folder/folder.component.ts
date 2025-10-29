@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
-import { IconNamePipe } from '@pages/folders/explorer/folder/icon-name.pipe';
 import { FolderStructure } from '@pages/folders/folders';
+import { IconNamePipe } from '@pages/folders/folders-sidenav/folder/icon-name.pipe';
 
 @Component({
   selector: 'struct-folder',
