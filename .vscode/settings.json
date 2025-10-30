@@ -3,6 +3,46 @@
     "angular-*": {
       "style": "scss",
       "externalTemplate": true
+    },
+    "angular-component": {
+      "suffix": "component",
+      "fileNameSuffix": ".component"
+    },
+    "angular-directive": {
+      "suffix": "directive",
+      "fileNameSuffix": ".directive"
+    },
+    "angular-service": {
+      "suffix": "service",
+      "fileNameSuffix": ".service"
+    },
+    "angular-pipe": {
+      "fileNameSuffix": ".pipe"
+    },
+    "angular-page": {
+      "fileNameSuffix": ".page"
+    },
+    "angular-interceptor": {
+      "fileNameSuffix": ".interceptor"
+    },
+    "angular-guard": {
+      "fileNameSuffix": ".guard"
+    },
+    "angular-resolver": {
+      "fileNameSuffix": ".resolver"
+    },
+    "angular-async-reactive-service": {
+      "fileNameSuffix": ".service"
+    },
+    "angular-sync-reactive-service": {
+      "fileNameSuffix": ".service"
+    },
+    "angular-material-dialog": {
+      "fileNameSuffix": ".dialog"
+    },
+    "angular-material-table": {
+      "suffix": "component",
+      "fileNameSuffix": ".component"
     }
   }
 }

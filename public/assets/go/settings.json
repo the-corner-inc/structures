@@ -3,7 +3,7 @@
   "manifestConfig": {
     "activeIconPack": "nest"
   },
-  "folderStructures": [
+  "foldersStructures": [
     { "name": "api", "type": "folder" },
     { "name": "assets", "type": "folder" },
     { "name": "build", "type": "folder" },

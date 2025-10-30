@@ -38,8 +38,8 @@ export class FoldersService {
           this.$manifest.set(generateManifest(data.manifestConfig));
         }
 
-        if (data.folderStructures.length) {
-          this.$structureFolders.set(data.folderStructures);
+        if (data.foldersStructures.length) {
+          this.$structureFolders.set(data.foldersStructures);
           this.#selectedLibrary.next(data.libraryName);
         }
       },

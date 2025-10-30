@@ -3,7 +3,7 @@
   "manifestConfig": {
     "activeIconPack": "angular"
   },
-  "folderStructures": [
+  "foldersStructures": [
     {
       "name": ".github",
       "type": "folder"
