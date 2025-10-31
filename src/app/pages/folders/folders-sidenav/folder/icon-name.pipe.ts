@@ -1,4 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
+import { StructureType } from '@pages/folders/folders';
 import { FoldersService } from '../../folders.service';
 
 @Pipe({
@@ -7,7 +8,7 @@ import { FoldersService } from '../../folders.service';
 export class IconNamePipe implements PipeTransform {
   readonly #foldersService = inject(FoldersService);
 
-  transform(name: string, type: 'file' | 'folder' = 'file', expanded = false): string {
+  transform(name: string, type: StructureType = 'file', expanded = false): string {
     if (!name) return type === 'folder' ? 'folder.svg' : 'file.svg';
     const manifest = this.#foldersService.$manifest();
     let iconKey: string | undefined;

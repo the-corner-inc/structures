@@ -1,8 +1,10 @@
 import { ManifestConfig } from 'material-icon-theme';
 
+export type StructureType = 'container' | 'folder' | 'file';
+
 export interface FolderStructure {
   name: string;
-  type: 'folder' | 'file';
+  type: StructureType;
   icon?: string;
   children?: FolderStructure[];
 }

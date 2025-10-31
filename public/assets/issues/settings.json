@@ -5,11 +5,11 @@
       "name": "priority",
       "type": "folder",
       "children": [
-        { "name": "p0", "color": "#da3633", "bg-color": "#f851491a", "type": "file" },
-        { "name": "p1", "color": "#bd561d", "bg-color": "#bb800926", "type": "file" },
-        { "name": "p2", "color": "#9e6a03", "bg-color": "#bb800966", "type": "file" },
-        { "name": "p3", "color": "#238636", "bg-color": "#2ea04366", "type": "file" },
-        { "name": "p4", "color": "#6e7681", "bg-color": "#656c7633", "type": "file" }
+        { "name": "p0", "color": "#da3633", "bg-color": "#f851491a", "type": "container" },
+        { "name": "p1", "color": "#bd561d", "bg-color": "#bb800926", "type": "container" },
+        { "name": "p2", "color": "#9e6a03", "bg-color": "#bb800966", "type": "container" },
+        { "name": "p3", "color": "#238636", "bg-color": "#2ea04366", "type": "container" },
+        { "name": "p4", "color": "#6e7681", "bg-color": "#656c7633", "type": "container" }
       ]
     }
   ]

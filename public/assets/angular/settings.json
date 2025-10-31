@@ -29,10 +29,6 @@
               "type": "folder",
               "children": [
                 {
-                  "name": "directives",
-                  "type": "folder"
-                },
-                {
                   "name": "guards",
                   "type": "folder"
                 },

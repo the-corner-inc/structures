@@ -1,32 +1,25 @@
 <div>
   <button
-    class="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-[#eaeef2] dark:hover:bg-[#21262d] select-none"
+    class="folder-button"
     (click)="onClick()"
     (mousemove)="onMouseMove()"
     (mouseleave)="onMouseLeave()"
   >
     @if (item.type === 'folder') {
-      <svg
-        [class.rotate-90]="expanded"
-        class="w-3 h-3 transition-transform ml-auto text-[#57606a] dark:text-[#8b949e]"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-      >
+      <svg [class.expanded]="expanded" class="folder-icon" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     }
     <img
       [src]="iconBaseUrl + (item.name | iconName: item.type : expanded)"
       [alt]="item.name + ' icon'"
-      class="w-4 h-4"
+      class="folder-image"
     />
-    <span class="truncate flex-1">{{ item.name }}</span>
+    <span class="folder-name">{{ item.name }}</span>
   </button>
 
   @if (item.children && expanded) {
-    <div class="ml-4 border-l border-[#d8dee4] dark:border-[#21262d] pl-2">
+    <div class="folder-children">
       @for (child of item.children; track child.name) {
         <struct-folder [item]="child"></struct-folder>
       }
