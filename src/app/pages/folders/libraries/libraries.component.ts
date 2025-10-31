@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, effect, inject, model } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FOLDER_SETTINGS } from '@bases/base.token';
-import { FoldersService } from '../folders.service';
+import { FOLDER_SETTINGS } from '@models/tokens';
+import { StructuresService } from '../../../core/services/structures.service';
 
 @Component({
   selector: 'struct-libraries',
@@ -19,7 +19,7 @@ import { FoldersService } from '../folders.service';
 })
 export class LibrariesComponent {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
-  readonly #foldersService = inject(FoldersService);
+  readonly #StructuresService = inject(StructuresService);
 
   $folderStructureUrl = model<string>(this.#folderSettings.getValue().settingsUrl);
 
@@ -49,6 +49,6 @@ export class LibrariesComponent {
       settingsUrl: url,
     });
 
-    this.#foldersService.getFolderSettings();
+    this.#StructuresService.getFolderSettings();
   }
 }

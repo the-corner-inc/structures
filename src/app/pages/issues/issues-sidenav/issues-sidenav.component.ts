@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SidenavContainerClass } from '@bases/sidenav-container.class';
 import { SidenavLayout } from '@layouts/sidenav/sidenav.layout';
 
 @Component({
@@ -11,4 +12,4 @@ import { SidenavLayout } from '@layouts/sidenav/sidenav.layout';
   styleUrl: './issues-sidenav.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IssuesSidenavComponent {}
+export class IssuesSidenavComponent extends SidenavContainerClass {}

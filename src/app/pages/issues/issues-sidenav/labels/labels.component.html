@@ -1,0 +1,18 @@
+<div>
+  <button class="label-button">
+    @if (item.type === 'folder') {
+      <svg [class.expanded]="expanded" class="folder-icon" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    }
+    <span class="label-name">{{ item.name }}</span>
+  </button>
+
+  @if (item.children && expanded) {
+    <div class="label-children">
+      @for (child of item.children; track child.name) {
+        <struct-label [item]="child"></struct-label>
+      }
+    </div>
+  }
+</div>

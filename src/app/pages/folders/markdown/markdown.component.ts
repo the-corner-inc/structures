@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseClass } from '@bases/base.class';
-import { SELECTED_ELEMENT } from '@bases/base.token';
+import { SELECTED_ELEMENT } from '@models/tokens';
 import { MarkdownComponent } from 'ngx-markdown';
 import { takeUntil } from 'rxjs';
-import { FoldersService } from '../folders.service';
+import { StructuresService } from '../../../core/services/structures.service';
 
 @Component({
   selector: 'struct-markdown',
@@ -17,13 +17,13 @@ import { FoldersService } from '../folders.service';
 })
 export class StructMarkdownComponent extends BaseClass implements OnInit {
   readonly #selectedElement = inject(SELECTED_ELEMENT);
-  readonly #foldersService = inject(FoldersService);
+  readonly #StructuresService = inject(StructuresService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
 
   $content = signal(this.#selectedElement.getValue());
-  $markDownContent = this.#foldersService.$markdownContent.asReadonly();
-  $loading = this.#foldersService.$loadingMarkdownContent.asReadonly();
+  $markDownContent = this.#StructuresService.$markdownContent.asReadonly();
+  $loading = this.#StructuresService.$loadingMarkdownContent.asReadonly();
 
   constructor() {
     super();
@@ -32,14 +32,14 @@ export class StructMarkdownComponent extends BaseClass implements OnInit {
       if (this.#route.snapshot.params['element']) {
         // Note: could maybe done on in a routing level
         this.#selectedElement.next(
-          this.#foldersService.getElementByName(this.#route.snapshot.params['element']),
+          this.#StructuresService.getElementByName(this.#route.snapshot.params['element']),
         );
       } else if (
-        this.#foldersService.$structureFolders().length > 0 &&
+        this.#StructuresService.$structureFolders().length > 0 &&
         this.#route.snapshot.params['element'] === undefined
       ) {
         this.#router.navigate(
-          ['./', this.#foldersService.$structureFolders()[0]?.name || 'unknown'],
+          ['./', this.#StructuresService.$structureFolders()[0]?.name || 'unknown'],
           {
             replaceUrl: true,
             relativeTo: this.#route,

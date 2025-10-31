@@ -7,12 +7,7 @@ import { provideRouter } from '@angular/router';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import {
-  FOLDER_SETTINGS,
-  IS_PRINT_MODE,
-  SELECTED_ELEMENT,
-  SELECTED_LIBRARY,
-} from '@bases/base.token';
+import { FOLDER_SETTINGS, IS_PRINT_MODE, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { FolderStructure } from '@pages/folders/folders';
 import { COLOR_SCHEME_OPTIONS } from 'ngx-color-scheme';
 import { provideMarkdown } from 'ngx-markdown';

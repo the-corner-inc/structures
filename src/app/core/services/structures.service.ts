@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@bases/base.token';
+import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { generateManifest } from 'material-icon-theme';
-import { FolderSettings, FolderStructure } from './folders';
+import { FolderSettings, FolderStructure } from '../../pages/folders/folders';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoldersService {
+export class StructuresService {
   readonly #selectedLibrary = inject(SELECTED_LIBRARY);
   readonly #folderSettings = inject(FOLDER_SETTINGS);
   readonly #selectedElement = inject(SELECTED_ELEMENT);

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BaseClass } from '@bases/base.class';
-import { IS_PRINT_MODE } from '@bases/base.token';
+import { IS_PRINT_MODE } from '@models/tokens';
 import { ColorSchemeService } from 'ngx-color-scheme';
 import { takeUntil } from 'rxjs';
 

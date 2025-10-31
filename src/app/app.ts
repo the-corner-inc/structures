@@ -1,6 +1,6 @@
 import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { IS_PRINT_MODE } from '@bases/base.token';
+import { IS_PRINT_MODE } from '@models/tokens';
 import { ColorSchemeService } from 'ngx-color-scheme';
 import { NavbarComponent } from './navbar/navbar.component';
 

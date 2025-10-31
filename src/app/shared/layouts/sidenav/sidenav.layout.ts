@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, effect, inject, model, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FOLDER_SETTINGS } from '@bases/base.token';
+import { FOLDER_SETTINGS } from '@models/tokens';
 import { FolderStructure } from '@pages/folders/folders';
-import { FoldersService } from '@pages/folders/folders.service';
+import { StructuresService } from '@services/structures.service';
 
 @Component({
   selector: 'struct-sidenav-layout',
@@ -17,7 +17,7 @@ import { FoldersService } from '@pages/folders/folders.service';
 })
 export class SidenavLayout {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
-  readonly #foldersService = inject(FoldersService);
+  readonly #StructuresService = inject(StructuresService);
 
   $searchQuery = model('');
 
@@ -34,7 +34,7 @@ export class SidenavLayout {
           settingsUrl: this.$folderStructureUrl(),
         });
 
-        this.#foldersService.getFolderSettings();
+        this.#StructuresService.getFolderSettings();
       }
     });
   }

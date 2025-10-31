@@ -1,11 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, model, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BaseClass } from '@bases/base.class';
-import { FOLDER_SETTINGS, SELECTED_LIBRARY } from '@bases/base.token';
+import { SidenavContainerClass } from '@bases/sidenav-container.class';
 import { SidenavLayout } from '@layouts/sidenav/sidenav.layout';
-import { FolderStructure } from '@pages/folders/folders';
-import { FoldersService } from '@pages/folders/folders.service';
-import { takeUntil } from 'rxjs';
+import { FOLDER_SETTINGS } from '@models/tokens';
 import { FilterFoldersPipe } from './filter-folders.pipe';
 import { FolderComponent } from './folder/folder.component';
 
@@ -29,22 +26,7 @@ import { FolderComponent } from './folder/folder.component';
   styleUrl: './folders-sidenav.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FoldersSidenavComponent extends BaseClass implements OnInit {
-  readonly #selectedLibrary = inject(SELECTED_LIBRARY);
+export class FoldersSidenavComponent extends SidenavContainerClass {
   readonly #folderSettings = inject(FOLDER_SETTINGS);
-  readonly #foldersService = inject(FoldersService);
-
-  $searchQuery = model<string>('');
   $iconThemeUrl = model<string>(this.#folderSettings.getValue().iconBaseUrl);
-  $structureFolders = signal<FolderStructure[]>([]);
-
-  ngOnInit(): void {
-    this.#selectedLibrary.pipe(takeUntil(this._unsubscribe$)).subscribe((name) => {
-      if (!name) {
-        this.$structureFolders.set([]);
-      } else {
-        this.$structureFolders.set(this.#foldersService.$structureFolders());
-      }
-    });
-  }
 }
