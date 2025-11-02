@@ -63,7 +63,7 @@
         pointer-events: none;
         transition: opacity 0.3s ease-in-out;
 
-        &:not(.first-child) {
+        &:not(:first-child) {
           opacity: 0;
         }
       }

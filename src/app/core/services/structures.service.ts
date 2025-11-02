@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
+import { ROUTE_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { generateManifest } from 'material-icon-theme';
 import { FolderSettings, FolderStructure } from '../../pages/folders/folders';
 
@@ -9,7 +9,7 @@ import { FolderSettings, FolderStructure } from '../../pages/folders/folders';
 })
 export class StructuresService {
   readonly #selectedLibrary = inject(SELECTED_LIBRARY);
-  readonly #folderSettings = inject(FOLDER_SETTINGS);
+  readonly #routeSettings = inject(ROUTE_SETTINGS);
   readonly #selectedElement = inject(SELECTED_ELEMENT);
   readonly #http = inject(HttpClient);
 
@@ -26,7 +26,7 @@ export class StructuresService {
   }
 
   public getFolderSettings() {
-    const settingsUrl = this.#folderSettings.getValue().settingsUrl;
+    const settingsUrl = this.#routeSettings.getValue().settingsUrl;
     let url = settingsUrl;
     if (!settingsUrl.startsWith('https://')) {
       url = settingsUrl + 'settings.json';
@@ -38,8 +38,8 @@ export class StructuresService {
           this.$manifest.set(generateManifest(data.manifestConfig));
         }
 
-        if (data.foldersStructures.length) {
-          this.$structureFolders.set(data.foldersStructures);
+        if (data.structures?.length) {
+          this.$structureFolders.set(data.structures);
           this.#selectedLibrary.next(data.libraryName);
         }
       },
@@ -86,7 +86,7 @@ export class StructuresService {
 
     this.$loadingMarkdownContent.set(true);
 
-    const settingsUrl = this.#folderSettings.getValue().settingsUrl;
+    const settingsUrl = this.#routeSettings.getValue().settingsUrl;
     let url: string;
     if (settingsUrl.startsWith('https://')) {
       url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md';

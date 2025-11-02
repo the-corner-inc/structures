@@ -1,1 +1,5 @@
-<struct-sidenav-layout> </struct-sidenav-layout>
+<struct-sidenav-layout>
+  @for (item of $structureFolders() | filterFolders: $searchQuery(); track item.name) {
+    <struct-labels [item]="item"></struct-labels>
+  }
+</struct-sidenav-layout>

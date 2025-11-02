@@ -12,5 +12,5 @@ export interface FolderStructure {
 export interface FolderSettings {
   libraryName: string;
   manifestConfig: ManifestConfig;
-  foldersStructures: FolderStructure[];
+  structures: FolderStructure[];
 }

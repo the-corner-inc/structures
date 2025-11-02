@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, model, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FOLDER_SETTINGS } from '@models/tokens';
+import { ROUTE_SETTINGS } from '@models/tokens';
 import { FolderStructure } from '@pages/folders/folders';
 import { StructuresService } from '@services/structures.service';
 
@@ -16,7 +16,7 @@ import { StructuresService } from '@services/structures.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavLayout {
-  readonly #folderSettings = inject(FOLDER_SETTINGS);
+  readonly #routeSettings = inject(ROUTE_SETTINGS);
   readonly #StructuresService = inject(StructuresService);
 
   $searchQuery = model('');
@@ -24,13 +24,13 @@ export class SidenavLayout {
   $showSettings = signal<boolean>(false);
   $structureFolders = signal<FolderStructure[]>([]);
 
-  $folderStructureUrl = model<string>(this.#folderSettings.getValue().settingsUrl);
+  $folderStructureUrl = model<string>(this.#routeSettings.getValue().settingsUrl);
 
   constructor() {
     effect(() => {
       if (this.$folderStructureUrl()) {
-        this.#folderSettings.next({
-          ...this.#folderSettings.getValue(),
+        this.#routeSettings.next({
+          ...this.#routeSettings.getValue(),
           settingsUrl: this.$folderStructureUrl(),
         });
 

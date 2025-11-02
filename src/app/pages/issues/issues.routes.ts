@@ -1,17 +1,37 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
+import { ROUTE_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { StructuresService } from '@services/structures.service';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('@pages/folders/folders.page').then((m) => m.FoldersPage),
+    loadComponent: () => import('@pages/issues/issues.page').then((m) => m.IssuesPage),
+    canActivate: [
+      () => {
+        const routeSettings = inject(ROUTE_SETTINGS);
+
+        routeSettings.next({
+          ...routeSettings.getValue(),
+          settingsUrl: '/assets/unknown/',
+          frameworks: [
+            {
+              name: 'Projects',
+              children: [
+                { name: 'Software', settingsUrl: '/assets/issues/' },
+                { name: 'Unknown', settingsUrl: '/assets/issues/', disabled: true },
+              ],
+            },
+          ],
+        });
+        return true;
+      },
+    ],
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('@pages/folders/libraries/libraries.component').then((m) => m.LibrariesComponent),
+          import('@shared/pages/libraries/libraries.component').then((m) => m.LibrariesComponent),
         canActivate: [
           () => {
             const structuresService = inject(StructuresService);
@@ -23,13 +43,11 @@ export const routes: Routes = [
       },
       {
         path: ':type',
-        loadComponent: () =>
-          import('@pages/folders/library/library.component').then((m) => m.LibraryComponent),
         canActivate: [
           (route) => {
             const structuresService = inject(StructuresService);
             const selectedLibrary = inject(SELECTED_LIBRARY);
-            const folderSettings = inject(FOLDER_SETTINGS);
+            const folderSettings = inject(ROUTE_SETTINGS);
 
             folderSettings.next({
               ...folderSettings.getValue(),

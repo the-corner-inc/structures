@@ -5,7 +5,7 @@ import { CoreFolderSettings } from './interface';
 
 export const IS_PRINT_MODE = new InjectionToken<BehaviorSubject<boolean>>('tc.is.print.mode');
 
-export const FOLDER_SETTINGS = new InjectionToken<BehaviorSubject<CoreFolderSettings>>(
+export const ROUTE_SETTINGS = new InjectionToken<BehaviorSubject<CoreFolderSettings>>(
   'tc.folder.settings',
 );
 export const SELECTED_LIBRARY = new InjectionToken<BehaviorSubject<string>>('tc.selected.library');

@@ -18,13 +18,12 @@
 - **Run unit tests:** `ng test` (or `npm test`)
 - **Build for production:** `ng build`
 - **Generate components/services:** `ng generate <schematic> <name>`
-- **SSR:** See `main.server.ts` and `server.ts` for server-side rendering setup.
-- **Tailwind:** Utility classes are used in templates; see `tailwind.config.js` for customization.
+- **CSS Naming Convention:** Utility classes are used in .scss files; see `https://github.com/o-pinion/angular/wiki/CSS-Naming-convention` for guidelines.
 
 ## Project-Specific Patterns
 
 - **Zoneless Angular:** Zone.js is not used; prefer RxJS, signals, and explicit change detection. Avoid relying on automatic change detection.
-- **Tailwind CSS:** Use utility classes in templates. Global styles and Tailwind config in `src/styles.scss` and `tailwind.config.js`.
+- **Css Variables:** Use utility classes in templates. Global styles and css variable in `src/styles.scss` and utilities in `https://github.com/o-pinion/scss`.
 - **Routing:** Defined in `src/app/app.routes.ts` and `app.routes.server.ts`.
 - **App config:** See `app.config.ts` and `app.config.server.ts` for environment/config patterns.
 - **Component structure:** Each component has its own folder with `.ts`, `.html`, `.scss` files (e.g., `navbar/navbar.component.*`).

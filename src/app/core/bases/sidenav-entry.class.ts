@@ -1,11 +1,11 @@
 import { Directive, inject, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { FOLDER_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
+import { ROUTE_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { FolderStructure } from '@pages/folders/folders';
 
 @Directive()
 export abstract class SidenavEntryClass implements OnDestroy {
-  readonly #folderSettings = inject(FOLDER_SETTINGS);
+  readonly #routeSettings = inject(ROUTE_SETTINGS);
   readonly #selectedLibrary = inject(SELECTED_LIBRARY);
   readonly #selectedElement = inject(SELECTED_ELEMENT);
 
@@ -15,7 +15,7 @@ export abstract class SidenavEntryClass implements OnDestroy {
 
   private _mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  iconBaseUrl = this.#folderSettings.getValue().iconBaseUrl;
+  iconBaseUrl = this.#routeSettings.getValue().iconBaseUrl;
 
   @Input({ required: true }) item!: FolderStructure;
   expanded = true;

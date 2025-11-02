@@ -3,7 +3,7 @@
   "manifestConfig": {
     "activeIconPack": "angular"
   },
-  "foldersStructures": [
+  "structures": [
     {
       "name": "UserName",
       "type": "folder",

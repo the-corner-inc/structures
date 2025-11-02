@@ -1,6 +1,6 @@
 {
   "libraryName": "issues",
-  "issuesStructures": [
+  "structures": [
     {
       "name": "priority",
       "type": "folder",
