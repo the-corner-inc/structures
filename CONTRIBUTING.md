@@ -74,25 +74,21 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 2. Be sure that an issue describes the problem you're fixing, or documents the design for the feature you'd like to add.
    Discussing the design upfront helps to ensure that we're ready to accept your work.
 
-3. Please sign our [Contributor License Agreement (CLA)](#cla) before sending PRs.
-   We cannot accept code without a signed CLA.
-   Make sure you author all contributed Git commits with email address associated with your CLA signature.
+3. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [Structures](https://github.com/the-corner-inc/structures/fork) repo.
 
-4. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [Structures](https://github.com/the-corner-inc/structures/fork) repo.
-
-5. In your forked repository, make your changes in a new git branch:
+4. In your forked repository, make your changes in a new git branch:
 
      ```shell
      git checkout -b my-fix-branch main
      ```
 
-6. Create your patch, **including appropriate test cases**.
+5. Create your patch, **including appropriate test cases**.
 
-7. Follow our [Coding Rules](#rules).
+6. Follow our [Coding Rules](#rules).
 
-8. Run the full Structures test suite, as described in the [developer documentation][dev-doc], and ensure that all tests pass.
+7. Run the full Structures test suite, as described in the [developer documentation][dev-doc], and ensure that all tests pass.
 
-9. Commit your changes using a descriptive commit message that follows our [commit message conventions][commit-message-guidelines].
+8. Commit your changes using a descriptive commit message that follows our [commit message conventions][commit-message-guidelines].
    Adherence to these conventions is necessary because release notes are automatically generated from these messages.
 
      ```shell
@@ -100,13 +96,13 @@ Before you submit your Pull Request (PR) consider the following guidelines:
      ```
     Note: the optional commit `--all` command line option will automatically "add" and "rm" edited files.
 
-10. Push your branch to GitHub:
+9.  Push your branch to GitHub:
 
     ```shell
     git push origin my-fix-branch
     ```
 
-11. In GitHub, send a pull request to `Structures:main`.
+10. In GitHub, send a pull request to `Structures:main`.
 
 ### Reviewing a Pull Request
 
