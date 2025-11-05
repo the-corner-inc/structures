@@ -12,6 +12,7 @@ export abstract class SidenavContainerClass extends BaseClass implements OnInit 
 
   $searchQuery = model<string>('');
   $structureFolders = signal<FolderStructure[]>([]);
+  $selectedItem = signal<FolderStructure | undefined>(undefined);
 
   ngOnInit(): void {
     this.#selectedLibrary.pipe(takeUntil(this._unsubscribe$)).subscribe((name) => {
@@ -20,6 +21,7 @@ export abstract class SidenavContainerClass extends BaseClass implements OnInit 
       } else {
         this.$structureFolders.set(this.#StructuresService.$structureFolders());
       }
+      this.$selectedItem.set(this.$structureFolders()[0]);
     });
   }
 }

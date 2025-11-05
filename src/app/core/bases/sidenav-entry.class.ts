@@ -52,7 +52,7 @@ export abstract class SidenavEntryClass implements OnDestroy {
 
     if (this.#router.url.includes(this.item.name)) return false;
 
-    this.#router.navigate(['/folders', this.#selectedLibrary.getValue(), this.item.name]);
+    this.#router.navigate([this._path, this.#selectedLibrary.getValue(), this.item.name]);
     return true;
   }
 }

@@ -1,0 +1,15 @@
+<button
+  class="item-button"
+  (click)="onClick()"
+  (mousemove)="onMouseMove()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div
+    class="label-container"
+    [style.--bgColor-light]="item.bgColor"
+    [style.--borderColor-light]="item.color"
+    [style.--color-dark]="item.color"
+  >
+    <span class="label-name truncate">{{ item.name }}</span>
+  </div>
+</button>

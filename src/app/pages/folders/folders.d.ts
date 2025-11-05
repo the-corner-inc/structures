@@ -6,6 +6,8 @@ export interface FolderStructure {
   name: string;
   type: StructureType;
   icon?: string;
+  color?: string;
+  bgColor?: string;
   children?: FolderStructure[];
 }
 

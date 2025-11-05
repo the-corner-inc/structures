@@ -1,5 +1,19 @@
 <struct-sidenav-layout>
-  @for (item of $structureFolders() | filterFolders: $searchQuery(); track item.name) {
-    <struct-labels [item]="item"></struct-labels>
+  <div class="mainCategory-container">
+    @for (item of $structureFolders() | filterFolders: $searchQuery(); track item.name) {
+      <button
+        class="mainCategory-button"
+        (click)="$selectedItem.set(item)"
+        [class.selected]="item === $selectedItem()"
+      >
+        {{ item.name }}
+      </button>
+    }
+  </div>
+
+  @if ($selectedItem()) {
+    @for (item of $selectedItem()?.children; track $index) {
+      <struct-labels [item]="item"></struct-labels>
+    }
   }
 </struct-sidenav-layout>

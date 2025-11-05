@@ -2,14 +2,150 @@
   "libraryName": "issues",
   "structures": [
     {
-      "name": "priority",
+      "name": "labels",
       "type": "folder",
       "children": [
-        { "name": "p0", "color": "#da3633", "bg-color": "#f851491a", "type": "container" },
-        { "name": "p1", "color": "#bd561d", "bg-color": "#bb800926", "type": "container" },
-        { "name": "p2", "color": "#9e6a03", "bg-color": "#bb800966", "type": "container" },
-        { "name": "p3", "color": "#238636", "bg-color": "#2ea04366", "type": "container" },
-        { "name": "p4", "color": "#6e7681", "bg-color": "#656c7633", "type": "container" }
+        {
+          "name": "priority",
+          "type": "folder",
+          "children": [
+            { "name": "P0", "color": "#da3633", "bgColor": "#f851491a", "type": "file" },
+            { "name": "P1", "color": "#bd561d", "bgColor": "#bb800926", "type": "file" },
+            { "name": "P2", "color": "#c99540", "bgColor": "#bb800926", "type": "file" },
+            { "name": "P3", "color": "#3fb950", "bgColor": "#2ea04326", "type": "file" },
+            { "name": "P4", "color": "#9198a1", "bgColor": "#656c7633", "type": "file" }
+          ]
+        },
+        {
+          "name": "status",
+          "type": "folder",
+          "children": [
+            {
+              "name": "s::Rejected",
+              "color": "#ffc6c6",
+              "bgColor": "#391517",
+              "type": "file"
+            },
+            {
+              "name": "s::Wont fix",
+              "color": "#fff",
+              "bgColor": "#383c40",
+              "type": "file"
+            },
+            { "name": "s::On hold", "color": "#9198a1", "bgColor": "#656c7633", "type": "file" },
+            {
+              "name": "s::On hold - API",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Customer",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Design",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Discussion",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Information",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Question",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            },
+            {
+              "name": "s::On hold - Step to reproduce",
+              "color": "#9198a1",
+              "bgColor": "#656c7633",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "type": "folder",
+          "children": [
+            {
+              "name": "Dev",
+              "type": "folder",
+              "children": [
+                { "name": "t::Bug", "color": "#c28088", "bgColor": "#321a20", "type": "file" },
+                { "name": "t::Build", "color": "#3fb950", "bgColor": "#2ea04326", "type": "file" },
+                { "name": "t::Chore", "color": "#bd561d", "bgColor": "#db6d281a", "type": "file" },
+                { "name": "t::CI", "color": "#0969da", "bgColor": "#388bfd1a", "type": "file" },
+                { "name": "t::Docs", "color": "#3199e4", "bgColor": "#388bfd1a", "type": "file" },
+                {
+                  "name": "t::Enhancement",
+                  "color": "#b47b27",
+                  "bgColor": "#211d17",
+                  "type": "file"
+                },
+                { "name": "t::Feat", "color": "#a97c3b", "bgColor": "#2f2920", "type": "file" },
+                { "name": "t::Perf", "color": "#c87e64", "bgColor": "#31221e", "type": "file" },
+                { "name": "t::Refactor", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
+                { "name": "t::SEO", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
+                { "name": "t::Style", "color": "#e3a7fa", "bgColor": "#29133b", "type": "file" }
+              ]
+            },
+            {
+              "name": "Discussion",
+              "type": "folder",
+              "children": [
+                { "name": "t::Analyse", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
+                {
+                  "name": "t::Communication",
+                  "color": "#ff97cd",
+                  "bgColor": "#321326",
+                  "type": "file"
+                },
+                { "name": "t::Question", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
+                { "name": "t::Support", "color": "#ff97cd", "bgColor": "#321326", "type": "file" }
+              ]
+            },
+            {
+              "name": "Organisation",
+              "type": "folder",
+              "children": [
+                { "name": "t::Meeting", "color": "#9198a1", "bgColor": "#0a0e13", "type": "file" },
+                {
+                  "name": "t::Preparation",
+                  "color": "#34afa0",
+                  "bgColor": "#173031",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kanban",
+      "type": "folder",
+      "children": [
+        { "name": "No status", "color": "transparent", "bgColor": "transparent", "type": "file" },
+        { "name": "Backlog", "color": "#9e6a03", "bgColor": "#bb800926", "type": "file" },
+        { "name": "To Do", "color": "#1f6feb", "bgColor": "#388bfd1a", "type": "file" },
+        { "name": "In Progress", "color": "#238636", "bgColor": "#2ea04326", "type": "file" },
+        { "name": "In Review", "color": "#bd561d", "bgColor": "#db6d281a", "type": "file" },
+        { "name": "Deliverable", "color": "#8957e5", "bgColor": "#ab7df826", "type": "file" },
+        { "name": "Done", "color": "#8957e5", "bgColor": "#ab7df826", "type": "file" }
       ]
     }
   ]
