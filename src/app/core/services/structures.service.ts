@@ -16,6 +16,7 @@ export class StructuresService {
   $markdownContent = signal<string | null>(null);
   $loadingMarkdownContent = signal<boolean>(true);
   $manifest = signal(generateManifest());
+  $markdownContentUrl = signal<string | null>(null);
 
   $structureFolders: WritableSignal<FolderStructure[]> = signal([]);
 
@@ -89,12 +90,13 @@ export class StructuresService {
     const settingsUrl = this.#routeSettings.getValue().settingsUrl;
     let url: string;
     if (settingsUrl.startsWith('https://')) {
-      url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md';
+      url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md.md';
     } else {
-      url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}`;
+      url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
     }
 
-    this.#http.get(url + '.md', { responseType: 'text' }).subscribe({
+    this.$markdownContentUrl.set(url);
+    this.#http.get(url, { responseType: 'text' }).subscribe({
       next: (data) => {
         if (data) this.$markdownContent.set(data || null);
 

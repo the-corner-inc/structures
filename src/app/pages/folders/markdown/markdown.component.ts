@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseClass } from '@bases/base.class';
 import { SELECTED_ELEMENT } from '@models/tokens';
 import { MarkdownComponent } from 'ngx-markdown';
-import { takeUntil } from 'rxjs';
 import { StructuresService } from '../../../core/services/structures.service';
 
 @Component({
@@ -13,17 +12,20 @@ import { StructuresService } from '../../../core/services/structures.service';
     MarkdownComponent,
   ],
   templateUrl: './markdown.component.html',
+  styleUrls: ['./markdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StructMarkdownComponent extends BaseClass implements OnInit {
+export class StructMarkdownComponent extends BaseClass {
   readonly #selectedElement = inject(SELECTED_ELEMENT);
   readonly #StructuresService = inject(StructuresService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
 
-  $content = signal(this.#selectedElement.getValue());
   $markDownContent = this.#StructuresService.$markdownContent.asReadonly();
+  $codeUrl = this.#StructuresService.$markdownContentUrl.asReadonly();
   $loading = this.#StructuresService.$loadingMarkdownContent.asReadonly();
+
+  $showCode = signal(false);
 
   constructor() {
     super();
@@ -46,12 +48,6 @@ export class StructMarkdownComponent extends BaseClass implements OnInit {
           },
         );
       }
-    });
-  }
-
-  ngOnInit(): void {
-    this.#selectedElement.pipe(takeUntil(this._unsubscribe$)).subscribe((element) => {
-      this.$content.set(element);
     });
   }
 }

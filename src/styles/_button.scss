@@ -28,8 +28,16 @@
   background: var(--bgColor-default);
 
   .dark & {
-    color: var(--color-light);
-    border-color: var(--borderColor-light);
     background: var(--bgColor-light);
+
+    svg {
+      color: #fff;
+    }
+  }
+
+  svg {
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 6);
+    color: var(--color-light);
   }
 }

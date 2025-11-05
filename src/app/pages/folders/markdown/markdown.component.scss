@@ -1,0 +1,11 @@
+:host {
+  position: relative;
+
+  .code-link {
+    --color-default: var(--borderColor-default);
+    position: absolute;
+    top: -40px;
+    right: 0;
+    z-index: 10;
+  }
+}

@@ -213,7 +213,7 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 ## <a name="commit"></a> Commit Message Guidelines
 
 We have very precise rules over how our Git commit messages must be formatted:
-```
+```shell
 <type>(<scope>): <short summary>
 ```
 
