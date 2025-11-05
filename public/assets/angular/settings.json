@@ -205,6 +205,10 @@
       "type": "file"
     },
     {
+      "name": "CODE_OF_CONDUCT.md",
+      "type": "file"
+    },
+    {
       "name": "CONTRIBUTING.md",
       "type": "file"
     },
