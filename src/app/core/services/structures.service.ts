@@ -92,7 +92,8 @@ export class StructuresService {
     if (settingsUrl.startsWith('https://')) {
       url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md.md';
     } else {
-      url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
+      // url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
+      url = `http://localhost:4200${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
     }
 
     this.$markdownContentUrl.set(url);
