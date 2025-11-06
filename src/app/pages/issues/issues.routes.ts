@@ -18,8 +18,8 @@ export const routes: Routes = [
             {
               name: 'Projects',
               children: [
-                { name: 'Software', settingsUrl: '/assets/issues/' },
-                { name: 'Unknown', settingsUrl: '/assets/issues/', disabled: true },
+                { name: 'Software', settingsUrl: '/assets/software/' },
+                { name: 'Unknown', settingsUrl: '/assets/software/', disabled: true },
               ],
             },
           ],
