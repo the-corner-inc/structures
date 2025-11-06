@@ -1,13 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseClass } from '@bases/base.class';
 import { SELECTED_ELEMENT } from '@models/tokens';
 import { MarkdownComponent } from 'ngx-markdown';
+import { interval, map, takeUntil } from 'rxjs';
 import { StructuresService } from '../../../core/services/structures.service';
 
 @Component({
   selector: 'struct-markdown',
   imports: [
+    // Pipes
+    AsyncPipe,
+
     // Vendors
     MarkdownComponent,
   ],
@@ -20,6 +25,11 @@ export class StructMarkdownComponent extends BaseClass {
   readonly #StructuresService = inject(StructuresService);
   #router = inject(Router);
   #route = inject(ActivatedRoute);
+
+  dots$ = interval(450).pipe(
+    takeUntil(this._unsubscribe$),
+    map((i) => ['.', '..', '...'][i % 3]),
+  );
 
   $markDownContent = this.#StructuresService.$markdownContent.asReadonly();
   $codeUrl = this.#StructuresService.$markdownContentUrl.asReadonly();

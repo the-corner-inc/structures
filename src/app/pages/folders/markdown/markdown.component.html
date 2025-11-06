@@ -7,7 +7,7 @@
   [data]="
     $markDownContent() ||
     ($loading()
-      ? '# Loading...'
+      ? '# Loading' + (dots$ | async)
       : `# Workin' on it
       Feel free to make a PR, it would be really appreciated ;)
       https://github.com/the-corner-inc/structures/tree/main/public/assets`)

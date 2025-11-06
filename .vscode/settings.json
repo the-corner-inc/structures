@@ -44,5 +44,6 @@
       "suffix": "component",
       "fileNameSuffix": ".component"
     }
-  }
+  },
+  "i18n-ally.localesPaths": []
 }
