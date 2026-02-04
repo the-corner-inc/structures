@@ -66,10 +66,11 @@
 
 @layer base {
     * {
-        @apply border-border;
+        border-color: hsl(var(--border));
     }
     body {
-        @apply bg-background text-foreground;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
     }
 }
 
@@ -80,19 +81,21 @@
 }
 
 ::-webkit-scrollbar-track {
-    @apply bg-muted/50;
+    background-color: hsl(var(--muted) / 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/30 rounded;
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/50;
+    background-color: hsl(var(--muted-foreground) / 0.5);
 }
 
 /* Prism.js syntax highlighting */
 code[class*="language-"],
 pre[class*="language-"] {
-    @apply text-sm;
+    font-size: 0.875rem;
 }
+
