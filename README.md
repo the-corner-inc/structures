@@ -1,86 +1,72 @@
-# Structures
+# [The Corner Website](https://github.com/the-corner-inc/tc-website)
 
-An open-source Angular platform by [The Corner](https://github.com/thecorner-inc) designed to help teams **visualize, document, and share project organization standards** — starting with folder structures.
+This is the code repository for the official website of The Corner Inc.
 
----
-
-## Overview
-
-Modern development teams often struggle to keep their **project organization** consistent and understandable — especially when onboarding new members or collaborating across roles.
-
-**Structure** solves that by offering an **interactive, VS Code–like interface** where you can:
-
-- 🗂️ Explore a project’s folder structure visually  
-- 💬 Hover files and folders to see their purpose  
-- 🧭 Understand how everything connects  
-- 💾 Save and share structures (via JSON, later online)  
-
----
-
-## Current Focus — *Folders for Angular*
-
-The first version focuses on **Angular folder structures**, letting you:
-
-- See an opinionated best-practice folder setup  
-- Read contextual explanations for each file/folder  
-- Explore an intuitive VS Code–inspired UI  
-- Prepare for full customization and export (coming soon)
-
-Later, other frameworks will follow: **React**, **Vue**, **NestJS**, and more.
-
----
-
-## Roadmap
-
-| Phase    | Goal                                                   | Status        |
-| -------- | ------------------------------------------------------ | ------------- |
-| **v0.1** | Display static Angular folder structure + descriptions | 🚧 In progress |
-| **v0.2** | Add JSON import/export                                 | 🚧 Planned     |
-| **v0.3** | Enable users to edit and save their own structures     | 🚧 Planned     |
-| **v0.5** | Add support for other frameworks                       | ⏳ Planned     |
-| **v0.4** | Add theming (VS Code dark/light)                       | ⏳ Planned     |
-
----
+- [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
+- TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
+- [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) + [Base UI](https://base-ui.com/)
+- [Vite 8](https://vite.dev/blog/announcing-vite8-beta) (beta) + [Nitro v3](https://v3.nitro.build/) (nightly)
+- [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
+- [Better Auth](https://www.better-auth.com/)
 
 ## Getting Started
 
-### Setup
-```bash
-npm install
-```
+1. Install dependencies:
 
-### Development
-```bash
-npm start
-```
+   ```bash
+   pnpm install
+   ```
 
----
+2. Create a `.env` file based on [`.env.example`](./.env.example).
 
-## Usage
-- Open the app in your browser (default: [http://localhost:4200](http://localhost:4200))
-- Browse the folder structure and read contextual markdown for each file/folder
-- Use the search and settings features to explore and customize
+3. Push the schema to your database with drizzle-kit:
 
----
+   ```bash
+   pnpm db push
+   ```
 
-## Contributing
+   https://orm.drizzle.team/docs/migrations
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+4. Run the development server:
 
-- Fork the repo and create a feature branch
-- Make your changes and add tests if needed
-- Open a pull request with a clear description
+   ```bash
+   pnpm dev
+   ```
 
-### Folder structure proposal
-The structure can be found under `public/assets/[language]/settings.json`. 
-Feel free to suggest improvements or new structures by opening an issue or pull request.
+   The development server should now be running at [http://localhost:3000](http://localhost:3000).
 
-### Page & component content
-Content for files and folders is stored as markdown files under `public/assets/[language]/md/`. 
-You can contribute by adding new explanations or improving existing ones.
+## Deploying to production
 
----
+The [vite config](./vite.config.ts#L12-L13) is currently configured to use [Nitro v3](https://v3.nitro.build) (nightly) to deploy on Vercel, but can be easily switched to other providers.
 
-## Links
-- [Material Icon Theme](https://github.com/material-extensions/vscode-material-icon-theme)
-- [Angular](https://angular.io)
+Refer to the [TanStack Start hosting docs](https://tanstack.com/start/latest/docs/framework/react/guide/hosting) for deploying to other platforms.
+
+## Issue watchlist
+
+- [Router/Start issues](https://github.com/TanStack/router/issues) - TanStack Start is in RC.
+- [Devtools releases](https://github.com/TanStack/devtools/releases) - TanStack Devtools is in alpha and may still have breaking changes.
+- [Vite 8 beta](https://vite.dev/blog/announcing-vite8-beta) - We're using Vite 8 beta which is powered by Rolldown.
+- [Nitro v3 nightly](https://v3.nitro.build/docs/nightly) - The template is configured with Nitro v3 nightly by default.
+
+## Goodies
+
+#### Scripts
+
+We use **pnpm** by default, but you can modify these scripts in [package.json](./package.json) to use your preferred package manager.
+
+- **`auth:generate`** - Regenerate the [auth db schema](./src/lib/db/schema/auth.schema.ts) if you've made changes to your Better Auth [config](./src/lib/auth/auth.ts).
+- **`db`** - Run [drizzle-kit](https://orm.drizzle.team/docs/kit-overview) commands. (e.g. `pnpm db generate`, `pnpm db studio`)
+- **`ui`** - The shadcn/ui CLI. (e.g. `pnpm ui add button`)
+- **`format`**, **`lint`**, **`check-types`** - Run Prettier, ESLint, and check TypeScript types respectively.
+  - **`check`** - Run all three above. (e.g. `pnpm check`)
+- **`deps`** - Selectively upgrade dependencies via taze.
+
+#### Utilities
+
+- [`auth/middleware.ts`](./src/lib/auth/middleware.ts) - Sample middleware for forcing authentication on server functions. (see [#5](https://github.com/dotnize/react-tanstarter/issues/5#issuecomment-2615905686) and [#17](https://github.com/dotnize/react-tanstarter/issues/17#issuecomment-2853482062))
+- [`theme-toggle.tsx`](./src/components/theme-toggle.tsx), [`theme-provider.tsx`](./src/components/theme-provider.tsx) - A theme toggle and provider for toggling between light and dark mode. ([#7](https://github.com/dotnize/react-tanstarter/issues/7#issuecomment-3141530412))
+
+## Also check out
+
+- [@tanstack/create-start](https://github.com/TanStack/create-tsrouter-app/blob/main/cli/ts-create-start/README.md) - The official CLI tool from the TanStack team to create Start projects.
+- [awesome-tanstack-start](https://github.com/Balastrong/awesome-tanstack-start) - A curated list of awesome resources for TanStack Start.

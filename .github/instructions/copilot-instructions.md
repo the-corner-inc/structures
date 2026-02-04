@@ -1,97 +1,56 @@
-## Angular Standalone Components
-
-- Standalone is the default for all components; you do not need to specify `standalone: true` in component decorators.
-
-# Copilot Instructions for AI Agents
+# Copilot Instructions for tc-website
 
 ## Project Overview
 
-- This is a zoneless Angular 20+ project generated with Angular CLI (see `README.md`).
-- Tailwind CSS is used for styling (see `tailwind.config.js`, `src/styles.scss`).
-- Main app code is in `src/app/` with feature modules under subfolders (e.g., `navbar/`, `pages/`).
-- Entry points: `src/main.ts` (browser), `src/main.server.ts` (SSR), `src/server.ts` (Node server).
-- Styles are in `src/styles.scss`, Tailwind utility classes, and component-level `.scss` files.
+- This is a minimal starter template based on TanStack Start, using React 19, TanStack Router/Query, Tailwind CSS, shadcn/ui, Vite 8, Nitro v3, Drizzle ORM, and Better Auth.
+- The main app logic is in `src/`, with routes in `src/routes/`, UI components in `src/components/`, and utilities/auth/db logic in `src/lib/`.
 
-## Developer Workflows
+## Key Workflows
 
-- **Start dev server:** `ng serve` (or `npm start` if configured)
-- **Run unit tests:** `ng test` (or `npm test`)
-- **Build for production:** `ng build`
-- **Generate components/services:** `ng generate <schematic> <name>`
-- **CSS Naming Convention:** Utility classes are used in .scss files; see `https://github.com/o-pinion/angular/wiki/CSS-Naming-convention` for guidelines.
+- **Install dependencies:** `pnpm install`
+- **Start dev server:** `pnpm dev` (runs at http://localhost:3000)
+- **Database schema push:** `pnpm db push` (uses Drizzle ORM)
+- **Auth schema generation:** `pnpm auth:generate` (updates `src/lib/db/schema/auth.schema.ts`)
+- **UI components:** Use shadcn/ui CLI, e.g. `pnpm ui add button`
+- **Lint/Format/Typecheck:**
+  - Use ESLint and Prettier for all code. Run `pnpm lint` and `pnpm format` before submitting changes.
+  - ESLint config: see `eslint.config.js` (TypeScript, React, TanStack, Prettier integration, import organization, Tailwind plugin, and custom rules).
+  - Prettier config: see `.prettierrc` (tabWidth 2, semi colons, printWidth 90, trailing commas, organize imports, Tailwind plugin, LF line endings).
+  - Always ensure code passes lint and format checks before completion.
+- **Upgrade dependencies:** `pnpm deps`
 
-## Project-Specific Patterns
+## Architecture & Patterns
 
-- **Zoneless Angular:** Zone.js is not used; prefer RxJS, signals, and explicit change detection. Avoid relying on automatic change detection.
-- **Css Variables:** Use utility classes in templates. Global styles and css variable in `src/styles.scss` and utilities in `https://github.com/o-pinion/scss`.
-- **Routing:** Defined in `src/app/app.routes.ts` and `app.routes.server.ts`.
-- **App config:** See `app.config.ts` and `app.config.server.ts` for environment/config patterns.
-- **Component structure:** Each component has its own folder with `.ts`, `.html`, `.scss` files (e.g., `navbar/navbar.component.*`).
-- **Testing:** Specs are in `*.spec.ts` files next to source files.
-- **TypeScript config:** Multiple `tsconfig.*.json` files for app, tests, and server.
+- **Routing:** All routes are in `src/routes/`, using TanStack Router conventions. Route files may use nested folders for grouping (e.g. `_auth/dashboard/`).
+  - Each page must be defined in a `route.tsx` file (not `index.tsx`), using TanStack Router's `createFileRoute` pattern.
+  - Guarded/protected pages (requiring authentication) must be placed under `src/routes/_auth/`, following the pattern in `_auth/dashboard/route.tsx`. Authentication is enforced by the parent `_auth/route.tsx`, so individual child routes do not need to use a `requireAuth` middleware.
+- **Components:** Shared UI in `src/components/ui/`, app-level components in `src/components/`. Theme toggling is handled by `theme-provider.tsx`.
+- **Auth:** Auth logic is in `src/lib/auth/` (client/server separation). Middleware for protected routes/functions is in `src/lib/auth/middleware.ts`.
+- **Database:** Drizzle ORM schema in `src/lib/db/schema/`, entry in `src/lib/db/index.ts`.
+- **Config:** Vite config in `vite.config.ts`, Drizzle config in `drizzle.config.ts`, TypeScript config in `tsconfig.json`.
+- **Environment:** Client/server env separation in `src/env/`.
 
 ## Conventions
 
-- Standalone is the default for all components; you do not need to specify `standalone: true` in component decorators.
-- Use Angular CLI for scaffolding and builds.
-- Keep feature code in its own subfolder under `src/app/`.
-- Prefer Angular's dependency injection and service patterns.
-- Use Tailwind CSS for most styling; SCSS for global/component styles only when needed.
-- SSR is supported; check server files for integration points.
-- Use Angular's built-in control flow (`@for() {}` and `@if() {}`) instead of legacy `*ngFor` and `*ngIf` syntax.
+**Signals:** Any variable prefixed with `$` (e.g., `$loading`) is a signal from @preact/signals-react. Any variable suffixed with `$` (e.g., `user$`) is an observable (commonly from RxJS or similar). Use these conventions for clarity and consistency.
 
-## External Integrations
+- **File naming:** Use kebab-case for files, PascalCase for React components.
+- **TypeScript:** All code is TypeScript-first. Always type function parameters and return values, including for utility functions (e.g., getPrice, event handlers). Prefer types/interfaces for props and API responses.
+- **UI:** Use shadcn/ui for new UI components. Always use default shadcn/ui styles and classes—do not add custom colors or overrides.
+- **Auth:** Use middleware for server-side auth enforcement. See `src/lib/auth/middleware.ts` for examples.
+- **Database migrations:** Use Drizzle ORM and run schema commands via `pnpm db ...`.
 
-- No custom backend or API integration detected in the main structure; check `server.ts` for SSR or API hooks.
-- No non-standard build/test commands; follow Angular CLI defaults unless otherwise documented.
+## Integration Points
 
-## Key Files & Directories
+- **External services:** Auth via Better Auth, DB via Drizzle ORM/PostgreSQL.
+- **Deployment:** Default config targets Vercel via Nitro v3, but can be switched in `vite.config.ts`.
 
-- `src/app/`: Main app code
-- `src/app/navbar/`: Example component structure
-- `src/app/pages/`: Feature pages
-- `src/app/app.routes.ts`: Client routes
-- `src/app/app.routes.server.ts`: Server routes
-- `src/app/app.config.ts`: App config
-- `src/app/app.config.server.ts`: Server config
-- `src/main.ts`, `src/main.server.ts`, `src/server.ts`: Entry points
-- `src/styles.scss`: Global styles and Tailwind imports
-- `tailwind.config.js`: Tailwind configuration
-- `README.md`: Workflow reference
-- `https://github.com/material-extensions/vscode-material-icon-theme/blob/main/src/core/icons/fileIcons.ts` for icon file name references
-- `https://github.com/material-extensions/vscode-material-icon-theme/blob/main/src/core/icons/folderIcons.ts` for folder icon references
-- `https://github.com/material-extensions/vscode-material-icon-theme/tree/main/icons` for icon svg
+## Examples
 
-### TypeScript Path Aliases (from `tsconfig.json`)
-
-- `@prints/*` → `src/app/pages/prints/*`
-- `@utilities/*` → `src/app/pages/utilities/*`
-- `@plugins/*` → `src/app/pages/plugins/*`
-- `@main/*` → `src/app/pages/main/*`
-- `@pages/*` → `src/app/pages/*`
-- `@bases/*` → `src/app/core/bases/*`
-- `@guards/*` → `src/app/core/guards/*`
-- `@resolvers/*` → `src/app/core/resolvers/*`
-- `@models/*` → `src/app/core/models/*`
-- `@services/*` → `src/app/core/services/*`
-- `@animations/*` → `src/app/shared/animations/*`
-- `@layouts/*` → `src/app/shared/layouts/*`
-- `@components/*` → `src/app/shared/components/*`
-- `@directives/*` → `src/app/shared/directives/*`
-- `@pipes/*` → `src/app/shared/pipes/*`
-- `@modals/*` → `src/app/shared/modals/*`
-- `@shared/*` → `src/app/shared/*`
-- `@environments/*` → `src/environments/*`
-- `@app/*` → `src/app/*`
-- `@root/*` → project root
-
-## Example Patterns
-
-- To add a new page: `ng generate component pages/new-page`
-- To add a service: `ng generate service services/data`
-- To use Tailwind: Add utility classes directly in component templates
-- To run tests: `ng test`
+- See `src/routes/_auth/dashboard/route.tsx` for a protected route pattern.
+- See `src/lib/auth/middleware.ts` for server-side auth enforcement.
+- See `src/components/ui/button.tsx` for a shadcn/ui component example.
 
 ---
 
-**If any conventions or workflows are unclear, ask the user for clarification before proceeding.**
+For more details, see [README.md](../README.md) and config files in the project root.

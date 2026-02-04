@@ -1,49 +1,39 @@
 {
-  "angular-schematics.schematicsDefaultOptions": {
-    "angular-*": {
-      "style": "scss",
-      "externalTemplate": true
-    },
-    "angular-component": {
-      "suffix": "component",
-      "fileNameSuffix": ".component"
-    },
-    "angular-directive": {
-      "suffix": "directive",
-      "fileNameSuffix": ".directive"
-    },
-    "angular-service": {
-      "suffix": "service",
-      "fileNameSuffix": ".service"
-    },
-    "angular-pipe": {
-      "fileNameSuffix": ".pipe"
-    },
-    "angular-page": {
-      "fileNameSuffix": ".page"
-    },
-    "angular-interceptor": {
-      "fileNameSuffix": ".interceptor"
-    },
-    "angular-guard": {
-      "fileNameSuffix": ".guard"
-    },
-    "angular-resolver": {
-      "fileNameSuffix": ".resolver"
-    },
-    "angular-async-reactive-service": {
-      "fileNameSuffix": ".service"
-    },
-    "angular-sync-reactive-service": {
-      "fileNameSuffix": ".service"
-    },
-    "angular-material-dialog": {
-      "fileNameSuffix": ".dialog"
-    },
-    "angular-material-table": {
-      "suffix": "component",
-      "fileNameSuffix": ".component"
-    }
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true,
+    "**/.tanstack/**/*": true,
+    "pnpm-lock.yaml": true,
+    "bun.lock": true
   },
-  "i18n-ally.localesPaths": []
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true,
+    "**/.tanstack/**/*": true,
+    "pnpm-lock.yaml": true,
+    "bun.lock": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true,
+    "**/.tanstack/**/*": true,
+    "pnpm-lock.yaml": true,
+    "bun.lock": true
+  },
+
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock"
+  },
+
+  // always choose typescript from node_modules
+  "typescript.tsdk": "./node_modules/typescript/lib",
+
+  // use LF line endings
+  "files.eol": "\n",
+
+  // set prettier as default formatter for json, ts, tsx, js, jsx, html, css
+  "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "material-icon-theme.activeIconPack": "react"
 }

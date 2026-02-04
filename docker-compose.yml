@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data_tc_website:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=tc_website
+
+volumes:
+  postgres_data_tc_website:
