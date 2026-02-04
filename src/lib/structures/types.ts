@@ -1,0 +1,23 @@
+import type { ManifestConfig } from "material-icon-theme"
+
+export type StructureType = "container" | "folder" | "file"
+
+export interface FolderStructure {
+    name: string
+    type: StructureType
+    icon?: string
+    color?: string
+    bgColor?: string
+    children?: FolderStructure[]
+}
+
+export interface FolderSettings {
+    libraryName: string
+    manifestConfig: ManifestConfig
+    structures: FolderStructure[]
+}
+
+export interface RouteSettings {
+    settingsUrl: string
+    iconBaseUrl: string
+}

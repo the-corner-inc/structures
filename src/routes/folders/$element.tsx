@@ -1,0 +1,109 @@
+import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
+import { FoldersSidenav } from "~/components/folders/folders-sidenav"
+import { MarkdownViewer } from "~/components/folders/markdown-viewer"
+import {
+    fetchFolderSettings,
+    fetchMarkdownContent,
+    filterFolderStructures,
+    findElementByName,
+    getManifest
+} from "~/lib/structures/service"
+import type { FolderSettings, FolderStructure } from "~/lib/structures/types"
+
+export const Route = createFileRoute("/folders/$element")({
+    component: FoldersPage
+})
+
+function FoldersPage() {
+    const { element } = useParams({ from: "/folders/$element" })
+    const navigate = useNavigate()
+    const [settings, setSettings] = useState<FolderSettings | null>(null)
+    const [selectedElement, setSelectedElement] = useState<FolderStructure | null>(null)
+    const [markdownContent, setMarkdownContent] = useState<string | null>(null)
+    const [loadingMarkdown, setLoadingMarkdown] = useState(false)
+    const [manifest, setManifest] = useState(getManifest())
+    const [searchQuery, setSearchQuery] = useState("")
+
+    // Default settings URL - can be made configurable later
+    const settingsUrl = "/assets/go/"
+
+    // Load folder settings on mount
+    useEffect(() => {
+        async function loadSettings() {
+            const data = await fetchFolderSettings(settingsUrl)
+            if (data) {
+                setSettings(data)
+                if (data.manifestConfig) {
+                    setManifest(getManifest(data.manifestConfig))
+                }
+            }
+        }
+        loadSettings()
+    }, [settingsUrl])
+
+    // Set selected element based on URL parameter
+    useEffect(() => {
+        if (settings && element) {
+            const foundElement = findElementByName(settings.structures, element)
+            setSelectedElement(foundElement)
+        } else if (settings && settings.structures.length > 0 && !element) {
+            // Navigate to first element if no element is selected
+            navigate({
+                to: "/folders/$element",
+                params: { element: settings.structures[0].name }
+            })
+        }
+    }, [settings, element, navigate])
+
+    // Load markdown content when element is selected
+    useEffect(() => {
+        async function loadMarkdown() {
+            if (!selectedElement) {
+                setMarkdownContent(null)
+                return
+            }
+
+            setLoadingMarkdown(true)
+            const content = await fetchMarkdownContent(selectedElement.name, settingsUrl)
+            setMarkdownContent(content)
+            setLoadingMarkdown(false)
+        }
+        loadMarkdown()
+    }, [selectedElement, settingsUrl])
+
+    const handleElementClick = (element: FolderStructure) => {
+        navigate({
+            to: "/folders/$element",
+            params: { element: element.name }
+        })
+    }
+
+    // Filter structures based on search query
+    const filteredStructures = settings
+        ? filterFolderStructures(settings.structures, searchQuery)
+        : []
+
+    return (
+        <div className="flex h-[calc(100vh-4rem)]">
+            {/* Sidenav */}
+            <aside className="w-80 overflow-y-auto border-r">
+                <FoldersSidenav
+                    structures={filteredStructures}
+                    manifest={manifest}
+                    selectedElement={selectedElement}
+                    onElementClick={handleElementClick}
+                    searchQuery={searchQuery}
+                    onSearchChange={setSearchQuery}
+                />
+            </aside>
+
+            {/* Main content */}
+            <main className="flex-1 overflow-y-auto">
+                <div className="container mx-auto p-6">
+                    <MarkdownViewer content={markdownContent} loading={loadingMarkdown} />
+                </div>
+            </main>
+        </div>
+    )
+}
