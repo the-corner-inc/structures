@@ -26,18 +26,7 @@ const getAuthConfig = createServerOnlyFn(() =>
       },
 
       // https://www.better-auth.com/docs/concepts/typescript#additional-fields
-      additionalFields: {
-        bank: { type: "string", nullable: true },
-        birthDate: { type: "date", nullable: true },
-        city: { type: "string", nullable: true },
-        honorificPrefix: { type: "string", nullable: true },
-        iBan: { type: "string", nullable: true },
-        logo: { type: "string", nullable: true },
-        salary: { type: "number", nullable: true },
-        startDate: { type: "date", nullable: true },
-        street: { type: "string", nullable: true },
-        title: { type: "string", nullable: true },
-      },
+      additionalFields: {},
     },
 
     // https://www.better-auth.com/docs/integrations/tanstack#usage-tips
