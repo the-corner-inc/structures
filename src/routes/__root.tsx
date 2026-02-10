@@ -10,6 +10,7 @@ import {
   Scripts,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+import { Navbar } from "~/components/navbar"
 import { ThemeProvider } from "~/components/theme-provider"
 import { Toaster } from "~/components/ui/sonner"
 import { authQueryOptions, type AuthQueryResult } from "~/lib/auth/queries"
@@ -71,24 +72,14 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="relative min-h-screen w-full bg-black">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `
-          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-        `,
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        <main className="relative z-1 flex min-h-svh flex-col items-center justify-center pt-36 pb-36 print:inset-0 print:m-0 print:min-h-screen print:min-w-full print:p-0">
-          <ThemeProvider>
+      <body className="relative min-h-screen w-full">
+        <ThemeProvider>
+          <Navbar />
+          <main className="relative z-1">
             {children}
             <Toaster richColors />
-          </ThemeProvider>
-        </main>
+          </main>
+        </ThemeProvider>
 
         <TanStackDevtools
           plugins={[

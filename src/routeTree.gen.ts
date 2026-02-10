@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as IssuesIndexRouteImport } from './routes/issues/index'
 import { Route as FoldersIndexRouteImport } from './routes/folders/index'
+import { Route as IssuesElementRouteImport } from './routes/issues/$element'
 import { Route as FoldersElementRouteImport } from './routes/folders/$element'
 import { Route as AuthMeRouteRouteImport } from './routes/_auth/me/route'
 import { Route as AuthDashboardRouteRouteImport } from './routes/_auth/dashboard/route'
@@ -33,9 +35,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IssuesIndexRoute = IssuesIndexRouteImport.update({
+  id: '/issues/',
+  path: '/issues/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FoldersIndexRoute = FoldersIndexRouteImport.update({
   id: '/folders/',
   path: '/folders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IssuesElementRoute = IssuesElementRouteImport.update({
+  id: '/issues/$element',
+  path: '/issues/$element',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoldersElementRoute = FoldersElementRouteImport.update({
@@ -103,7 +115,9 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthDashboardRouteRoute
   '/me': typeof AuthMeRouteRoute
   '/folders/$element': typeof FoldersElementRoute
+  '/issues/$element': typeof IssuesElementRoute
   '/folders/': typeof FoldersIndexRoute
+  '/issues/': typeof IssuesIndexRoute
   '/invoices': typeof AuthAdminInvoicesRouteRoute
   '/rates/designers': typeof AuthRatesDesignersRouteRoute
   '/rates/developers': typeof AuthRatesDevelopersRouteRoute
@@ -118,7 +132,9 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthDashboardRouteRoute
   '/me': typeof AuthMeRouteRoute
   '/folders/$element': typeof FoldersElementRoute
+  '/issues/$element': typeof IssuesElementRoute
   '/folders': typeof FoldersIndexRoute
+  '/issues': typeof IssuesIndexRoute
   '/invoices': typeof AuthAdminInvoicesRouteRoute
   '/rates/designers': typeof AuthRatesDesignersRouteRoute
   '/rates/developers': typeof AuthRatesDevelopersRouteRoute
@@ -135,7 +151,9 @@ export interface FileRoutesById {
   '/_auth/dashboard': typeof AuthDashboardRouteRoute
   '/_auth/me': typeof AuthMeRouteRoute
   '/folders/$element': typeof FoldersElementRoute
+  '/issues/$element': typeof IssuesElementRoute
   '/folders/': typeof FoldersIndexRoute
+  '/issues/': typeof IssuesIndexRoute
   '/_auth/_admin/invoices': typeof AuthAdminInvoicesRouteRoute
   '/_auth/rates/designers': typeof AuthRatesDesignersRouteRoute
   '/_auth/rates/developers': typeof AuthRatesDevelopersRouteRoute
@@ -152,7 +170,9 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/me'
     | '/folders/$element'
+    | '/issues/$element'
     | '/folders/'
+    | '/issues/'
     | '/invoices'
     | '/rates/designers'
     | '/rates/developers'
@@ -167,7 +187,9 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/me'
     | '/folders/$element'
+    | '/issues/$element'
     | '/folders'
+    | '/issues'
     | '/invoices'
     | '/rates/designers'
     | '/rates/developers'
@@ -183,7 +205,9 @@ export interface FileRouteTypes {
     | '/_auth/dashboard'
     | '/_auth/me'
     | '/folders/$element'
+    | '/issues/$element'
     | '/folders/'
+    | '/issues/'
     | '/_auth/_admin/invoices'
     | '/_auth/rates/designers'
     | '/_auth/rates/developers'
@@ -196,7 +220,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   FoldersElementRoute: typeof FoldersElementRoute
+  IssuesElementRoute: typeof IssuesElementRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
+  IssuesIndexRoute: typeof IssuesIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -216,11 +242,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/issues/': {
+      id: '/issues/'
+      path: '/issues'
+      fullPath: '/issues/'
+      preLoaderRoute: typeof IssuesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/folders/': {
       id: '/folders/'
       path: '/folders'
       fullPath: '/folders/'
       preLoaderRoute: typeof FoldersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/issues/$element': {
+      id: '/issues/$element'
+      path: '/issues/$element'
+      fullPath: '/issues/$element'
+      preLoaderRoute: typeof IssuesElementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/folders/$element': {
@@ -345,7 +385,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   FoldersElementRoute: FoldersElementRoute,
+  IssuesElementRoute: IssuesElementRoute,
   FoldersIndexRoute: FoldersIndexRoute,
+  IssuesIndexRoute: IssuesIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
