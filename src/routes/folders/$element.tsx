@@ -8,7 +8,7 @@ import {
   getManifest
 } from "@/lib/structures/service"
 import type { FolderSettings, FolderStructure } from "@/lib/structures/structures"
-import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
 
 export const Route = createFileRoute("/folders/$element")({
@@ -16,19 +16,28 @@ export const Route = createFileRoute("/folders/$element")({
 })
 
 function FoldersPage() {
-    const { element } = useParams({ from: "/folders/$element" })
-    const navigate = useNavigate()
+    const { element } = Route.useParams()
+    const navigate = Route.useNavigate()
     const [settings, setSettings] = useState<FolderSettings | null>(null)
     const [selectedElement, setSelectedElement] = useState<FolderStructure | null>(null)
     const [markdownContent, setMarkdownContent] = useState<string | null>(null)
     const [loadingMarkdown, setLoadingMarkdown] = useState(false)
     const [manifest, setManifest] = useState(() => getManifest())
     const [searchQuery, setSearchQuery] = useState("")
+    const [currentStructure, setCurrentStructure] = useState<string | null>(null)
 
-    // Default settings URL - can be made configurable later
-    const settingsUrl = "/assets/go/"
+    // Determine if this is a structure type (go, angular, user) or a file/folder within a structure
+    const availableStructures = ['go', 'angular', 'user']
+    const isStructureRoot = availableStructures.includes(element.toLowerCase())
 
-    // Load folder settings on mount
+    // Determine settings URL based on element or current structure
+    const settingsUrl = isStructureRoot 
+        ? `/assets/${element.toLowerCase()}/`
+        : currentStructure 
+            ? `/assets/${currentStructure}/`
+            : "/assets/go/"
+
+    // Load folder settings on mount or when element changes
     useEffect(() => {
         async function loadSettings() {
             const data = await fetchFolderSettings(settingsUrl)
@@ -37,24 +46,28 @@ function FoldersPage() {
                 if (data.manifestConfig) {
                     setManifest(getManifest(data.manifestConfig))
                 }
+                // If this is a structure root, set it as current structure
+                if (isStructureRoot) {
+                    setCurrentStructure(element.toLowerCase())
+                }
             }
         }
         loadSettings()
-    }, [settingsUrl])
+    }, [settingsUrl, element, isStructureRoot])
 
     // Set selected element based on URL parameter
     useEffect(() => {
-        if (settings && element) {
+        if (settings && element && !isStructureRoot) {
             const foundElement = findElementByName(settings.structures, element)
             setSelectedElement(foundElement)
-        } else if (settings && settings.structures.length > 0 && !element) {
-            // Navigate to first element if no element is selected
+        } else if (settings && settings.structures.length > 0 && isStructureRoot) {
+            // Navigate to first element if viewing structure root
             navigate({
                 to: "/folders/$element",
                 params: { element: settings.structures[0].name }
             })
         }
-    }, [settings, element, navigate])
+    }, [settings, element, navigate, isStructureRoot])
 
     // Load markdown content when element is selected
     useEffect(() => {

@@ -1,31 +1,90 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { Tag, AlertCircle } from "lucide-react"
 
 export const Route = createFileRoute("/issues/")({
   component: IssuesIndex,
 })
 
 function IssuesIndex() {
-  // Show work in progress page for the base issues route
+  const issueCategories = [
+    {
+      name: "Labels",
+      path: "labels",
+      description: "Issue labels and categorization",
+      icon: "🏷️",
+      count: "Multiple"
+    },
+    {
+      name: "Priority",
+      path: "priority",
+      description: "Priority levels (P0-P4)",
+      icon: "⚡",
+      count: "5 levels"
+    },
+    {
+      name: "Status",
+      path: "status",
+      description: "Issue status workflow",
+      icon: "📊",
+      count: "Multiple"
+    },
+    {
+      name: "Type",
+      path: "type",
+      description: "Issue types and classifications",
+      icon: "📝",
+      count: "Multiple"
+    }
+  ]
+
   return (
-    <div className="flex h-[calc(100vh-4rem)] flex-col items-center justify-center py-20">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="mb-4 h-16 w-16 text-yellow-400"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 8v4m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
-        />
-      </svg>
-      <h2 className="mb-2 text-2xl font-bold">Work in Progress</h2>
-      <p className="text-gray-600 dark:text-gray-400">
-        This page is under construction. Let us know your thoughts!
-      </p>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
+        <h1 className="mb-2 text-4xl font-bold">Issue Management</h1>
+        <p className="text-muted-foreground">
+          Explore issue labels, priorities, and categorization standards
+        </p>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {issueCategories.map((category) => (
+          <Link
+            key={category.path}
+            to="/issues/$element"
+            params={{ element: category.path }}
+            className="group block rounded-lg border bg-card p-6 transition-all hover:border-primary hover:shadow-lg"
+          >
+            <div className="mb-4 flex items-center gap-3">
+              <div className="text-4xl">{category.icon}</div>
+              <div>
+                <h2 className="text-xl font-semibold group-hover:text-primary">
+                  {category.name}
+                </h2>
+                <p className="text-xs text-muted-foreground">{category.count}</p>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {category.description}
+            </p>
+            <div className="mt-4 flex items-center gap-2 text-sm text-primary">
+              <Tag className="h-4 w-4" />
+              <span>View labels</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-12 rounded-lg border bg-muted/50 p-6">
+        <h3 className="mb-2 flex items-center gap-2 text-lg font-semibold">
+          <AlertCircle className="h-5 w-5" />
+          About Issue Labels
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          This section contains standardized issue labels, priorities, and status definitions
+          for effective project management. Each label includes documentation explaining its
+          purpose and when to use it.
+        </p>
+      </div>
     </div>
   )
 }
