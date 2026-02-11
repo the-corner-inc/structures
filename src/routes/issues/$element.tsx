@@ -1,14 +1,14 @@
+import { MarkdownViewer } from "@/components/folders/markdown-viewer"
+import { IssuesSidenav } from "@/components/issues/issues-sidenav"
+import {
+  fetchFolderSettings,
+  fetchMarkdownContent,
+  filterFolderStructures,
+  findElementByName
+} from "@/lib/structures/service"
+import type { FolderSettings, FolderStructure } from "@/lib/structures/structures"
 import { createFileRoute } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
-import { IssuesSidenav } from "~/components/issues/issues-sidenav"
-import { MarkdownViewer } from "~/components/folders/markdown-viewer"
-import {
-    fetchFolderSettings,
-    fetchMarkdownContent,
-    filterFolderStructures,
-    findElementByName
-} from "~/lib/structures/service"
-import type { FolderSettings, FolderStructure } from "~/lib/structures/types"
 
 export const Route = createFileRoute("/issues/$element")({
     component: IssuesPage

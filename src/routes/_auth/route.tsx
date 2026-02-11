@@ -1,13 +1,11 @@
-import { useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
-import { SignOutButton } from "~/components/sign-out-button"
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-import { Button } from "~/components/ui/button"
+import { SignOutButton } from "@/components/sign-out-button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,8 +13,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "~/components/ui/navigation-menu"
-import { authQueryOptions } from "~/lib/auth/queries"
+} from "@/components/ui/navigation-menu"
+import { authQueryOptions } from "@/lib/auth/queries"
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_auth")({
   component: AuthLayout,

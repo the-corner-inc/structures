@@ -1,5 +1,5 @@
 import { generateManifest } from "material-icon-theme"
-import type { FolderSettings, FolderStructure } from "./types"
+import type { FolderSettings, FolderStructure } from "./structures"
 
 /**
  * Fetches folder settings from a given URL

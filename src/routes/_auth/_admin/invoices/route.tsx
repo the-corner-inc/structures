@@ -1,10 +1,10 @@
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { authQueryOptions, usersQueryOptions } from "@/lib/auth/queries"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import * as React from "react"
-import { Button } from "~/components/ui/button"
-import { Input } from "~/components/ui/input"
-import { Label } from "~/components/ui/label"
-import { authQueryOptions, usersQueryOptions } from "~/lib/auth/queries"
 
 export const Route = createFileRoute("/_auth/_admin/invoices")({
   component: InvoicesPage,

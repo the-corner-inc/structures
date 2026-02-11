@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
+import { Navbar } from "@/components/navbar"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
+import { authQueryOptions, type AuthQueryResult } from "@/lib/auth/queries"
+import appCss from "@/styles.css?url"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { type QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools"
@@ -10,11 +15,6 @@ import {
   Scripts,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import { Navbar } from "~/components/navbar"
-import { ThemeProvider } from "~/components/theme-provider"
-import { Toaster } from "~/components/ui/sonner"
-import { authQueryOptions, type AuthQueryResult } from "~/lib/auth/queries"
-import appCss from "~/styles.css?url"
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient

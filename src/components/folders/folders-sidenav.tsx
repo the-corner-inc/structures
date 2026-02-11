@@ -1,8 +1,8 @@
+import { getIconName } from "@/lib/structures/icon-utils"
+import type { FolderStructure } from "@/lib/structures/structures"
+import { cn } from "@/lib/utils"
 import { ChevronRight } from "lucide-react"
 import { useState } from "react"
-import { cn } from "~/lib/utils"
-import { getIconName } from "~/lib/structures/icon-utils"
-import type { FolderStructure } from "~/lib/structures/types"
 
 interface FoldersSidenavProps {
     structures: FolderStructure[]

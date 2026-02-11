@@ -1,4 +1,4 @@
-import type { StructureType } from "./types"
+import type { StructureType } from "./structures"
 
 /**
  * Get icon name from material-icon-theme manifest

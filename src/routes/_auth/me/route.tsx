@@ -1,14 +1,6 @@
-import { Signal } from "@preact/signals-react"
-import { useForm } from "@tanstack/react-form"
-import { useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute } from "@tanstack/react-router"
-import { format } from "date-fns"
-import { ChevronDownIcon } from "lucide-react"
-import { toast } from "sonner"
-import z from "zod"
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-import { Button } from "~/components/ui/button"
-import { Calendar } from "~/components/ui/calendar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
   Field,
   FieldDescription,
@@ -17,11 +9,19 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "~/components/ui/field"
-import { Input } from "~/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover"
-import authClient from "~/lib/auth/auth-client"
-import { authQueryOptions } from "~/lib/auth/queries"
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import authClient from "@/lib/auth/auth-client"
+import { authQueryOptions } from "@/lib/auth/queries"
+import { Signal } from "@preact/signals-react"
+import { useForm } from "@tanstack/react-form"
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { createFileRoute } from "@tanstack/react-router"
+import { format } from "date-fns"
+import { ChevronDownIcon } from "lucide-react"
+import { toast } from "sonner"
+import z from "zod"
 
 export const Route = createFileRoute("/_auth/me")({
   component: RouteComponent,

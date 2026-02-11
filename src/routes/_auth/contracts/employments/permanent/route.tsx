@@ -1,7 +1,7 @@
+import { authQueryOptions } from "@/lib/auth/queries"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { format } from "date-fns"
-import { authQueryOptions } from "~/lib/auth/queries"
 
 export const Route = createFileRoute("/_auth/contracts/employments/permanent")({
   component: RouteComponent,

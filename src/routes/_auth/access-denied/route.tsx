@@ -1,8 +1,8 @@
+import { Avatar } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { createFileRoute } from "@tanstack/react-router"
 import { LockIcon } from "lucide-react"
-import { Avatar } from "~/components/ui/avatar"
-import { Button } from "~/components/ui/button"
-import { Card } from "~/components/ui/card"
 
 export const Route = createFileRoute("/_auth/access-denied")({
   component: RouteComponent,

@@ -1,7 +1,7 @@
+import type { FolderStructure } from "@/lib/structures/structures"
+import { cn } from "@/lib/utils"
 import { ChevronRight } from "lucide-react"
 import { useState } from "react"
-import { cn } from "~/lib/utils"
-import type { FolderStructure } from "~/lib/structures/types"
 
 interface IssuesSidenavProps {
     structures: FolderStructure[]
@@ -110,7 +110,7 @@ function LabelItem({ item, selectedElement, onElementClick, level }: LabelItemPr
                     />
                 )}
                 {item.type !== "folder" && <span className="w-4" />}
-                
+
                 {/* Color indicator for labels */}
                 {item.color && (
                     <div
@@ -121,7 +121,7 @@ function LabelItem({ item, selectedElement, onElementClick, level }: LabelItemPr
                         }}
                     />
                 )}
-                
+
                 <span className="truncate">{item.name}</span>
             </button>
 

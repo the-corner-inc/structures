@@ -1,15 +1,15 @@
+import { FoldersSidenav } from "@/components/folders/folders-sidenav"
+import { MarkdownViewer } from "@/components/folders/markdown-viewer"
+import {
+  fetchFolderSettings,
+  fetchMarkdownContent,
+  filterFolderStructures,
+  findElementByName,
+  getManifest
+} from "@/lib/structures/service"
+import type { FolderSettings, FolderStructure } from "@/lib/structures/structures"
 import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
-import { FoldersSidenav } from "~/components/folders/folders-sidenav"
-import { MarkdownViewer } from "~/components/folders/markdown-viewer"
-import {
-    fetchFolderSettings,
-    fetchMarkdownContent,
-    filterFolderStructures,
-    findElementByName,
-    getManifest
-} from "~/lib/structures/service"
-import type { FolderSettings, FolderStructure } from "~/lib/structures/types"
 
 export const Route = createFileRoute("/folders/$element")({
     component: FoldersPage
@@ -22,7 +22,7 @@ function FoldersPage() {
     const [selectedElement, setSelectedElement] = useState<FolderStructure | null>(null)
     const [markdownContent, setMarkdownContent] = useState<string | null>(null)
     const [loadingMarkdown, setLoadingMarkdown] = useState(false)
-    const [manifest, setManifest] = useState(getManifest())
+    const [manifest, setManifest] = useState(() => getManifest())
     const [searchQuery, setSearchQuery] = useState("")
 
     // Default settings URL - can be made configurable later
