@@ -1,19 +1,60 @@
 import { Link } from "@tanstack/react-router"
 import { useTheme } from "next-themes"
 import { Moon, Printer, Sun, X } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export function Navbar() {
     const { theme, setTheme } = useTheme()
     const [isPrintMode, setIsPrintMode] = useState(false)
+    const [mounted, setMounted] = useState(false)
+
+    // useEffect only runs on the client, so now we can safely show the UI
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     const toggleTheme = () => {
         setTheme(theme === "dark" ? "light" : "dark")
     }
 
     const togglePrintMode = () => {
+        if (!isPrintMode) {
+            // Trigger print
+            window.print()
+        }
         setIsPrintMode(!isPrintMode)
-        // You could add print mode logic here
+    }
+
+    // Avoid hydration mismatch by not rendering theme-dependent UI on server
+    if (!mounted) {
+        return (
+            <nav className="w-full border-b border-[#d8dee4] px-4 py-2 shadow-sm dark:border-[#21262d]">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex w-full flex-col items-center gap-2 sm:flex-row sm:gap-8">
+                        <Link to="/" className="flex items-center">
+                            <img
+                                src="/the_corner-logo.webp"
+                                alt="The Corner Logo"
+                                className="h-10 w-auto min-w-[40px] dark:invert"
+                            />
+                        </Link>
+                        <div className="mt-2 flex items-center gap-2 sm:mt-0 sm:gap-4">
+                            <Link to="/folders" className="px-2 py-1 transition-colors">
+                                Folders
+                            </Link>
+                            <Link to="/issues" className="px-2 py-1 transition-colors">
+                                Issues
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="flex w-full items-center gap-4 sm:w-auto">
+                        <div className="h-10 w-10" />
+                        <div className="h-10 w-10" />
+                        <div className="h-10 w-10" />
+                    </div>
+                </div>
+            </nav>
+        )
     }
 
     return (
