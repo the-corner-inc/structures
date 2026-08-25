@@ -1,15 +1,15 @@
-<a class="code-link icon-button-simple" target="_blank" [href]="$codeUrl()"> Markdown Code </a>
+<a class="code-link icon-button-simple" target="_blank" [href]="codeUrl()"> Markdown Code </a>
 
 <markdown
   clipboard
   mermaid
   class="variable-binding"
   [data]="
-    $markDownContent() ||
-    ($loading()
-      ? '# Loading' + (dots$ | async)
+    markdownContent() ||
+    (loading()
+      ? '# Loading' + dots()
       : `# Workin' on it
       Feel free to make a PR, it would be really appreciated ;)
       https://github.com/the-corner-inc/structures/tree/main/public/assets`)
   "
-></markdown>
+/>

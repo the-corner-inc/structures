@@ -1,4 +1,4 @@
-import { afterNextRender, Component, inject, signal } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IS_PRINT_MODE } from '@models/tokens';
 import { ColorSchemeService } from 'ngx-color-scheme';
@@ -18,18 +18,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class App {
   readonly #colorSchemeService = inject(ColorSchemeService);
-  isPrintMode = inject(IS_PRINT_MODE);
-
-  isPrintMode$ = signal<boolean>(false);
+  protected readonly isPrintMode = inject(IS_PRINT_MODE).asReadonly();
 
   constructor() {
-    const singleRender = afterNextRender(() => {
+    afterNextRender(() => {
       this.#colorSchemeService.init();
-      singleRender.destroy();
-    });
-
-    this.isPrintMode.subscribe((bool) => {
-      this.isPrintMode$.set(bool);
     });
   }
 }

@@ -2,8 +2,8 @@
   <header class="nav-header">
     <div class="actions-container">
       <div class="relative w-full">
-        <input type="text" placeholder="Search" class="input-text" [(ngModel)]="$searchQuery" />
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] dark:text-[#6e7681]">
+        <input type="text" placeholder="Search" class="input-text" [(ngModel)]="searchQuery" />
+        <span class="input-icon absolute left-3 top-1/2 -translate-y-1/2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -21,15 +21,9 @@
         </span>
       </div>
 
-      <button
-        type="button"
-        class="icon-button"
-        aria-label="Settings"
-        (click)="$showSettings.set(!$showSettings())"
-      >
-        @if (!$showSettings()) {
+      <button type="button" class="icon-button" aria-label="Settings" (click)="toggleSettings()">
+        @if (!showSettings()) {
           <svg
-            class="w-6 h-6 text-gray-800 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -54,7 +48,6 @@
           </svg>
         } @else {
           <svg
-            class="w-6 h-6 text-gray-800 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -74,7 +67,7 @@
       </button>
     </div>
 
-    @if ($showSettings()) {
+    @if (showSettings()) {
       <div class="settings-container">
         <div class="settings-header">
           <div class="settingsHeader-text">
@@ -114,11 +107,11 @@
             type="text"
             placeholder="folder structure URL"
             class="input-text"
-            [(ngModel)]="$folderStructureUrl"
+            [(ngModel)]="folderStructureUrl"
+            (change)="setSettingsUrl(folderStructureUrl())"
           />
-          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] dark:text-[#6e7681]">
+          <span class="input-icon absolute left-3 top-1/2 -translate-y-1/2">
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -133,13 +126,13 @@
           </span>
         </div>
 
-        <ng-content select="[layout-header]"></ng-content>
+        <ng-content select="[layout-header]" />
       </div>
     }
   </header>
 
   <div class="nav-body">
-    <ng-content></ng-content>
+    <ng-content />
 
     <div class="explorer-placeholder">
       <span class="text-center"> Please select a language </span>

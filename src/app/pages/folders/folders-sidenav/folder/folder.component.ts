@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SidenavEntryClass } from '@bases/sidenav-entry.class';
 import { IconNamePipe } from '@pages/folders/folders-sidenav/folder/icon-name.pipe';
 
@@ -6,7 +6,6 @@ import { IconNamePipe } from '@pages/folders/folders-sidenav/folder/icon-name.pi
   selector: 'struct-folder',
   templateUrl: './folder.component.html',
   styleUrl: './folder.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     // Pipes
     IconNamePipe,

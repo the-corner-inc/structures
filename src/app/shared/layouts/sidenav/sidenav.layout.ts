@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, effect, inject, model, signal } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ROUTE_SETTINGS } from '@models/tokens';
-import { FolderStructure } from '@pages/folders/folders';
+import { Component, inject, linkedSignal, model, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { StructuresService } from '@services/structures.service';
 
 @Component({
@@ -9,40 +7,36 @@ import { StructuresService } from '@services/structures.service';
   imports: [
     // Forms
     FormsModule,
-    ReactiveFormsModule,
   ],
   templateUrl: './sidenav.layout.html',
   styleUrl: './sidenav.layout.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavLayout {
-  readonly #routeSettings = inject(ROUTE_SETTINGS);
-  readonly #StructuresService = inject(StructuresService);
+  readonly #structures = inject(StructuresService);
 
-  $searchQuery = model('');
+  readonly searchQuery = model('');
+  protected readonly showSettings = signal(false);
+  protected readonly structureFolders = this.#structures.structureFolders;
+  protected readonly folderStructureUrl = linkedSignal(
+    () => this.#structures.routeSettings().settingsUrl,
+  );
 
-  $showSettings = signal<boolean>(false);
-  $structureFolders = signal<FolderStructure[]>([]);
+  protected setSettingsUrl(url: string): void {
+    const settingsUrl = url.trim();
+    if (!settingsUrl) return;
 
-  $folderStructureUrl = model<string>(this.#routeSettings.getValue().settingsUrl);
-
-  constructor() {
-    effect(() => {
-      if (this.$folderStructureUrl()) {
-        this.#routeSettings.next({
-          ...this.#routeSettings.getValue(),
-          settingsUrl: this.$folderStructureUrl(),
-        });
-
-        this.#StructuresService.getFolderSettings();
-      }
-    });
+    this.#structures.routeSettings.update((settings) => ({ ...settings, settingsUrl }));
+    this.#structures.selectedElement.set(null);
   }
 
-  downloadSettings() {
+  protected toggleSettings(): void {
+    this.showSettings.update((visible) => !visible);
+  }
+
+  protected downloadSettings(): void {
     const dataStr =
       'data:text/json;charset=utf-8,' +
-      encodeURIComponent(JSON.stringify(this.$structureFolders(), null, 2));
+      encodeURIComponent(JSON.stringify(this.structureFolders(), null, 2));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', 'folder-settings.json');

@@ -1,18 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject } from '@angular/core';
 import { SidenavContainerClass } from '@bases/sidenav-container.class';
 import { SidenavLayout } from '@layouts/sidenav/sidenav.layout';
-import { ROUTE_SETTINGS } from '@models/tokens';
+import { StructuresService } from '@services/structures.service';
 import { FilterFoldersPipe } from './filter-folders.pipe';
 import { FolderComponent } from './folder/folder.component';
 
 @Component({
   selector: 'struct-folders-sidenav',
   imports: [
-    // Forms
-    FormsModule,
-    ReactiveFormsModule,
-
     // Components
     FolderComponent,
 
@@ -24,9 +19,8 @@ import { FolderComponent } from './folder/folder.component';
   ],
   templateUrl: './folders-sidenav.component.html',
   styleUrl: './folders-sidenav.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FoldersSidenavComponent extends SidenavContainerClass {
-  readonly #routeSettings = inject(ROUTE_SETTINGS);
-  $iconThemeUrl = model<string>(this.#routeSettings.getValue().iconBaseUrl);
+  readonly #structures = inject(StructuresService);
+  protected readonly iconThemeUrl = computed(() => this.#structures.routeSettings().iconBaseUrl);
 }

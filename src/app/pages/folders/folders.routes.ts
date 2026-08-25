@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { ROUTE_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
 import { StructuresService } from '@services/structures.service';
 
 export const routes: Routes = [
@@ -9,10 +8,10 @@ export const routes: Routes = [
     loadComponent: () => import('@pages/folders/folders.page').then((m) => m.FoldersPage),
     canActivate: [
       () => {
-        const routeSettings = inject(ROUTE_SETTINGS);
+        const structures = inject(StructuresService);
 
-        routeSettings.next({
-          ...routeSettings.getValue(),
+        structures.routeSettings.update((settings) => ({
+          ...settings,
           settingsUrl: '/assets/user/',
           frameworks: [
             {
@@ -32,7 +31,7 @@ export const routes: Routes = [
               ],
             },
           ],
-        });
+        }));
         return true;
       },
     ],
@@ -43,9 +42,7 @@ export const routes: Routes = [
           import('@shared/pages/libraries/libraries.component').then((m) => m.LibrariesComponent),
         canActivate: [
           () => {
-            const structuresService = inject(StructuresService);
-
-            structuresService.clear();
+            inject(StructuresService).clear();
             return true;
           },
         ],
@@ -54,22 +51,13 @@ export const routes: Routes = [
         path: ':type',
         canActivate: [
           (route) => {
-            const structuresService = inject(StructuresService);
-            const selectedLibrary = inject(SELECTED_LIBRARY);
-            const folderSettings = inject(ROUTE_SETTINGS);
+            const structures = inject(StructuresService);
 
-            folderSettings.next({
-              ...folderSettings.getValue(),
+            structures.routeSettings.update((settings) => ({
+              ...settings,
               settingsUrl: `/assets/${route.params['type']}/`,
-              content: {
-                name: 'root',
-                type: 'folder',
-                children: [],
-              },
-            });
-            selectedLibrary.next(route.params['type']);
-
-            structuresService.getFolderSettings();
+            }));
+            structures.selectedElement.set(null);
             return true;
           },
         ],
@@ -89,9 +77,7 @@ export const routes: Routes = [
               ),
             canActivate: [
               (route) => {
-                const selectedElement = inject(SELECTED_ELEMENT);
-
-                selectedElement.next(route.params['element']);
+                inject(StructuresService).selectedElement.set(route.params['element']);
                 return true;
               },
             ],

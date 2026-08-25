@@ -5,7 +5,7 @@
   <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
     <a routerLink="/" class="flex items-center">
       <img
-        src="/the_corner-logo.webp"
+        src="https://assets.the-corner.io/logos/the_corner-logo.webp"
         alt="The Corner Logo"
         class="h-10 w-auto min-w-[40px] dark:invert-100"
       />
@@ -27,13 +27,8 @@
   </div>
 
   <div class="flex items-center gap-4 w-full sm:w-auto">
-    <button
-      type="button"
-      class="icon-button"
-      aria-label="Print page"
-      (click)="isPrintMode.next(!isPrintMode$())"
-    >
-      @if (!isPrintMode$()) {
+    <button type="button" class="icon-button" aria-label="Print page" (click)="togglePrintMode()">
+      @if (!isPrintMode()) {
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +45,6 @@
         </svg>
       } @else {
         <svg
-          class="w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

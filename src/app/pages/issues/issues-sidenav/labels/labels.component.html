@@ -5,29 +5,29 @@
     (mousemove)="onMouseMove()"
     (mouseleave)="onMouseLeave()"
   >
-    @if (item.type === 'folder') {
-      <svg [class.expanded]="expanded" class="item-icon" viewBox="0 0 24 24">
+    @if (item().type === 'folder') {
+      <svg [class.expanded]="expanded()" class="item-icon" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     }
-    @if (item.color) {
+    @if (item().color) {
       <div
         class="colorDecorator-icon"
-        [style.--bgColor-light]="item.bgColor"
-        [style.--borderColor-light]="item.bgColor"
-        [style.--color-dark]="item.color"
+        [style.--bgColor-light]="item().bgColor"
+        [style.--borderColor-light]="item().bgColor"
+        [style.--color-dark]="item().color"
       ></div>
     }
-    <span class="item-name">{{ item.name }}</span>
+    <span class="item-name">{{ item().name }}</span>
   </button>
 
-  @if (item.children && expanded) {
+  @if (item().children && expanded()) {
     <div class="item-children">
-      @for (child of item.children; track child.name) {
+      @for (child of item().children; track child.name) {
         @if (child.type === 'file') {
-          <struct-label [item]="child"></struct-label>
+          <struct-label [item]="child" />
         } @else {
-          <struct-labels [item]="child"></struct-labels>
+          <struct-labels [item]="child" />
         }
       }
     </div>

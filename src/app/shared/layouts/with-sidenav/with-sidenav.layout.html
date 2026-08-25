@@ -1,11 +1,11 @@
-<div class="layout-container flex w-full h-full max-h-full" [class.minimized]="$minimized()">
+<div class="layout-container flex w-full h-full max-h-full" [class.minimized]="minimized()">
   <aside class="with-sidenav__aside">
-    <ng-content select="[layout-aside]"></ng-content>
+    <ng-content select="[layout-aside]" />
   </aside>
 
   <button
     class="minimize-button icon-button-simple"
-    (click)="$minimized.set(!$minimized())"
+    (click)="toggleMinimized()"
     aria-label="Minimize Explorer"
   >
     <svg
@@ -28,7 +28,7 @@
 
   <main class="with-sidenav__main">
     <div class="with-sidenav__mainContainer markdown-body">
-      <ng-content></ng-content>
+      <ng-content />
     </div>
   </main>
 </div>

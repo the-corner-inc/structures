@@ -1,27 +1,11 @@
-import { Directive, inject, model, OnInit, signal } from '@angular/core';
-import { SELECTED_LIBRARY } from '@models/tokens';
-import { FolderStructure } from '@pages/folders/folders';
+import { computed, Directive, inject, linkedSignal, signal } from '@angular/core';
 import { StructuresService } from '@services/structures.service';
-import { takeUntil } from 'rxjs';
-import { BaseClass } from './base.class';
 
 @Directive()
-export abstract class SidenavContainerClass extends BaseClass implements OnInit {
-  readonly #selectedLibrary = inject(SELECTED_LIBRARY);
-  readonly #StructuresService = inject(StructuresService);
+export abstract class SidenavContainerClass {
+  readonly #structures = inject(StructuresService);
 
-  $searchQuery = model<string>('');
-  $structureFolders = signal<FolderStructure[]>([]);
-  $selectedItem = signal<FolderStructure | undefined>(undefined);
-
-  ngOnInit(): void {
-    this.#selectedLibrary.pipe(takeUntil(this._unsubscribe$)).subscribe((name) => {
-      if (!name) {
-        this.$structureFolders.set([]);
-      } else {
-        this.$structureFolders.set(this.#StructuresService.$structureFolders());
-      }
-      this.$selectedItem.set(this.$structureFolders()[0]);
-    });
-  }
+  protected readonly searchQuery = signal('');
+  protected readonly structureFolders = computed(() => this.#structures.structureFolders());
+  protected readonly selectedItem = linkedSignal(() => this.structureFolders()[0]);
 }

@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, effect, inject, model } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject, linkedSignal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ROUTE_SETTINGS } from '@models/tokens';
-import { StructuresService } from '../../../core/services/structures.service';
+import { StructuresService } from '@services/structures.service';
 
 @Component({
   selector: 'struct-libraries',
@@ -11,33 +10,24 @@ import { StructuresService } from '../../../core/services/structures.service';
 
     // Forms
     FormsModule,
-    ReactiveFormsModule,
   ],
   templateUrl: './libraries.component.html',
   styleUrl: './libraries.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LibrariesComponent {
-  readonly #routeSettings = inject(ROUTE_SETTINGS);
-  readonly #StructuresService = inject(StructuresService);
+  readonly #structures = inject(StructuresService);
 
-  $folderStructureUrl = model<string>(this.#routeSettings.getValue().settingsUrl);
-  frameworks = this.#routeSettings.getValue().frameworks;
+  protected readonly folderStructureUrl = linkedSignal(
+    () => this.#structures.routeSettings().settingsUrl,
+  );
+  protected readonly frameworks = computed(() => this.#structures.routeSettings().frameworks);
 
-  constructor() {
-    effect(() => {
-      if (this.$folderStructureUrl()) {
-        this.setSettingsUrl(this.$folderStructureUrl());
-      }
-    });
-  }
+  protected setSettingsUrl(url: string): void {
+    const settingsUrl = url.trim();
+    if (!settingsUrl) return;
 
-  setSettingsUrl(url: string) {
-    this.#routeSettings.next({
-      ...this.#routeSettings.getValue(),
-      settingsUrl: url,
-    });
-
-    this.#StructuresService.getFolderSettings();
+    this.folderStructureUrl.set(settingsUrl);
+    this.#structures.routeSettings.update((settings) => ({ ...settings, settingsUrl }));
+    this.#structures.selectedElement.set(null);
   }
 }

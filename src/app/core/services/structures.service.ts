@@ -1,113 +1,70 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { ROUTE_SETTINGS, SELECTED_ELEMENT, SELECTED_LIBRARY } from '@models/tokens';
+import { httpResource } from '@angular/common/http';
+import { computed, Injectable, signal } from '@angular/core';
+import { RouteSettings } from '@models/route-settings.model';
+import { FolderSettings, FolderStructure } from '@models/structure.model';
 import { generateManifest } from 'material-icon-theme';
-import { FolderSettings, FolderStructure } from '../../pages/folders/folders';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class StructuresService {
-  readonly #selectedLibrary = inject(SELECTED_LIBRARY);
-  readonly #routeSettings = inject(ROUTE_SETTINGS);
-  readonly #selectedElement = inject(SELECTED_ELEMENT);
-  readonly #http = inject(HttpClient);
+  readonly routeSettings = signal<RouteSettings>({
+    settingsUrl: '/assets/user/',
+    iconBaseUrl: '/material-icon-theme/icons/',
+    frameworks: [],
+  });
+  readonly selectedElement = signal<string | null>(null);
 
-  $markdownContent = signal<string | null>(null);
-  $loadingMarkdownContent = signal<boolean>(true);
-  $manifest = signal(generateManifest());
-  $markdownContentUrl = signal<string | null>(null);
+  readonly #folderSettings = httpResource<FolderSettings>(() =>
+    this.#settingsUrl(this.routeSettings().settingsUrl),
+  );
 
-  $structureFolders: WritableSignal<FolderStructure[]> = signal([]);
+  readonly libraryName = computed(() =>
+    this.#folderSettings.hasValue() ? this.#folderSettings.value().libraryName : '',
+  );
 
-  constructor() {
-    this.#selectedElement.subscribe((element) => {
-      if (element) this._getMarkdownContent(element?.name);
-    });
+  readonly structureFolders = computed<FolderStructure[]>(() =>
+    this.#folderSettings.hasValue() ? this.#folderSettings.value().structures : [],
+  );
+
+  readonly manifest = computed(() => {
+    const manifestConfig = this.#folderSettings.hasValue()
+      ? this.#folderSettings.value().manifestConfig
+      : undefined;
+
+    return manifestConfig ? generateManifest(manifestConfig) : generateManifest();
+  });
+
+  readonly markdownContentUrl = computed(() => {
+    const elementName = this.selectedElement();
+    if (!elementName) return null;
+
+    const settingsUrl = this.routeSettings().settingsUrl;
+    const baseUrl = settingsUrl.endsWith('.json')
+      ? settingsUrl.slice(0, settingsUrl.lastIndexOf('/') + 1)
+      : this.#ensureTrailingSlash(settingsUrl);
+
+    return `${baseUrl}md/${encodeURIComponent(elementName.toLowerCase())}.md`;
+  });
+
+  readonly #markdownContent = httpResource.text(() => this.markdownContentUrl() ?? undefined);
+
+  readonly markdownContent = computed(() =>
+    this.#markdownContent.hasValue() ? this.#markdownContent.value() : null,
+  );
+  readonly loadingMarkdownContent = this.#markdownContent.isLoading;
+
+  clear(): void {
+    this.selectedElement.set(null);
   }
 
-  public getFolderSettings() {
-    const settingsUrl = this.#routeSettings.getValue().settingsUrl;
-    let url = settingsUrl;
-    if (!settingsUrl.startsWith('https://')) {
-      url = settingsUrl + 'settings.json';
-    }
-
-    this.#http.get<FolderSettings>(url).subscribe({
-      next: (data) => {
-        if (data.manifestConfig) {
-          this.$manifest.set(generateManifest(data.manifestConfig));
-        }
-
-        if (data.structures?.length) {
-          this.$structureFolders.set(data.structures);
-          this.#selectedLibrary.next(data.libraryName);
-        }
-      },
-      error: (err) => {
-        console.error('Failed to load folder settings', err);
-
-        this.clear();
-      },
-    });
-  }
-
-  public clear() {
-    this.$markdownContent.set(null);
-    this.#selectedLibrary.next('');
-    this.#selectedElement.next(null);
-  }
-
-  public getElementByName(name: string): FolderStructure | null {
-    let foundElement: FolderStructure | null = null;
-
-    const searchElement = (folders: FolderStructure[]) => {
-      for (const folder of folders) {
-        if (folder.name === name) {
-          foundElement = folder;
-          return;
-        }
-
-        if (folder.children && folder.children.length > 0) {
-          searchElement(folder.children);
-        }
-      }
-    };
-
-    searchElement(this.$structureFolders());
-
-    return foundElement;
-  }
-
-  private _getMarkdownContent(fileName: string) {
-    if (!fileName) {
-      this.$markdownContent.set(null);
-      return;
-    }
-
-    this.$loadingMarkdownContent.set(true);
-
-    const settingsUrl = this.#routeSettings.getValue().settingsUrl;
-    let url: string;
+  #settingsUrl(settingsUrl: string): string {
     if (settingsUrl.startsWith('https://')) {
-      url = settingsUrl + 'md/' + fileName.toLocaleLowerCase() + '.md.md';
-    } else {
-      url = `https://raw.githubusercontent.com/the-corner-inc/structures/main/public${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
-      // url = `http://localhost:4200${settingsUrl}md/${fileName.toLocaleLowerCase()}.md`;
+      return settingsUrl;
     }
 
-    this.$markdownContentUrl.set(url);
-    this.#http.get(url, { responseType: 'text' }).subscribe({
-      next: (data) => {
-        if (data) this.$markdownContent.set(data || null);
+    return `${this.#ensureTrailingSlash(settingsUrl)}settings.json`;
+  }
 
-        this.$loadingMarkdownContent.set(false);
-      },
-      error: () => {
-        this.$markdownContent.set(null);
-
-        this.$loadingMarkdownContent.set(false);
-      },
-    });
+  #ensureTrailingSlash(url: string): string {
+    return url.endsWith('/') ? url : `${url}/`;
   }
 }

@@ -1,32 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseClass } from '@bases/base.class';
 import { IS_PRINT_MODE } from '@models/tokens';
 import { ColorSchemeService } from 'ngx-color-scheme';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'struct-navbar',
   imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent extends BaseClass implements OnInit {
+export class NavbarComponent {
   readonly #colorSchemeService = inject(ColorSchemeService);
-  isPrintMode = inject(IS_PRINT_MODE);
+  protected readonly isPrintMode = inject(IS_PRINT_MODE);
+  protected readonly $darkMode = this.#colorSchemeService.$isDarkMode.asReadonly();
 
-  readonly $darkMode = this.#colorSchemeService.$isDarkMode.asReadonly();
-
-  isPrintMode$ = signal<boolean>(false);
-
-  toggleScheme(): void {
+  protected toggleScheme(): void {
     this.#colorSchemeService.toggleColorScheme();
   }
 
-  ngOnInit(): void {
-    this.isPrintMode.pipe(takeUntil(this._unsubscribe$)).subscribe((bool) => {
-      this.isPrintMode$.set(bool);
-    });
+  protected togglePrintMode(): void {
+    this.isPrintMode.update((isPrintMode) => !isPrintMode);
   }
 }

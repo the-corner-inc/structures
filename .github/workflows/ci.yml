@@ -21,28 +21,35 @@ jobs:
 
     steps:
       - name: ⬇️ Get latest code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: ⬇️ Get Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
 
       - name: 📦 Install dependencies
         run: npm ci
+
+      - name: 🧹 Lint
+        run: npm run lint
+
+      - name: 🧪 Test
+        run: npm test -- --watch=false
 
       - name: 🏗️ Build
         run: npm run build
 
       - name: ⬆️ Upload ftp
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/structures/
+          local-dir: ./dist/structures/browser/
           server-dir: ./
 
       - name: 🚀 Release

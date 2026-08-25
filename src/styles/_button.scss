@@ -8,7 +8,11 @@
     background 0.2s,
     color 0.2s,
     border-color 0.2s;
-  color: var(--color-default) !important;
+  color: var(--iconColor-default) !important;
+
+  svg {
+    color: var(--iconColor-default);
+  }
 
   &:hover {
     background: var(--bgColor-light);
@@ -23,21 +27,15 @@
 
 .icon-button {
   @extend .icon-button-simple;
-  color: var(--color-light);
   border: 1px solid var(--borderColor-light);
   background: var(--bgColor-default);
 
   .dark & {
     background: var(--bgColor-light);
-
-    svg {
-      color: #fff;
-    }
   }
 
   svg {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
-    color: var(--color-light);
   }
 }

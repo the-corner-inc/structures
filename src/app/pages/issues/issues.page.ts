@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WithSidenavLayout } from '@layouts/with-sidenav/with-sidenav.layout';
 import { IssuesSidenavComponent } from './issues-sidenav/issues-sidenav.component';
@@ -16,6 +16,5 @@ import { IssuesSidenavComponent } from './issues-sidenav/issues-sidenav.componen
   ],
   templateUrl: './issues.page.html',
   styleUrl: './issues.page.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IssuesPage {}
