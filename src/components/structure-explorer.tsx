@@ -172,6 +172,7 @@ export function StructureExplorer({
             <StructureTree
               items={visibleItems}
               kind={kind}
+              manifestConfig={settings.manifestConfig}
               selectedElement={element}
               onSelect={selectElement}
             />

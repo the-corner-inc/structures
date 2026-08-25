@@ -1,6 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
-import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 
 import { DefaultCatchBoundary } from "#/components/default-catch-boundary.tsx";
 import { DefaultNotFound } from "#/components/default-not-found.tsx";
@@ -25,13 +24,11 @@ export function getRouter() {
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: DefaultNotFound,
     scrollRestoration: true,
-  });
-
-  setupRouterSsrQueryIntegration({
-    router,
-    queryClient,
-    handleRedirects: true,
-    wrapQueryClient: true,
+    // Explorer queries intentionally begin after hydration, so a provider is sufficient and
+    // avoids serializing an empty SSR query stream.
+    Wrap: ({ children }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    ),
   });
   return router;
 }

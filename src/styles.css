@@ -395,6 +395,10 @@ input:focus-visible {
   color: var(--file);
 }
 
+.tree-kind-icon.material-icon {
+  object-fit: contain;
+}
+
 .label-color {
   width: 13px;
   height: 13px;

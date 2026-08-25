@@ -1,3 +1,5 @@
+import type { ManifestConfig } from "material-icon-theme";
+
 export type ExplorerKind = "folders" | "issues";
 export type StructureType = "container" | "folder" | "file";
 
@@ -11,6 +13,7 @@ export interface FolderStructure {
 
 export interface FolderSettings {
   libraryName: string;
+  manifestConfig?: ManifestConfig;
   structures: FolderStructure[];
 }
 
@@ -119,6 +122,7 @@ export function filterStructures(items: FolderStructure[], query: string): Folde
 
 function isFolderSettings(value: unknown): value is FolderSettings {
   if (!isRecord(value) || typeof value.libraryName !== "string") return false;
+  if (value.manifestConfig !== undefined && !isRecord(value.manifestConfig)) return false;
   return Array.isArray(value.structures) && value.structures.every(isFolderStructure);
 }
 

@@ -1,22 +1,27 @@
-import {
-  ChevronRightIcon,
-  FileCode2Icon,
-  FileTextIcon,
-  FolderIcon,
-  FolderOpenIcon,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ChevronRightIcon } from "lucide-react";
+import type { Manifest, ManifestConfig } from "material-icon-theme";
+import { useEffect, useMemo, useRef, useState } from "react";
 
+import { createMaterialIconManifest, materialIconUrl } from "#/lib/material-icons.ts";
 import type { ExplorerKind, FolderStructure } from "#/lib/structures.ts";
 
 interface StructureTreeProps {
   items: FolderStructure[];
   kind: ExplorerKind;
+  manifestConfig?: ManifestConfig;
   selectedElement?: string;
   onSelect: (element: string) => void;
 }
 
-export function StructureTree({ items, kind, selectedElement, onSelect }: StructureTreeProps) {
+export function StructureTree({
+  items,
+  kind,
+  manifestConfig,
+  selectedElement,
+  onSelect,
+}: StructureTreeProps) {
+  const iconManifest = useMemo(() => createMaterialIconManifest(manifestConfig), [manifestConfig]);
+
   return (
     <div className="structure-tree" role="tree" aria-label="Structure contents">
       {items.map((item) => (
@@ -24,6 +29,7 @@ export function StructureTree({ items, kind, selectedElement, onSelect }: Struct
           key={`${item.type}:${item.name}`}
           item={item}
           kind={kind}
+          iconManifest={iconManifest}
           selectedElement={selectedElement}
           onSelect={onSelect}
           depth={0}
@@ -36,12 +42,14 @@ export function StructureTree({ items, kind, selectedElement, onSelect }: Struct
 function TreeNode({
   item,
   kind,
+  iconManifest,
   selectedElement,
   onSelect,
   depth,
 }: {
   item: FolderStructure;
   kind: ExplorerKind;
+  iconManifest: Manifest;
   selectedElement?: string;
   onSelect: (element: string) => void;
   depth: number;
@@ -84,7 +92,7 @@ function TreeNode({
         <ChevronRightIcon
           className={hasChildren ? (expanded ? "chevron expanded" : "chevron") : "chevron hidden"}
         />
-        <TreeItemIcon item={item} kind={kind} expanded={expanded} />
+        <TreeItemIcon item={item} kind={kind} expanded={expanded} manifest={iconManifest} />
         <span>{item.name}</span>
       </button>
       {hasChildren && expanded && (
@@ -94,6 +102,7 @@ function TreeNode({
               key={`${child.type}:${child.name}`}
               item={child}
               kind={kind}
+              iconManifest={iconManifest}
               selectedElement={selectedElement}
               onSelect={onSelect}
               depth={depth + 1}
@@ -109,10 +118,12 @@ function TreeItemIcon({
   item,
   kind,
   expanded,
+  manifest,
 }: {
   item: FolderStructure;
   kind: ExplorerKind;
   expanded: boolean;
+  manifest: Manifest;
 }) {
   if (kind === "issues" && item.color) {
     return (
@@ -123,16 +134,12 @@ function TreeItemIcon({
       />
     );
   }
-  if (item.type === "folder" || item.type === "container") {
-    return expanded ? (
-      <FolderOpenIcon className="tree-kind-icon folder" />
-    ) : (
-      <FolderIcon className="tree-kind-icon folder" />
-    );
-  }
-  return item.name.includes(".") ? (
-    <FileCode2Icon className="tree-kind-icon file" />
-  ) : (
-    <FileTextIcon className="tree-kind-icon file" />
+  return (
+    <img
+      src={materialIconUrl(manifest, item.name, item.type, expanded)}
+      alt=""
+      className="tree-kind-icon material-icon"
+      aria-hidden="true"
+    />
   );
 }
