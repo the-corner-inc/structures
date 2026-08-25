@@ -4,55 +4,54 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  verify-and-deploy:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'main'
     permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
+      contents: read
 
     steps:
       - name: ⬇️ Get latest code
         uses: actions/checkout@v7
+
+      - name: 📦 Get pnpm
+        uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
+          version: 11.23.0
 
       - name: ⬇️ Get Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: npm
+          cache: pnpm
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
-      - name: 🧹 Lint
-        run: npm run lint
+      - name: 🧹 Lint and type-check
+        run: pnpm lint
 
       - name: 🧪 Test
-        run: npm test -- --watch=false
+        run: pnpm test
 
-      - name: 🏗️ Build
-        run: npm run build
+      - name: 🏗️ Build production server
+        run: pnpm build
 
-      - name: ⬆️ Upload ftp
+      - name: 📄 Render static FTP entry
+        run: pnpm prerender:static
+
+      - name: ⬆️ Upload FTP
+        if: github.event_name == 'push' && github.ref_name == 'main'
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/structures/browser/
+          local-dir: ./.output/public/
           server-dir: ./
-
-      - name: 🚀 Release
-        run: npx semantic-release --branches main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

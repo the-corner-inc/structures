@@ -1,86 +1,67 @@
 # Structures
 
-An open-source Angular platform by [The Corner](https://github.com/thecorner-inc) designed to help teams **visualize, document, and share project organization standards** — starting with folder structures.
+Structures is an open-source knowledge library for exploring, documenting, and sharing project
+organization standards. It presents folder structures and issue workflows in a familiar,
+VS Code-like explorer with Markdown documentation for every entry.
 
----
+The application is built with React, TanStack Start, TanStack Router and Query. Its foundation is
+adapted from [TanStarter](https://github.com/mugnavo/tanstarter), including optional Better Auth and
+Drizzle boundaries for the future account and sharing experience.
 
-## Overview
+## Features
 
-Modern development teams often struggle to keep their **project organization** consistent and understandable — especially when onboarding new members or collaborating across roles.
+- Explore Angular, Go, and software issue-management structures.
+- Search nested structures and read contextual Markdown without loading the Markdown renderer up
+  front.
+- Load a custom `settings.json` from a raw GitHub Gist or another CORS-enabled URL.
+- Download the active structure as JSON.
+- Switch theme, minimize the explorer, or enter presentation/print mode.
+- Keep public browsing database-free while account infrastructure remains disabled by default.
 
-**Structure** solves that by offering an **interactive, VS Code–like interface** where you can:
+## Development
 
-- 🗂️ Explore a project’s folder structure visually  
-- 💬 Hover files and folders to see their purpose  
-- 🧭 Understand how everything connects  
-- 💾 Save and share structures (via JSON, later online)  
+Requirements: Node.js 24+ and pnpm 11.23+.
 
----
-
-## Current Focus — *Folders for Angular*
-
-The first version focuses on **Angular folder structures**, letting you:
-
-- See an opinionated best-practice folder setup  
-- Read contextual explanations for each file/folder  
-- Explore an intuitive VS Code–inspired UI  
-- Prepare for full customization and export (coming soon)
-
-Later, other frameworks will follow: **React**, **Vue**, **NestJS**, and more.
-
----
-
-## Roadmap
-
-| Phase    | Goal                                                   | Status        |
-| -------- | ------------------------------------------------------ | ------------- |
-| **v0.1** | Display static Angular folder structure + descriptions | 🚧 In progress |
-| **v0.2** | Add JSON import/export                                 | 🚧 Planned     |
-| **v0.3** | Enable users to edit and save their own structures     | 🚧 Planned     |
-| **v0.5** | Add support for other frameworks                       | ⏳ Planned     |
-| **v0.4** | Add theming (VS Code dark/light)                       | ⏳ Planned     |
-
----
-
-## Getting Started
-
-### Setup
 ```bash
-npm install
+pnpm install
+pnpm dev
 ```
 
-### Development
+Open [http://localhost:3000](http://localhost:3000).
+
+Useful checks:
+
 ```bash
-npm start
+pnpm lint
+pnpm test
+pnpm build
 ```
 
----
+The default production build creates a Nitro Node server in `.output/server`. CI renders a static
+entry page from that built server with `pnpm prerender:static`, then uploads `.output/public` to the
+existing FTP host.
 
-## Usage
-- Open the app in your browser (default: [http://localhost:4200](http://localhost:4200))
-- Browse the folder structure and read contextual markdown for each file/folder
-- Use the search and settings features to explore and customize
+## Structure content
 
----
+Built-in libraries live under `public/assets/<library>/`:
 
-## Contributing
+- `settings.json` describes the recursive explorer tree.
+- `md/<lowercase entry name>.md` contains the documentation displayed for an entry.
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Custom sources follow the same format. If the source is a JSON URL, Markdown is resolved relative
+to that JSON file.
 
-- Fork the repo and create a feature branch
-- Make your changes and add tests if needed
-- Open a pull request with a clear description
+## Accounts (prepared, disabled)
 
-### Folder structure proposal
-The structure can be found under `public/assets/[language]/settings.json`. 
-Feel free to suggest improvements or new structures by opening an issue or pull request.
+Better Auth, Drizzle, PostgreSQL schemas, `/login`, `/signup`, `/account`, and the auth API boundary
+are scaffolded from TanStarter. Public builds do not require a database. To enable accounts, copy
+`.env.example`, configure the database and secret, set `AUTH_ENABLED=true` and
+`VITE_AUTH_ENABLED=true`, run the database generation/migration workflow, and deploy the default
+server build instead of the static FTP build.
 
-### Page & component content
-Content for files and folders is stored as markdown files under `public/assets/[language]/md/`. 
-You can contribute by adding new explanations or improving existing ones.
+## Releases
 
----
+Releases use `commit-and-tag-version`. The package version is injected into the application at
+build time and appears at the bottom of the explorer, so it cannot drift from `package.json`.
 
-## Links
-- [Material Icon Theme](https://github.com/material-extensions/vscode-material-icon-theme)
-- [Angular](https://angular.io)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and contribution guidelines.

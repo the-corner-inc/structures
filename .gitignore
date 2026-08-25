@@ -2,12 +2,16 @@
 
 # Compiled output
 /dist
+/.output
+/.tanstack
+/.tanstack-start
 /tmp
 /out-tsc
 /bazel-out
 
 # Node
 /node_modules
+/.pnpm-store
 npm-debug.log
 yarn-error.log
 
@@ -31,6 +35,11 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
+.env
+.env.*
+!.env.example
+.cache/
+drizzle/
 .sass-cache/
 /connect.lock
 /coverage

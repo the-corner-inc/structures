@@ -1,43 +1,28 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "compileOnSave": false,
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "drizzle.config.ts",
+    "playwright.config.ts"
+  ],
+  "exclude": ["src/app/**", "src/main.ts"],
   "compilerOptions": {
     "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "rootDir": ".",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "target": "ES2022",
-    "module": "preserve",
-    "paths": {
-      "@pages/*": ["./src/app/pages/*"],
-      "@bases/*": ["./src/app/core/bases/*"],
-      "@models/*": ["./src/app/core/models/*"],
-      "@services/*": ["./src/app/core/services/*"],
-      "@layouts/*": ["./src/app/shared/layouts/*"],
-      "@shared/*": ["./src/app/shared/*"]
-    }
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
-    "strictTemplates": true
-  },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "resolvePackageJsonImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node", "vite/client"]
+  }
 }
