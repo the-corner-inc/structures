@@ -1,5 +1,6 @@
 import { Component, inject, linkedSignal, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_VERSION } from '@models/app-version';
 import { StructuresService } from '@services/structures.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SidenavLayout {
   readonly #structures = inject(StructuresService);
 
   readonly searchQuery = model('');
+  protected readonly version = APP_VERSION;
   protected readonly showSettings = signal(false);
   protected readonly structureFolders = this.#structures.structureFolders;
   protected readonly folderStructureUrl = linkedSignal(

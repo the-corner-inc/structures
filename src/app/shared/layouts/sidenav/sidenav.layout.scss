@@ -40,7 +40,8 @@
     }
 
     .nav-body {
-      height: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
       position: relative;
 
       .explorer-placeholder {
@@ -67,6 +68,16 @@
           opacity: 0;
         }
       }
+    }
+
+    .nav-footer {
+      flex: 0 0 auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--borderColor-light);
+      color: var(--color-light);
+      font-size: 0.75rem;
+      line-height: 1rem;
+      text-align: center;
     }
   }
 }
