@@ -1,9 +1,14 @@
+import { readFile, readdir } from "node:fs/promises";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { describe, expect, it } from "vite-plus/test";
 
 import {
   filterStructures,
   markdownDocumentUrl,
   settingsDocumentUrl,
+  type FolderSettings,
   type FolderStructure,
 } from "./structures.ts";
 
@@ -47,3 +52,25 @@ describe("filterStructures", () => {
     ]);
   });
 });
+
+describe("built-in Angular documentation", () => {
+  it("provides an explanation for every tree entry", async () => {
+    const assetDirectory = fileURLToPath(new URL("../../public/assets/angular/", import.meta.url));
+    const settings = JSON.parse(
+      await readFile(join(assetDirectory, "settings.json"), "utf8"),
+    ) as FolderSettings;
+    const documents = new Set(await readdir(join(assetDirectory, "md")));
+    const missing = structureNames(settings.structures).filter(
+      (name) => !documents.has(`${name.toLowerCase()}.md`),
+    );
+
+    expect(missing).toEqual([]);
+  });
+});
+
+function structureNames(items: FolderStructure[]): string[] {
+  return items.flatMap((item) => [
+    item.name,
+    ...(item.children ? structureNames(item.children) : []),
+  ]);
+}

@@ -1,6 +1,13 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { Link } from "@tanstack/react-router";
-import { MoonIcon, PresentationIcon, SunIcon, XIcon } from "lucide-react";
+import {
+  MoonIcon,
+  PanelTopCloseIcon,
+  PanelTopOpenIcon,
+  PresentationIcon,
+  SunIcon,
+  XIcon,
+} from "lucide-react";
 import { createContext, use, useEffect, useState } from "react";
 
 import { useTheme } from "#/components/theme-provider.tsx";
@@ -9,13 +16,22 @@ const PresentationContext = createContext(false);
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [presentationMode, setPresentationMode] = useState(false);
+  const [presentationFrameHidden, setPresentationFrameHidden] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  const exitPresentationMode = () => {
+    setPresentationMode(false);
+    setPresentationFrameHidden(false);
+  };
 
   useEffect(() => {
     if (!presentationMode) return;
 
     const exitOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPresentationMode(false);
+      if (event.key === "Escape") {
+        setPresentationMode(false);
+        setPresentationFrameHidden(false);
+      }
     };
     window.addEventListener("keydown", exitOnEscape);
     return () => window.removeEventListener("keydown", exitOnEscape);
@@ -23,7 +39,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <PresentationContext value={presentationMode}>
-      <div className={presentationMode ? "app-shell presentation-mode" : "app-shell"}>
+      <div
+        className={`app-shell${presentationMode ? " presentation-mode" : ""}${presentationFrameHidden ? " presentation-frame-hidden" : ""}`}
+      >
         <header className="topbar">
           <div className="brand-and-nav">
             <Link to="/folders" search={{}} aria-label="Structures home" className="brand-link">
@@ -54,7 +72,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               type="button"
               className="icon-button"
               aria-label={presentationMode ? "Exit presentation mode" : "Enter presentation mode"}
-              onClick={() => setPresentationMode((current) => !current)}
+              onClick={() => {
+                if (presentationMode) {
+                  exitPresentationMode();
+                } else {
+                  setPresentationMode(true);
+                }
+              }}
             >
               {presentationMode ? <XIcon /> : <PresentationIcon />}
             </button>
@@ -79,14 +103,31 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </header>
         {children}
         {presentationMode && (
-          <button
-            type="button"
-            className="presentation-exit icon-button"
-            aria-label="Exit presentation mode"
-            onClick={() => setPresentationMode(false)}
-          >
-            <XIcon />
-          </button>
+          <div className="presentation-controls" aria-label="Presentation controls">
+            <button
+              type="button"
+              className="presentation-control icon-button"
+              aria-label={
+                presentationFrameHidden
+                  ? "Show explorer header and footer"
+                  : "Hide explorer header and footer"
+              }
+              aria-pressed={presentationFrameHidden}
+              title={presentationFrameHidden ? "Show header and footer" : "Hide header and footer"}
+              onClick={() => setPresentationFrameHidden((hidden) => !hidden)}
+            >
+              {presentationFrameHidden ? <PanelTopOpenIcon /> : <PanelTopCloseIcon />}
+            </button>
+            <button
+              type="button"
+              className="presentation-control icon-button"
+              aria-label="Exit presentation mode"
+              title="Exit presentation mode"
+              onClick={exitPresentationMode}
+            >
+              <XIcon />
+            </button>
+          </div>
         )}
       </div>
     </PresentationContext>

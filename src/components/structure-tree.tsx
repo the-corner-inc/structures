@@ -95,8 +95,8 @@ function TreeNode({
         <TreeItemIcon item={item} kind={kind} expanded={expanded} manifest={iconManifest} />
         <span>{item.name}</span>
       </button>
-      {hasChildren && expanded && (
-        <div role="group">
+      {hasChildren && (
+        <div role="group" hidden={!expanded}>
           {item.children?.map((child) => (
             <TreeNode
               key={`${child.type}:${child.name}`}

@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
+  CheckIcon,
   DownloadIcon,
   FolderCodeIcon,
   PanelLeftCloseIcon,
   PanelLeftOpenIcon,
+  PrinterIcon,
   SearchIcon,
   Settings2Icon,
+  Share2Icon,
   XIcon,
 } from "lucide-react";
-import { lazy, Suspense, useState, useSyncExternalStore } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { LibraryChooser } from "#/components/library-chooser.tsx";
 import { StructureTree } from "#/components/structure-tree.tsx";
@@ -43,8 +46,17 @@ export function StructureExplorer({
   const [query, setQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
+  const [actionMessage, setActionMessage] = useState("");
+  const actionMessageTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [sourceDraft, setSourceDraft] = useState({ source, value: source });
   const sourceInput = sourceDraft.source === source ? sourceDraft.value : source;
+
+  useEffect(
+    () => () => {
+      if (actionMessageTimer.current) clearTimeout(actionMessageTimer.current);
+    },
+    [],
+  );
 
   const settingsQuery = useQuery({
     queryKey: ["structure-settings", source],
@@ -99,9 +111,29 @@ export function StructureExplorer({
     }
   };
 
+  const showActionMessage = (message: string) => {
+    if (actionMessageTimer.current) clearTimeout(actionMessageTimer.current);
+    setActionMessage(message);
+    actionMessageTimer.current = setTimeout(() => setActionMessage(""), 2400);
+  };
+
+  const shareStructure = async () => {
+    try {
+      await copyText(window.location.href);
+      showActionMessage("Share link copied");
+    } catch {
+      showActionMessage("Could not copy the link");
+    }
+  };
+
   return (
     <div className={minimized ? "explorer-layout explorer-minimized" : "explorer-layout"}>
       <aside className="explorer-sidebar" aria-label={`${kind} explorer`}>
+        <div className="print-explorer-heading" aria-hidden="true">
+          <span>Structures</span>
+          <strong>{settings?.libraryName ?? library ?? "Custom structure"}</strong>
+          <small>{kind === "folders" ? "Folder standard" : "Issue workflow"}</small>
+        </div>
         <header className="explorer-sidebar-header">
           <div className="explorer-search-row">
             <label className="input-with-icon">
@@ -117,6 +149,26 @@ export function StructureExplorer({
             <button
               type="button"
               className="icon-button"
+              aria-label="Copy a shareable link to this structure"
+              title="Copy share link"
+              disabled={!settings}
+              onClick={shareStructure}
+            >
+              {actionMessage === "Share link copied" ? <CheckIcon /> : <Share2Icon />}
+            </button>
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Print this structure"
+              title="Print structure"
+              disabled={!settings}
+              onClick={() => window.print()}
+            >
+              <PrinterIcon />
+            </button>
+            <button
+              type="button"
+              className="icon-button"
               aria-label={settingsOpen ? "Close explorer settings" : "Open explorer settings"}
               aria-expanded={settingsOpen}
               onClick={() => setSettingsOpen((open) => !open)}
@@ -124,6 +176,9 @@ export function StructureExplorer({
               {settingsOpen ? <XIcon /> : <Settings2Icon />}
             </button>
           </div>
+          <p className="explorer-action-feedback" aria-live="polite">
+            {actionMessage}
+          </p>
 
           {settingsOpen && (
             <section className="explorer-settings">
@@ -265,4 +320,26 @@ function useHydrated() {
 
 function noopSubscribe() {
   return () => {};
+}
+
+async function copyText(value: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(value);
+      return;
+    } catch {
+      // Older browsers can expose the API while denying it outside a secure context.
+    }
+  }
+
+  const input = document.createElement("textarea");
+  input.value = value;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.append(input);
+  input.select();
+  const copied = document.execCommand("copy");
+  input.remove();
+  if (!copied) throw new Error("The browser denied clipboard access.");
 }

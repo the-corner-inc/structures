@@ -15,7 +15,9 @@ Drizzle boundaries for the future account and sharing experience.
   front.
 - Load a custom `settings.json` from a raw GitHub Gist or another CORS-enabled URL.
 - Download the active structure as JSON.
-- Switch theme, minimize the explorer, or enter presentation/print mode.
+- Copy a permanent link to any built-in or custom structure, including the selected explanation.
+- Print a polished, fully expanded folder tree for PDF export or sharing.
+- Switch theme or minimize the explorer for focused reading.
 - Keep public browsing database-free while account infrastructure remains disabled by default.
 
 ## Development
@@ -37,9 +39,10 @@ pnpm test
 pnpm build
 ```
 
-The default production build creates a Nitro Node server in `.output/server`. CI renders a static
-entry page from that built server with `pnpm prerender:static`, then uploads `.output/public` to the
-existing FTP host.
+The default production build creates a Nitro Node server in `.output/server`. CI renders the
+built-in routes as static directory indexes with `pnpm prerender:static`, verifies the artifact, then
+uploads `.output/public` to the existing FTP host. Apache rewrites remain available for custom and
+unknown client-side routes.
 
 ## Structure content
 

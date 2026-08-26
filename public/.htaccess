@@ -8,13 +8,13 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-# Always rewrite /folders/* to index.html
-RewriteRule ^folders/ index.html [L]
-
 # Serve existing files or directories
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
+
+# Route explorer URLs to the application, including entries with file extensions
+RewriteRule ^(?:folders|issues)(?:/.*)?$ index.html [NC,L]
 
 # Redirect all non-file routes to index.html
 RewriteRule ^(?!.*\.).*$ index.html [NC,L]

@@ -228,9 +228,22 @@ input:focus-visible {
   gap: 8px;
 }
 
+.print-explorer-heading {
+  display: none;
+}
+
+.explorer-action-feedback {
+  min-height: 15px;
+  margin: 5px 2px -7px;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: right;
+}
+
 .input-with-icon {
   position: relative;
   display: block;
+  min-width: 0;
   flex: 1;
 }
 
@@ -1009,30 +1022,42 @@ input:focus-visible {
 .presentation-mode .explorer-layout {
   grid-template-columns: minmax(320px, 420px);
   height: 100svh;
-  justify-content: center;
+  place-content: center;
   overflow: auto;
   padding: 26px;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
 }
 
 .presentation-mode .explorer-sidebar {
+  width: 100%;
+  max-height: calc(100svh - 52px);
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--background);
   box-shadow: 0 24px 70px rgb(0 0 0 / 28%);
 }
 
-.presentation-exit {
+.presentation-mode.presentation-frame-hidden .explorer-sidebar-header,
+.presentation-mode.presentation-frame-hidden .explorer-footer {
+  display: none;
+}
+
+.presentation-controls {
   position: fixed;
   z-index: 20;
   inset: 18px 18px auto auto;
+  display: flex;
+  gap: 8px;
+}
+
+.presentation-control {
   border-color: rgb(255 255 255 / 28%);
   color: #fff;
   background: rgb(0 0 0 / 30%);
   backdrop-filter: blur(12px);
 }
 
-.presentation-exit:hover {
+.presentation-control:hover {
   background: rgb(0 0 0 / 48%);
 }
 
@@ -1116,24 +1141,101 @@ input:focus-visible {
   }
 }
 
+@page {
+  margin: 12mm;
+}
+
 @media print {
+  :root,
+  .dark {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --foreground: #1f2328;
+    --muted: #59636e;
+    --border: #d1d9e0;
+    --border-subtle: #e6eaef;
+    --accent: #0969da;
+    color-scheme: light;
+  }
+
   body {
     overflow: visible;
+    background: #ffffff;
+    print-color-adjust: exact;
   }
+
   .topbar,
   .explorer-main,
-  .sidebar-collapse-button {
+  .explorer-sidebar-header,
+  .sidebar-collapse-button,
+  .presentation-controls {
     display: none !important;
   }
+
   .explorer-layout {
     display: grid;
-    grid-template-columns: minmax(320px, 420px);
+    grid-template-columns: minmax(320px, 460px);
     height: auto;
     justify-content: center;
-    padding: 20px;
+    padding: 0;
   }
+
   .explorer-sidebar {
-    min-height: 90vh;
+    display: block;
+    min-height: 0;
+    overflow: visible;
     border: 1px solid #d1d9e0;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 8px 32px rgb(31 35 40 / 10%);
+  }
+
+  .print-explorer-heading {
+    display: grid;
+    gap: 3px;
+    border-bottom: 1px solid #d1d9e0;
+    padding: 18px 20px;
+  }
+
+  .print-explorer-heading span,
+  .print-explorer-heading small {
+    color: #59636e;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .print-explorer-heading strong {
+    color: #1f2328;
+    font-size: 21px;
+  }
+
+  .explorer-tree-scroll {
+    overflow: visible;
+    padding: 12px 0;
+  }
+
+  .structure-tree [hidden] {
+    display: block !important;
+  }
+
+  .tree-row {
+    break-inside: avoid;
+    color: #1f2328;
+  }
+
+  .tree-row .chevron {
+    rotate: 90deg !important;
+  }
+
+  .tree-row.selected {
+    background: transparent;
+    color: #1f2328;
+  }
+
+  .explorer-footer {
+    color: #59636e;
   }
 }
