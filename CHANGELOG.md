@@ -1,7 +1,26 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project are documented here.
 
+## [1.0.0](https://github.com/the-corner-inc/structures/compare/v0.8.3...v1.0.0) (2026-09-17)
+
+### Features
+
+* **sidenav:** version ([5b8375d](https://github.com/the-corner-inc/structures/commit/5b8375dc6e02c97c16efdfe4c20f7db24d10f614))
+* **stack:** tanStack start ([bacbc20](https://github.com/the-corner-inc/structures/commit/bacbc20951c2f7d4b0fda89079de9e6b42410a3f))
+
+### Bug Fixes
+
+* icons ([13fe12d](https://github.com/the-corner-inc/structures/commit/13fe12de54ca1396c9ca67fbb95c4187c3eea637))
+
+### Refactoring
+
+* **folder/issues:** into software ([0c9b043](https://github.com/the-corner-inc/structures/commit/0c9b043911ae26e7d6eac23780783914965033dc))
+
+### Build System
+
+* **angular:** v22 ([79a8888](https://github.com/the-corner-inc/structures/commit/79a8888bd923573294b04cf2232ec11b7ed50e8c))
+* tanstackSart ([98bcf33](https://github.com/the-corner-inc/structures/commit/98bcf33d539f45f9cfcc07bdfe8d17a78fde0358))
 ## [0.8.3](https://github.com/the-corner-inc/structures/compare/v0.8.2...v0.8.3) (2025-11-06)
 
 ### Bug Fixes
