@@ -348,6 +348,26 @@ input:focus-visible {
   padding: 1px 8px;
 }
 
+.tree-children {
+  position: relative;
+}
+
+.tree-children::before {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--tree-guide-offset);
+  border-inline-start: 1px solid var(--border);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen {
+  .explorer-sidebar:is(:hover, :focus-within) .tree-children::before {
+    opacity: 1;
+  }
+}
+
 .tree-row {
   display: flex;
   width: 100%;
@@ -799,11 +819,11 @@ input:focus-visible {
   color: var(--foreground);
 }
 
-.code-block {
+.markdown-body .structures-code-block {
   position: relative;
 }
 
-.code-block > button {
+.markdown-body .structures-code-block > button {
   position: absolute;
   z-index: 2;
   top: 9px;
@@ -820,16 +840,16 @@ input:focus-visible {
   transition: opacity 150ms ease;
 }
 
-.code-block:hover > button,
-.code-block > button:focus-visible {
+.markdown-body .structures-code-block:hover > button,
+.markdown-body .structures-code-block > button:focus-visible {
   opacity: 1;
 }
 
-.code-block > button svg {
+.markdown-body .structures-code-block > button svg {
   width: 15px;
 }
 
-.markdown-body .code-block pre {
+.markdown-body .structures-code-block pre {
   background: #0d1117;
   color: #e6edf3;
   padding: 20px;
@@ -1237,5 +1257,25 @@ input:focus-visible {
 
   .explorer-footer {
     color: #59636e;
+  }
+}
+
+/* Adapt the shared explorer to the website's existing palette. */
+.structure-tree {
+  --muted-foreground: var(--muted);
+}
+.explorer-sidebar .structure-tree .tree-row:hover,
+.explorer-sidebar .structure-tree .tree-row.selected {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.explorer-sidebar .structure-tree .tree-row.selected {
+  color: var(--accent);
+}
+
+@media print {
+  .explorer-sidebar .structure-tree .tree-row,
+  .explorer-sidebar .structure-tree .tree-row.selected {
+    color: #1f2328;
+    background: transparent;
   }
 }

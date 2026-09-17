@@ -1,0 +1,61 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "structures",
+  "homepage": "https://github.com/the-corner-inc/structures",
+  "items": [
+    {
+      "name": "structure-explorer",
+      "type": "registry:block",
+      "title": "Structure Explorer",
+      "description": "An accessible folder explorer with search and optional Markdown documentation. Bring your own data, icons and theme.",
+      "dependencies": [
+        "lucide-react@1.34.0",
+        "react-markdown@10.1.0",
+        "rehype-highlight@7.0.2",
+        "remark-gfm@4.0.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/structures/structure-explorer.tsx",
+          "type": "registry:component",
+          "target": "@components/structures/structure-explorer.tsx"
+        },
+        {
+          "path": "src/components/structures/structure-tree.tsx",
+          "type": "registry:component",
+          "target": "@components/structures/structure-tree.tsx"
+        },
+        {
+          "path": "src/components/structures/structure-markdown.tsx",
+          "type": "registry:component",
+          "target": "@components/structures/structure-markdown.tsx"
+        },
+        {
+          "path": "src/components/structures/structure-data.ts",
+          "type": "registry:file",
+          "target": "@components/structures/structure-data.ts"
+        },
+        {
+          "path": "src/components/structures/structure-explorer.css",
+          "type": "registry:file",
+          "target": "@components/structures/structure-explorer.css"
+        },
+        {
+          "path": "src/components/structures/structure-example.tsx",
+          "type": "registry:component",
+          "target": "@components/structures/structure-example.tsx"
+        },
+        {
+          "path": "src/components/structures/LICENSE",
+          "type": "registry:file",
+          "target": "@components/structures/LICENSE"
+        },
+        {
+          "path": "docs/registry.md",
+          "type": "registry:file",
+          "target": "@components/structures/README.md"
+        }
+      ]
+    }
+  ]
+}

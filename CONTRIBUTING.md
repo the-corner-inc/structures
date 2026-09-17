@@ -17,6 +17,9 @@ Node.js 24+ and pnpm 11.23+ are required. Before opening a pull request, run:
 pnpm lint
 pnpm test
 pnpm build
+pnpm prerender:static
+pnpm registry:check
+pnpm registry:test
 ```
 
 Use focused tests for domain behavior and regressions. Keep commit messages in Conventional Commit
@@ -32,7 +35,9 @@ Common types include `feat`, `fix`, `perf`, `refactor`, `docs`, `build`, `ci`, a
 
 Built-in structures live under `public/assets/<library>/settings.json`; their documentation lives
 under `public/assets/<library>/md/`. New or changed content should keep the JSON tree and lowercase
-Markdown filenames in sync.
+Markdown filenames in sync. Documentation keys use `id ?? name` (lowercased); keep IDs
+stable and globally unique even when filenames repeat. See [the registry guide](docs/registry.md)
+when changing shared explorer code or the distributed files.
 
 ## Releases
 
@@ -53,6 +58,11 @@ git push --follow-tags origin main
 `commit-and-tag-version` updates `package.json` and `CHANGELOG.md` from Conventional Commits. The
 application reads that same package version at build time, so the explorer footer automatically
 matches every release.
+
+The root `registry.json` publishes the explorer from the same GitHub tag. After pushing a release,
+validate it with `pnpm dlx shadcn@4.21.0 registry validate the-corner-inc/structures#vX.Y.Z`
+(substitute the new tag), then create the GitHub release. Consumers can pin that tag. The registry
+consumer CI matrix must pass before release; there is no separate registry server or npm publish.
 
 ## Accounts and persistence
 

@@ -1,0 +1,613 @@
+{
+  "libraryName": "tanstack-react",
+  "manifestConfig": {
+    "activeIconPack": "react"
+  },
+  "structures": [
+    {
+      "name": "README.md",
+      "type": "file"
+    },
+    {
+      "name": ".github",
+      "type": "folder",
+      "children": [
+        {
+          "name": "workflows",
+          "type": "folder",
+          "children": [
+            {
+              "name": "ci.yml",
+              "type": "file"
+            },
+            {
+              "name": "deploy.yml",
+              "type": "file"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": ".vscode",
+      "type": "folder",
+      "children": [
+        {
+          "name": "settings.json",
+          "type": "file"
+        },
+        {
+          "name": "extensions.json",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "public",
+      "type": "folder",
+      "children": [
+        {
+          "name": "favicon.ico",
+          "type": "file"
+        },
+        {
+          "name": "site.webmanifest",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "type": "folder",
+      "children": [
+        {
+          "name": "routes",
+          "type": "folder",
+          "children": [
+            {
+              "name": "__root.tsx",
+              "type": "file"
+            },
+            {
+              "name": "_auth",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "route.tsx",
+                  "type": "file",
+                  "id": "_auth.tsx"
+                },
+                {
+                  "name": "dashboard.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "settings.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "_public",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "route.tsx",
+                  "type": "file",
+                  "id": "_public.tsx"
+                },
+                {
+                  "name": "login.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "{-$lang}",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "route.tsx",
+                      "type": "file",
+                      "id": "{-$lang}.tsx"
+                    },
+                    {
+                      "name": "index.tsx",
+                      "type": "file"
+                    },
+                    {
+                      "name": "about.tsx",
+                      "type": "file"
+                    },
+                    {
+                      "id": "_public.{-$lang}.posts",
+                      "name": "posts",
+                      "type": "folder",
+                      "children": [
+                        {
+                          "name": "route.tsx",
+                          "type": "file",
+                          "id": "posts.tsx"
+                        },
+                        {
+                          "name": "index.tsx",
+                          "type": "file",
+                          "id": "posts.index.tsx"
+                        },
+                        {
+                          "name": "$postId.tsx",
+                          "type": "file",
+                          "id": "posts.$postId.tsx"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "api.health.ts",
+              "type": "file"
+            },
+            {
+              "name": "api.webhooks.ts",
+              "type": "file"
+            },
+            {
+              "name": "robots[.]txt.ts",
+              "type": "file"
+            },
+            {
+              "name": "sitemap[.]xml.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "components",
+          "type": "folder",
+          "children": [
+            {
+              "name": "ui",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "button.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "input.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "layout",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "app-shell.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "site-header.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "feedback",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "error-boundary.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "not-found.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "pending.tsx",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "features",
+          "type": "folder",
+          "children": [
+            {
+              "name": "auth",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "auth.functions.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "auth.queries.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "sign-in-form.tsx",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "posts",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "post.schema.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "post.types.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "posts.functions.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "posts.queries.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "posts.mutations.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "post-list.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post-detail.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post-form.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post-table.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post-virtual-list.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post-form.test.tsx",
+                  "type": "file"
+                },
+                {
+                  "name": "post.schema.test.ts",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hooks",
+          "type": "folder",
+          "children": [
+            {
+              "name": "use-app-form.ts",
+              "type": "file"
+            },
+            {
+              "name": "use-media-query.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "lib",
+          "type": "folder",
+          "children": [
+            {
+              "name": "query-client.ts",
+              "type": "file"
+            },
+            {
+              "name": "form-context.ts",
+              "type": "file"
+            },
+            {
+              "name": "format.ts",
+              "type": "file"
+            },
+            {
+              "name": "utils.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "server",
+          "type": "folder",
+          "children": [
+            {
+              "name": "auth.server.ts",
+              "type": "file"
+            },
+            {
+              "name": "db.server.ts",
+              "type": "file"
+            },
+            {
+              "name": "posts.server.ts",
+              "type": "file"
+            },
+            {
+              "name": "logger.server.ts",
+              "type": "file"
+            },
+            {
+              "name": "middleware",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "auth.middleware.ts",
+                  "type": "file"
+                },
+                {
+                  "name": "request.middleware.ts",
+                  "type": "file"
+                }
+              ]
+            },
+            {
+              "name": "schema",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "posts.table.ts",
+                  "type": "file"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "env",
+          "type": "folder",
+          "children": [
+            {
+              "name": "client-env.ts",
+              "type": "file"
+            },
+            {
+              "name": "server-env.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "styles",
+          "type": "folder",
+          "children": [
+            {
+              "name": "app.css",
+              "type": "file"
+            },
+            {
+              "name": "tokens.css",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "assets",
+          "type": "folder",
+          "children": [
+            {
+              "name": "images",
+              "type": "folder",
+              "children": []
+            },
+            {
+              "name": "icons",
+              "type": "folder",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "types",
+          "type": "folder",
+          "children": [
+            {
+              "name": "vite-env.d.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "router.tsx",
+          "type": "file"
+        },
+        {
+          "name": "routeTree.gen.ts",
+          "type": "file"
+        },
+        {
+          "name": "start.ts",
+          "type": "file"
+        },
+        {
+          "name": "client.tsx",
+          "type": "file"
+        },
+        {
+          "name": "server.ts",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "tests",
+      "type": "folder",
+      "children": [
+        {
+          "name": "setup.ts",
+          "type": "file"
+        },
+        {
+          "name": "test-utils.tsx",
+          "type": "file"
+        },
+        {
+          "name": "fixtures",
+          "type": "folder",
+          "children": [
+            {
+              "name": "posts.json",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "mocks",
+          "type": "folder",
+          "children": [
+            {
+              "name": "handlers.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "integration",
+          "type": "folder",
+          "children": [
+            {
+              "name": "posts.integration.test.ts",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "e2e",
+          "type": "folder",
+          "children": [
+            {
+              "name": "posts.spec.ts",
+              "type": "file"
+            },
+            {
+              "name": "auth.spec.ts",
+              "type": "file"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "migrations",
+      "type": "folder",
+      "children": [
+        {
+          "name": "0001_create_posts.sql",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "scripts",
+      "type": "folder",
+      "children": [
+        {
+          "name": "seed.ts",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "docs",
+      "type": "folder",
+      "children": [
+        {
+          "name": "architecture.md",
+          "type": "file"
+        },
+        {
+          "name": "routing.md",
+          "type": "file"
+        },
+        {
+          "name": "data-flow.md",
+          "type": "file"
+        },
+        {
+          "name": "testing.md",
+          "type": "file"
+        },
+        {
+          "name": "deployment.md",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": ".env.example",
+      "type": "file"
+    },
+    {
+      "name": ".gitignore",
+      "type": "file"
+    },
+    {
+      "name": ".editorconfig",
+      "type": "file"
+    },
+    {
+      "name": ".prettierrc",
+      "type": "file"
+    },
+    {
+      "name": ".prettierignore",
+      "type": "file"
+    },
+    {
+      "name": "eslint.config.js",
+      "type": "file"
+    },
+    {
+      "name": "package.json",
+      "type": "file"
+    },
+    {
+      "name": "pnpm-lock.yaml",
+      "type": "file"
+    },
+    {
+      "name": "tsconfig.json",
+      "type": "file"
+    },
+    {
+      "name": "vite.config.ts",
+      "type": "file"
+    },
+    {
+      "name": "vitest.config.ts",
+      "type": "file"
+    },
+    {
+      "name": "playwright.config.ts",
+      "type": "file"
+    },
+    {
+      "name": "CONTRIBUTING.md",
+      "type": "file"
+    },
+    {
+      "name": "LICENSE",
+      "type": "file"
+    }
+  ]
+}

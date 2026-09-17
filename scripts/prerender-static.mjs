@@ -40,6 +40,7 @@ async function builtInRoutes() {
   const libraries = [
     { kind: "folders", library: "angular" },
     { kind: "folders", library: "go" },
+    { kind: "folders", library: "tanstack-react" },
     { kind: "issues", library: "software" },
   ];
 
@@ -61,7 +62,7 @@ async function builtInRoutes() {
 
 function structureNames(items) {
   return items.flatMap((item) => [
-    item.name,
+    item.id ?? item.name,
     ...(Array.isArray(item.children) ? structureNames(item.children) : []),
   ]);
 }

@@ -17,6 +17,7 @@ import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore } fro
 import { LibraryChooser } from "#/components/library-chooser.tsx";
 import { StructureTree } from "#/components/structure-tree.tsx";
 import {
+  EXPLORER_FRAMEWORKS,
   defaultSource,
   fetchSettings,
   filterStructures,
@@ -67,6 +68,10 @@ export function StructureExplorer({
   const settings = settingsQuery.data;
   const visibleItems = settings ? filterStructures(settings.structures, query) : [];
   const routeLibrary = settings?.libraryName || library || kind;
+  const libraryLabel =
+    EXPLORER_FRAMEWORKS[kind]
+      .flatMap((group) => group.children)
+      .find((entry) => entry.library === routeLibrary)?.name ?? settings?.libraryName;
 
   const selectElement = (selected: string) => {
     const search = { source: sourceOverride };
@@ -131,7 +136,7 @@ export function StructureExplorer({
       <aside className="explorer-sidebar" aria-label={`${kind} explorer`}>
         <div className="print-explorer-heading" aria-hidden="true">
           <span>Structures</span>
-          <strong>{settings?.libraryName ?? library ?? "Custom structure"}</strong>
+          <strong>{libraryLabel ?? library ?? "Custom structure"}</strong>
           <small>{kind === "folders" ? "Folder standard" : "Issue workflow"}</small>
         </div>
         <header className="explorer-sidebar-header">
@@ -226,6 +231,7 @@ export function StructureExplorer({
           {settings && visibleItems.length > 0 && (
             <StructureTree
               items={visibleItems}
+              forceExpand={Boolean(query.trim())}
               kind={kind}
               manifestConfig={settings.manifestConfig}
               selectedElement={element}
@@ -238,7 +244,7 @@ export function StructureExplorer({
         </div>
 
         <footer className="explorer-footer" aria-label="Application version">
-          <span>{settings?.libraryName ?? "Structures"}</span>
+          <span>{libraryLabel ?? "Structures"}</span>
           <span>v{__APP_VERSION__}</span>
         </footer>
       </aside>
@@ -257,7 +263,7 @@ export function StructureExplorer({
           <LibraryChooser kind={kind} onSelect={selectLibrary} onSource={loadCustomSource} />
         )}
         {!element && (library || sourceOverride) && (
-          <EmptyDocument libraryName={settings?.libraryName} loading={settingsQuery.isPending} />
+          <EmptyDocument libraryName={libraryLabel} loading={settingsQuery.isPending} />
         )}
         {element && (
           <Suspense fallback={<DocumentLoading />}>

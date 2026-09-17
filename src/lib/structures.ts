@@ -1,15 +1,15 @@
 import type { ManifestConfig } from "material-icon-theme";
 
 export type ExplorerKind = "folders" | "issues";
-export type StructureType = "container" | "folder" | "file";
-
-export interface FolderStructure {
-  name: string;
-  type: StructureType;
-  color?: string;
-  bgColor?: string;
-  children?: FolderStructure[];
-}
+export { filterStructures, nodeId, parseStructures } from "../components/structures/structure-data";
+export type {
+  StructureType,
+  StructureNode as FolderStructure,
+} from "../components/structures/structure-data";
+import {
+  parseStructures,
+  type StructureNode as FolderStructure,
+} from "../components/structures/structure-data";
 
 export interface FolderSettings {
   libraryName: string;
@@ -43,6 +43,10 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
         { name: "Nest.js", library: "nestjs", disabled: true },
         { name: "Java", library: "java", disabled: true },
       ],
+    },
+    {
+      name: "Monorepo",
+      children: [{ name: "TanStack Start / React", library: "tanstack-react" }],
     },
   ],
   issues: [
@@ -82,7 +86,12 @@ export function markdownDocumentUrl(source: string, element: string) {
       ? trimmed
       : `${trimmed}/`;
 
-  return `${base}md/${encodeURIComponent(element.toLowerCase())}.md`;
+  // Vite's public asset lookup needs TanStack's route syntax to stay literal.
+  const filename = encodeURIComponent(element.toLowerCase()).replace(
+    /%(?:24|5B|5D|7B|7D)/g,
+    decodeURIComponent,
+  );
+  return `${base}md/${filename}.md`;
 }
 
 export async function fetchSettings(source: string, signal?: AbortSignal) {
@@ -107,34 +116,15 @@ export async function fetchMarkdown(source: string, element: string, signal?: Ab
   return response.text();
 }
 
-export function filterStructures(items: FolderStructure[], query: string): FolderStructure[] {
-  const normalized = query.trim().toLowerCase();
-  if (!normalized) return items;
-
-  return items.flatMap((item) => {
-    const children = item.children ? filterStructures(item.children, normalized) : undefined;
-    if (item.name.toLowerCase().includes(normalized) || children?.length) {
-      return [{ ...item, children }];
-    }
-    return [];
-  });
-}
-
 function isFolderSettings(value: unknown): value is FolderSettings {
   if (!isRecord(value) || typeof value.libraryName !== "string") return false;
   if (value.manifestConfig !== undefined && !isRecord(value.manifestConfig)) return false;
-  return Array.isArray(value.structures) && value.structures.every(isFolderStructure);
-}
-
-function isFolderStructure(value: unknown): value is FolderStructure {
-  if (!isRecord(value) || typeof value.name !== "string") return false;
-  if (value.type !== "container" && value.type !== "folder" && value.type !== "file") return false;
-  if (value.color !== undefined && typeof value.color !== "string") return false;
-  if (value.bgColor !== undefined && typeof value.bgColor !== "string") return false;
-  return (
-    value.children === undefined ||
-    (Array.isArray(value.children) && value.children.every(isFolderStructure))
-  );
+  try {
+    parseStructures(value.structures);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

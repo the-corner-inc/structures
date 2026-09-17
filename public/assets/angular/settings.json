@@ -96,7 +96,8 @@
                 },
                 {
                   "name": "services",
-                  "type": "folder"
+                  "type": "folder",
+                  "id": "src.app.shared.services"
                 },
                 {
                   "name": "pipes",
@@ -160,7 +161,8 @@
                   "name": "_typography.scss",
                   "type": "file"
                 }
-              ]
+              ],
+              "id": "src.styles.core"
             },
             {
               "name": "components",
@@ -170,7 +172,8 @@
                   "name": "_button.scss",
                   "type": "file"
                 }
-              ]
+              ],
+              "id": "src.styles.components"
             },
             {
               "name": "themes",
@@ -178,7 +181,8 @@
             },
             {
               "name": "utils",
-              "type": "folder"
+              "type": "folder",
+              "id": "src.styles.utils"
             },
             {
               "name": "index.scss",
