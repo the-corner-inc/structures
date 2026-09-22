@@ -34,6 +34,13 @@ describe("structure URLs", () => {
     );
   });
 
+  it("resolves unprefixed status and type labels to their markdown documents", () => {
+    expect(markdownDocumentUrl("/assets/software/", "Wont fix")).toBe(
+      "/assets/software/md/wont%20fix.md",
+    );
+    expect(markdownDocumentUrl("/assets/software/", "Bug")).toBe("/assets/software/md/bug.md");
+  });
+
   it("uses a remote JSON document without rewriting it", () => {
     const gist = "https://gist.githubusercontent.com/example/raw/settings.json";
     expect(settingsDocumentUrl(gist)).toBe(gist);

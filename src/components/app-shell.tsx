@@ -11,6 +11,8 @@ import {
 import { createContext, use, useEffect, useState } from "react";
 
 import { useTheme } from "#/components/theme-provider.tsx";
+import { TOPICS } from "#/lib/structures.ts";
+import { useScrollToHash } from "#/lib/use-scroll-to-hash.ts";
 
 const PresentationContext = createContext(false);
 
@@ -18,6 +20,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [presentationMode, setPresentationMode] = useState(false);
   const [presentationFrameHidden, setPresentationFrameHidden] = useState(false);
   const { theme, setTheme } = useTheme();
+  useScrollToHash();
 
   const exitPresentationMode = () => {
     setPresentationMode(false);
@@ -44,26 +47,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <header className="topbar">
           <div className="brand-and-nav">
-            <Link to="/folders" search={{}} aria-label="Structures home" className="brand-link">
+            <Link to="/" search={{}} aria-label="Structures home" className="brand-link">
               <img src="/the_corner-logo.webp" alt="The Corner" />
             </Link>
             <nav aria-label="Primary navigation" className="primary-nav">
-              <Link
-                to="/folders"
-                search={{}}
-                activeOptions={{ includeSearch: false }}
-                activeProps={{ className: "active" }}
-              >
-                Folders
-              </Link>
-              <Link
-                to="/issues"
-                search={{}}
-                activeOptions={{ includeSearch: false }}
-                activeProps={{ className: "active" }}
-              >
-                Issues
-              </Link>
+              {TOPICS.map((topic) =>
+                "to" in topic ? (
+                  <Link
+                    key={topic.name}
+                    to={topic.to}
+                    search={{}}
+                    activeOptions={{ includeSearch: false }}
+                    activeProps={{ className: "active" }}
+                  >
+                    {topic.name}
+                  </Link>
+                ) : (
+                  <span
+                    key={topic.name}
+                    className="nav-soon"
+                    aria-disabled="true"
+                    title="Coming soon"
+                  >
+                    {topic.name}
+                  </span>
+                ),
+              )}
             </nav>
           </div>
 

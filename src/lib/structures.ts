@@ -60,6 +60,40 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
   ],
 };
 
+export type BoardVariant = "kanban" | "labels" | "priorities";
+
+export type Topic =
+  | { name: string; description: string; to: string }
+  | { name: string; description: string; disabled: true };
+
+export const TOPICS: Topic[] = [
+  {
+    name: "Folders",
+    to: "/folders",
+    description: "Explore opinionated project folder structures for your stack.",
+  },
+  {
+    name: "Issues",
+    to: "/issues",
+    description: "Browse the software issue-management structure and its workflow.",
+  },
+  {
+    name: "Naming",
+    to: "/naming",
+    description: "The conventional-commit standard for issue and commit titles.",
+  },
+  {
+    name: "Status",
+    to: "/status",
+    description: "Preview the status board an issue moves through, from backlog to done.",
+  },
+  {
+    name: "Branches",
+    disabled: true,
+    description: "Branch naming and organization standards.",
+  },
+];
+
 export function defaultSource(kind: ExplorerKind) {
   return kind === "folders" ? "/assets/user/" : "/assets/software/";
 }
@@ -86,9 +120,10 @@ export function markdownDocumentUrl(source: string, element: string) {
       ? trimmed
       : `${trimmed}/`;
 
-  // Vite's public asset lookup needs TanStack's route syntax to stay literal.
+  // Vite's public asset lookup needs TanStack's route syntax to stay literal, and the static
+  // middleware only resolves colons when they stay raw.
   const filename = encodeURIComponent(element.toLowerCase()).replace(
-    /%(?:24|5B|5D|7B|7D)/g,
+    /%(?:24|3A|5B|5D|7B|7D)/g,
     decodeURIComponent,
   );
   return `${base}md/${filename}.md`;

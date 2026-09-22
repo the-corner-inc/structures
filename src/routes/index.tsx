@@ -1,7 +1,11 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+
+import { HomeTopics } from "#/components/home-topics.tsx";
 
 export const Route = createFileRoute("/")({
-  beforeLoad: () => {
-    throw redirect({ to: "/folders", search: {} });
-  },
+  component: HomeIndex,
 });
+
+function HomeIndex() {
+  return <HomeTopics />;
+}

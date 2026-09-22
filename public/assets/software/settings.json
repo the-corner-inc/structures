@@ -21,115 +21,115 @@
           "type": "folder",
           "children": [
             {
-              "name": "s::Rejected",
+              "name": "Rejected",
               "color": "#ffc6c6",
               "bgColor": "#391517",
               "type": "file"
             },
             {
-              "name": "s::Wont fix",
+              "name": "Wont fix",
               "color": "#fff",
               "bgColor": "#383c40",
               "type": "file"
             },
-            { "name": "s::On hold", "color": "#9198a1", "bgColor": "#656c7633", "type": "file" },
+            { "name": "On hold", "color": "#9198a1", "bgColor": "#656c7633", "type": "file" },
             {
-              "name": "s::On hold - API",
+              "name": "On hold - API",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Customer",
+              "name": "On hold - Customer",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Design",
+              "name": "On hold - Design",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Discussion",
+              "name": "On hold - Discussion",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Information",
+              "name": "On hold - Information",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Question",
+              "name": "On hold - Question",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             },
             {
-              "name": "s::On hold - Step to reproduce",
+              "name": "On hold - Step to reproduce",
               "color": "#9198a1",
               "bgColor": "#656c7633",
               "type": "file"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "types",
+      "type": "folder",
+      "children": [
         {
-          "name": "Type",
+          "name": "Dev",
           "type": "folder",
           "children": [
+            { "name": "Bug", "color": "#c28088", "bgColor": "#321a20", "type": "file" },
+            { "name": "Build", "color": "#3fb950", "bgColor": "#2ea04326", "type": "file" },
+            { "name": "Chore", "color": "#bd561d", "bgColor": "#db6d281a", "type": "file" },
+            { "name": "CI", "color": "#0969da", "bgColor": "#388bfd1a", "type": "file" },
+            { "name": "Docs", "color": "#3199e4", "bgColor": "#388bfd1a", "type": "file" },
             {
-              "name": "Dev",
-              "type": "folder",
-              "children": [
-                { "name": "t::Bug", "color": "#c28088", "bgColor": "#321a20", "type": "file" },
-                { "name": "t::Build", "color": "#3fb950", "bgColor": "#2ea04326", "type": "file" },
-                { "name": "t::Chore", "color": "#bd561d", "bgColor": "#db6d281a", "type": "file" },
-                { "name": "t::CI", "color": "#0969da", "bgColor": "#388bfd1a", "type": "file" },
-                { "name": "t::Docs", "color": "#3199e4", "bgColor": "#388bfd1a", "type": "file" },
-                {
-                  "name": "t::Enhancement",
-                  "color": "#b47b27",
-                  "bgColor": "#211d17",
-                  "type": "file"
-                },
-                { "name": "t::Feat", "color": "#a97c3b", "bgColor": "#2f2920", "type": "file" },
-                { "name": "t::Perf", "color": "#c87e64", "bgColor": "#31221e", "type": "file" },
-                { "name": "t::Refactor", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
-                { "name": "t::SEO", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
-                { "name": "t::Style", "color": "#e3a7fa", "bgColor": "#29133b", "type": "file" }
-              ]
+              "name": "Enhancement",
+              "color": "#b47b27",
+              "bgColor": "#211d17",
+              "type": "file"
             },
+            { "name": "Feat", "color": "#a97c3b", "bgColor": "#2f2920", "type": "file" },
+            { "name": "Perf", "color": "#c87e64", "bgColor": "#31221e", "type": "file" },
+            { "name": "Refactor", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
+            { "name": "SEO", "color": "#facc03", "bgColor": "#37341c", "type": "file" },
+            { "name": "Style", "color": "#e3a7fa", "bgColor": "#29133b", "type": "file" }
+          ]
+        },
+        {
+          "name": "Discussion",
+          "type": "folder",
+          "children": [
+            { "name": "Analyse", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
             {
-              "name": "Discussion",
-              "type": "folder",
-              "children": [
-                { "name": "t::Analyse", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
-                {
-                  "name": "t::Communication",
-                  "color": "#ff97cd",
-                  "bgColor": "#321326",
-                  "type": "file"
-                },
-                { "name": "t::Question", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
-                { "name": "t::Support", "color": "#ff97cd", "bgColor": "#321326", "type": "file" }
-              ]
+              "name": "Communication",
+              "color": "#ff97cd",
+              "bgColor": "#321326",
+              "type": "file"
             },
+            { "name": "Question", "color": "#ff97cd", "bgColor": "#321326", "type": "file" },
+            { "name": "Support", "color": "#ff97cd", "bgColor": "#321326", "type": "file" }
+          ]
+        },
+        {
+          "name": "Organisation",
+          "type": "folder",
+          "children": [
+            { "name": "Meeting", "color": "#9198a1", "bgColor": "#0a0e13", "type": "file" },
             {
-              "name": "Organisation",
-              "type": "folder",
-              "children": [
-                { "name": "t::Meeting", "color": "#9198a1", "bgColor": "#0a0e13", "type": "file" },
-                {
-                  "name": "t::Preparation",
-                  "color": "#34afa0",
-                  "bgColor": "#173031",
-                  "type": "file"
-                }
-              ]
+              "name": "Preparation",
+              "color": "#34afa0",
+              "bgColor": "#173031",
+              "type": "file"
             }
           ]
         }

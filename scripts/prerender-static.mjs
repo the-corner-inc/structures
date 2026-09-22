@@ -36,7 +36,7 @@ try {
 }
 
 async function builtInRoutes() {
-  const routes = new Set(["/", "/folders", "/issues"]);
+  const routes = new Set(["/", "/folders", "/issues", "/labels", "/kanban", "/naming"]);
   const libraries = [
     { kind: "folders", library: "angular" },
     { kind: "folders", library: "go" },
