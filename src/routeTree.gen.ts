@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
-import { Route as LabelsRouteImport } from './routes/labels'
 import { Route as NamingRouteImport } from './routes/naming'
 import { Route as StatusRouteImport } from './routes/status'
 import { Route as AuthAccountRouteImport } from './routes/_auth/account'
@@ -22,6 +21,8 @@ import { Route as FoldersIndexRouteImport } from './routes/folders/index'
 import { Route as FoldersLibraryRouteImport } from './routes/folders/$library'
 import { Route as IssuesIndexRouteImport } from './routes/issues/index'
 import { Route as IssuesLibraryRouteImport } from './routes/issues/$library'
+import { Route as IssuesLabelsRouteImport } from './routes/issues/labels'
+import { Route as IssuesPrioritiesRouteImport } from './routes/issues/priorities'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as FoldersLibraryElementRouteImport } from './routes/folders/$library_.$element'
 import { Route as IssuesLibraryElementRouteImport } from './routes/issues/$library_.$element'
@@ -37,11 +38,6 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LabelsRoute = LabelsRouteImport.update({
-  id: '/labels',
-  path: '/labels',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NamingRoute = NamingRouteImport.update({
@@ -89,6 +85,16 @@ const IssuesLibraryRoute = IssuesLibraryRouteImport.update({
   path: '/issues/$library',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IssuesLabelsRoute = IssuesLabelsRouteImport.update({
+  id: '/issues/labels',
+  path: '/issues/labels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IssuesPrioritiesRoute = IssuesPrioritiesRouteImport.update({
+  id: '/issues/priorities',
+  path: '/issues/priorities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -107,7 +113,6 @@ const IssuesLibraryElementRoute = IssuesLibraryElementRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/labels': typeof LabelsRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
@@ -115,6 +120,8 @@ export interface FileRoutesByFullPath {
   '/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
+  '/issues/labels': typeof IssuesLabelsRoute
+  '/issues/priorities': typeof IssuesPrioritiesRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -123,7 +130,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/labels': typeof LabelsRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
@@ -131,6 +137,8 @@ export interface FileRoutesByTo {
   '/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
+  '/issues/labels': typeof IssuesLabelsRoute
+  '/issues/priorities': typeof IssuesPrioritiesRoute
   '/folders': typeof FoldersIndexRoute
   '/issues': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -142,7 +150,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
-  '/labels': typeof LabelsRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/_auth/account': typeof AuthAccountRoute
@@ -150,6 +157,8 @@ export interface FileRoutesById {
   '/_guest/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
+  '/issues/labels': typeof IssuesLabelsRoute
+  '/issues/priorities': typeof IssuesPrioritiesRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -160,7 +169,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/labels'
     | '/naming'
     | '/status'
     | '/account'
@@ -168,6 +176,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/folders/$library'
     | '/issues/$library'
+    | '/issues/labels'
+    | '/issues/priorities'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -176,7 +186,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/labels'
     | '/naming'
     | '/status'
     | '/account'
@@ -184,6 +193,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/folders/$library'
     | '/issues/$library'
+    | '/issues/labels'
+    | '/issues/priorities'
     | '/folders'
     | '/issues'
     | '/api/auth/$'
@@ -194,7 +205,6 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_guest'
-    | '/labels'
     | '/naming'
     | '/status'
     | '/_auth/account'
@@ -202,6 +212,8 @@ export interface FileRouteTypes {
     | '/_guest/signup'
     | '/folders/$library'
     | '/issues/$library'
+    | '/issues/labels'
+    | '/issues/priorities'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -213,11 +225,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
-  LabelsRoute: typeof LabelsRoute
   NamingRoute: typeof NamingRoute
   StatusRoute: typeof StatusRoute
   FoldersLibraryRoute: typeof FoldersLibraryRoute
   IssuesLibraryRoute: typeof IssuesLibraryRoute
+  IssuesLabelsRoute: typeof IssuesLabelsRoute
+  IssuesPrioritiesRoute: typeof IssuesPrioritiesRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
   IssuesIndexRoute: typeof IssuesIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -246,13 +259,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof GuestRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/labels': {
-      id: '/labels'
-      path: '/labels'
-      fullPath: '/labels'
-      preLoaderRoute: typeof LabelsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/naming': {
@@ -318,6 +324,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IssuesLibraryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/issues/labels': {
+      id: '/issues/labels'
+      path: '/issues/labels'
+      fullPath: '/issues/labels'
+      preLoaderRoute: typeof IssuesLabelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/issues/priorities': {
+      id: '/issues/priorities'
+      path: '/issues/priorities'
+      fullPath: '/issues/priorities'
+      preLoaderRoute: typeof IssuesPrioritiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -372,11 +392,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
-  LabelsRoute: LabelsRoute,
   NamingRoute: NamingRoute,
   StatusRoute: StatusRoute,
   FoldersLibraryRoute: FoldersLibraryRoute,
   IssuesLibraryRoute: IssuesLibraryRoute,
+  IssuesLabelsRoute: IssuesLabelsRoute,
+  IssuesPrioritiesRoute: IssuesPrioritiesRoute,
   FoldersIndexRoute: FoldersIndexRoute,
   IssuesIndexRoute: IssuesIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

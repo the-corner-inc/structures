@@ -6,6 +6,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 
+import { MarkdownHeadings } from "#/components/anchor-heading.tsx";
+
 import "./structure-explorer.css";
 
 export function StructureMarkdown({
@@ -21,7 +23,7 @@ export function StructureMarkdown({
         skipHtml
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
-        components={{ pre: CopyablePre }}
+        components={{ ...MarkdownHeadings, pre: CopyablePre }}
       >
         {children}
       </ReactMarkdown>

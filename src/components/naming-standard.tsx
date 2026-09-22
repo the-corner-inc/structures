@@ -10,6 +10,9 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 
+import { AnchorHeading } from "#/components/anchor-heading.tsx";
+import { PageTitle } from "#/components/page-title.tsx";
+
 const PREFIXES: Array<{
   prefix: string;
   description: string;
@@ -81,22 +84,26 @@ const PREFIXES: Array<{
 export function NamingStandard() {
   return (
     <section className="naming-page">
-      <header className="naming-page-header">
-        <p className="eyebrow">Git commit naming</p>
-        <h1>Conventional commits</h1>
-        <p>
-          A lightweight convention over how to write commit, branch and issue titles. Every title
-          starts with a <Code>type</Code>, an optional <Code>scope</Code>, and a short description.
-        </p>
-        <a
-          className="naming-external-link"
-          href="https://www.conventionalcommits.org/en/v1.0.0/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Read the full specification <ArrowUpRightIcon aria-hidden="true" />
-        </a>
-      </header>
+      <PageTitle
+        eyebrow="Git commit naming"
+        title="Conventional commits"
+        intro={
+          <p>
+            A lightweight convention over how to write commit, branch and issue titles. Every title
+            starts with a <Code>type</Code>, an optional <Code>scope</Code>, and a short description.
+          </p>
+        }
+        action={
+          <a
+            className="naming-cta"
+            href="https://www.conventionalcommits.org/en/v1.0.0/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Read the full specification <ArrowUpRightIcon aria-hidden="true" />
+          </a>
+        }
+      />
 
       <div className="naming-anatomy">
         <AnatomyLabel label="type" description="the kind of change" tone="var(--file)" />
@@ -113,14 +120,18 @@ export function NamingStandard() {
 
       <CommitExample />
 
-      <h2 className="naming-section-title">Commit types</h2>
+      <AnchorHeading level={2} className="naming-section-title">
+        Commit types
+      </AnchorHeading>
       <div className="naming-type-grid">
         {PREFIXES.map((entry) => (
           <TypeCard key={entry.prefix} entry={entry} />
         ))}
       </div>
 
-      <h2 className="naming-section-title">Rules</h2>
+      <AnchorHeading level={2} className="naming-section-title">
+        Rules
+      </AnchorHeading>
       <SectionCard icon={Heading1Icon} title="Write an imperative, concise summary">
         <p>
           Use the imperative mood (“add”, “fix”, “remove”) as in a command. Keep the description on
@@ -212,7 +223,7 @@ function SectionCard({
   return (
     <div className="naming-section-card">
       <Icon aria-hidden="true" />
-      <h3>{title}</h3>
+      <AnchorHeading level={3}>{title}</AnchorHeading>
       {children}
     </div>
   );

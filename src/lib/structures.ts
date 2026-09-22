@@ -60,7 +60,7 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
   ],
 };
 
-export type BoardVariant = "kanban" | "labels";
+export type BoardVariant = "kanban" | "labels" | "priorities";
 
 export type Topic =
   | { name: string; description: string; to: string }
@@ -73,16 +73,6 @@ export const TOPICS: Topic[] = [
     description: "Explore opinionated project folder structures for your stack.",
   },
   {
-    name: "Labels",
-    to: "/labels",
-    description: "Preview the label taxonomy used to triage and prioritize issues.",
-  },
-  {
-    name: "Status",
-    to: "/status",
-    description: "Preview the status board an issue moves through, from backlog to done.",
-  },
-  {
     name: "Issues",
     to: "/issues",
     description: "Browse the software issue-management structure and its workflow.",
@@ -91,6 +81,11 @@ export const TOPICS: Topic[] = [
     name: "Naming",
     to: "/naming",
     description: "The conventional-commit standard for issue and commit titles.",
+  },
+  {
+    name: "Status",
+    to: "/status",
+    description: "Preview the status board an issue moves through, from backlog to done.",
   },
   {
     name: "Branches",

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { SquareKanbanIcon, TagsIcon } from "lucide-react";
+import { ListOrderedIcon, SquareKanbanIcon, TagsIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useMemo, useState, useSyncExternalStore } from "react";
 
@@ -15,7 +15,10 @@ import {
 } from "#/lib/structures.ts";
 
 interface BoardConfig {
+  route: string;
   group: string;
+  subgroup?: string;
+  kind: "kanban" | "gallery";
   heading: string;
   hint: string;
   emptyTitle: string;
@@ -25,7 +28,9 @@ interface BoardConfig {
 
 const BOARD_CONFIG: Record<BoardVariant, BoardConfig> = {
   kanban: {
+    route: "/status",
     group: "kanban",
+    kind: "kanban",
     heading: "Kanban board",
     hint: "Hover a column to read its description",
     emptyTitle: "No board columns",
@@ -33,12 +38,25 @@ const BOARD_CONFIG: Record<BoardVariant, BoardConfig> = {
     icon: SquareKanbanIcon,
   },
   labels: {
-    group: "labels",
+    route: "/issues/labels",
+    group: "types",
+    kind: "gallery",
     heading: "Labels",
     hint: "Hover a label to read its description",
     emptyTitle: "No labels",
-    emptyDescription: "This structure does not define a “Labels” group.",
+    emptyDescription: "This structure does not define any issue labels.",
     icon: TagsIcon,
+  },
+  priorities: {
+    route: "/issues/priorities",
+    group: "labels",
+    subgroup: "priority",
+    kind: "gallery",
+    heading: "Priorities",
+    hint: "Hover a priority to read its description",
+    emptyTitle: "No priorities",
+    emptyDescription: "This structure does not define priority labels.",
+    icon: ListOrderedIcon,
   },
 };
 
@@ -64,11 +82,20 @@ export function StructureBoard({
   });
 
   const settings = settingsQuery.data;
-  const group = useMemo(
-    () => settings?.structures.find((item) => item.name.trim().toLowerCase() === config.group),
-    [settings, config.group],
-  );
+  const group = useMemo(() => {
+    const root = settings?.structures.find(
+      (item) => item.name.trim().toLowerCase() === config.group,
+    );
+    if (!config.subgroup || !root) return root;
+    return root.children?.find((child) => child.name.trim().toLowerCase() === config.subgroup);
+  }, [settings, config.group, config.subgroup]);
   const items = group?.children ?? [];
+  const gallerySections: FolderStructure[] =
+    config.kind === "gallery"
+      ? variant === "priorities"
+        ? [{ name: config.heading, type: "folder", children: items }]
+        : items
+      : [];
 
   const descriptionQuery = useQuery({
     queryKey: ["structure-markdown", source, hoveredId],
@@ -79,11 +106,7 @@ export function StructureBoard({
   const applySource = () => {
     const nextSource = sourceInput.trim();
     if (!nextSource) return;
-    if (variant === "kanban") {
-      navigate({ to: "/kanban", search: { source: nextSource } });
-    } else {
-      navigate({ to: "/labels", search: { source: nextSource } });
-    }
+    navigate({ to: config.route, search: { source: nextSource } });
   };
 
   const openDocumentation = (element: string) => {
@@ -180,12 +203,12 @@ export function StructureBoard({
             </button>
           </div>
         )}
-        {settings && items.length > 0 && variant === "kanban" && (
+        {settings && config.kind === "kanban" && items.length > 0 && (
           <div className="kanban-board">{items.map(renderColumn)}</div>
         )}
-        {settings && items.length > 0 && variant === "labels" && (
+        {settings && config.kind === "gallery" && gallerySections.length > 0 && (
           <div className="label-gallery">
-            {items.map((item) => (
+            {gallerySections.map((item) => (
               <LabelSection
                 key={nodeId(item)}
                 group={item}

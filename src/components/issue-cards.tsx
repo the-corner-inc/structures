@@ -10,6 +10,7 @@ import {
 import { useState, useSyncExternalStore } from "react";
 
 import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
+import { PageTitle } from "#/components/page-title.tsx";
 import { defaultSource, fetchMarkdown } from "#/lib/structures.ts";
 
 interface IssueLabel {
@@ -150,6 +151,12 @@ export function IssueCards() {
     navigate({ to: "/issues/$library", params: { library: "software" }, search: { source } });
   };
 
+  const openSubPage = (label: string) => {
+    // Priority labels (P0–P4) live on the priorities page; everything else on the labels page.
+    const isPriority = /^P\d+$/i.test(label);
+    navigate({ to: isPriority ? "/issues/priorities" : "/issues/labels" });
+  };
+
   return (
     <div className="board-layout issue-board-layout">
       <aside className="board-sidebar" aria-label="Issue label descriptions">
@@ -195,10 +202,10 @@ export function IssueCards() {
 
       <main className="board-main issue-board-main">
         <section className="issue-cards-page">
-          <header className="issue-cards-header">
-            <div>
-              <p className="eyebrow">Conventional commit naming</p>
-              <h1>Issues</h1>
+          <PageTitle
+            eyebrow="Conventional commit naming"
+            title="Issues"
+            intro={
               <p>
                 Example issues whose titles follow{" "}
                 <Link to="/naming" className="inline-link">
@@ -207,11 +214,13 @@ export function IssueCards() {
                 , tagged with priority and type labels and a status badge. Hover a label or the
                 status badge to read its logic in the sidebar.
               </p>
-            </div>
-            <Link to="/naming" className="naming-cta">
-              Read the naming standard <ExternalLinkIcon aria-hidden="true" />
-            </Link>
-          </header>
+            }
+            action={
+              <Link to="/naming" className="naming-cta">
+                Read the naming standard <ExternalLinkIcon aria-hidden="true" />
+              </Link>
+            }
+          />
 
           <div className="issue-card-list">
             {sampleIssues.map((issue) => (
@@ -220,9 +229,27 @@ export function IssueCards() {
                 issue={issue}
                 activeLabel={hoveredLabel}
                 onHoverLabel={setHoveredLabel}
+                onOpenLabel={openSubPage}
               />
             ))}
           </div>
+
+          <footer className="issue-sub-footer">
+            <h2>How issues are tagged</h2>
+            <p>
+              Every issue carries a priority and one or more type labels. Explore what each means.
+            </p>
+            <div className="issue-sub-links">
+              <Link to="/issues/priorities" className="issue-sub-link">
+                <strong>Priorities</strong>
+                <span>The P0–P4 scale that decides how quickly an issue should be tackled.</span>
+              </Link>
+              <Link to="/issues/labels" className="issue-sub-link">
+                <strong>Labels</strong>
+                <span>The type taxonomy (bug, feat, docs, …) used to categorize issues.</span>
+              </Link>
+            </div>
+          </footer>
         </section>
       </main>
     </div>
@@ -233,10 +260,12 @@ function IssueCard({
   issue,
   activeLabel,
   onHoverLabel,
+  onOpenLabel,
 }: {
   issue: IssueCardData;
   activeLabel: string | null;
   onHoverLabel: (label: string | null) => void;
+  onOpenLabel: (label: string) => void;
 }) {
   const StatusIcon = issue.open ? CircleDotIcon : CheckCircleIcon;
   const statusColor = issue.open ? "var(--file)" : "var(--accent)";
@@ -248,11 +277,7 @@ function IssueCard({
 
       <div className="issue-card-main">
         <div className="issue-card-title-row">
-          <Link
-            to="/issues/$library/$element"
-            params={{ library: "software", element: "to do" }}
-            className="issue-card-title"
-          >
+          <Link to="/naming" className="issue-card-title">
             {issue.title}
           </Link>
         </div>
@@ -268,6 +293,7 @@ function IssueCard({
               onFocus={() => onHoverLabel(label.name)}
               onPointerLeave={() => onHoverLabel(null)}
               onBlur={() => onHoverLabel(null)}
+              onClick={() => onOpenLabel(label.name)}
               style={{
                 color: label.color,
                 backgroundColor: label.bgColor,

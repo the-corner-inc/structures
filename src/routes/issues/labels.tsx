@@ -3,12 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StructureBoard } from "#/components/structure-board.tsx";
 import { validateExplorerSearch } from "#/lib/router-search.ts";
 
-export const Route = createFileRoute("/labels")({
+export const Route = createFileRoute("/issues/labels")({
   validateSearch: validateExplorerSearch,
-  component: LabelsPage,
+  component: IssuesLabels,
 });
 
-function LabelsPage() {
+function IssuesLabels() {
   const { source } = Route.useSearch();
   return <StructureBoard variant="labels" sourceOverride={source} />;
 }

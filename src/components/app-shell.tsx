@@ -12,6 +12,7 @@ import { createContext, use, useEffect, useState } from "react";
 
 import { useTheme } from "#/components/theme-provider.tsx";
 import { TOPICS } from "#/lib/structures.ts";
+import { useScrollToHash } from "#/lib/use-scroll-to-hash.ts";
 
 const PresentationContext = createContext(false);
 
@@ -19,6 +20,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [presentationMode, setPresentationMode] = useState(false);
   const [presentationFrameHidden, setPresentationFrameHidden] = useState(false);
   const { theme, setTheme } = useTheme();
+  useScrollToHash();
 
   const exitPresentationMode = () => {
     setPresentationMode(false);
