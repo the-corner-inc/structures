@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented here.
 
+## [1.1.0](https://github.com/the-corner-inc/structures/compare/v1.0.0...v1.1.0) (2026-09-22)
+
+### Features
+
+* **issues:** hover explanation ([f2bd082](https://github.com/the-corner-inc/structures/commit/f2bd0828b2b01ee39654b52f87b27c77f6ba2208))
+* **issues:** kanban ([ae1cfed](https://github.com/the-corner-inc/structures/commit/ae1cfeda1fb5feca946ed250cb0c891880f3e5b1))
+* **issues:** labels ([f379c57](https://github.com/the-corner-inc/structures/commit/f379c5795c6e72182e65a634b72d46c2d761f42c))
+* **issues:** sub pages ([487992d](https://github.com/the-corner-inc/structures/commit/487992d512d595241f3ba8fce2f2a798674bb46c))
+* **issues:** topic ([5671ce1](https://github.com/the-corner-inc/structures/commit/5671ce179d670f2318224d8c652dda62467aab13))
+* **navbar:** list topic ([8676148](https://github.com/the-corner-inc/structures/commit/86761483bff2e815e4d39ffac735e482f23e5856))
+* **topic:** status, issues & Naming ([8656200](https://github.com/the-corner-inc/structures/commit/8656200718406bd4855c8f92b98cecb5f8a7b722))
+
+### Refactoring
+
+* **status, issues:** naming ([c3b96e6](https://github.com/the-corner-inc/structures/commit/c3b96e6a8e807273cec891734db36dd0ba4947b3))
+
+### Documentation
+
+* **skills:** release ([8fa2e1a](https://github.com/the-corner-inc/structures/commit/8fa2e1a3f204203fbabd801a7a187219d4d17fc4))
 ## [1.0.0](https://github.com/the-corner-inc/structures/compare/v0.8.3...v1.0.0) (2026-09-17)
 
 ### Features
