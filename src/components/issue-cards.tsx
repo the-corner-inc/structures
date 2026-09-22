@@ -1,7 +1,17 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { CheckCircleIcon, CircleDotIcon, ExternalLinkIcon, MessageSquareIcon } from "lucide-react";
-import { useState } from "react";
+import {
+  CheckCircleIcon,
+  CircleDotIcon,
+  ExternalLinkIcon,
+  MessageSquareIcon,
+  TagsIcon,
+} from "lucide-react";
+import { useState, useSyncExternalStore } from "react";
+
+import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
+import { defaultSource, fetchMarkdown } from "#/lib/structures.ts";
 
 interface IssueLabel {
   name: string;
@@ -25,6 +35,24 @@ const LABEL_BY = (name: string, color: string, bgColor: string): IssueLabel => (
   color,
   bgColor,
 });
+
+// Every label shown on an issue card maps to an entry in the software "labels"
+// structure whose Markdown explains what the label means.
+// Most labels reuse their own entry; a few reuse a sibling or the kanban readme.
+const LABEL_DOC: Record<string, string> = {
+  // Status labels read the matching kanban-status readme (there is no s::-prefixed
+  // readme for these), while s::On hold keeps its own s::on hold readme.
+  "s::In Review": "In Review",
+  "s::In Progress": "In Progress",
+  "s::To Do": "To Do",
+  "s::Done": "Done",
+  // The type taxonomy documents t::Documentation, so t::Docs reuses it.
+  "t::Docs": "t::Documentation",
+};
+
+function labelElementId(name: string): string {
+  return LABEL_DOC[name] ?? name;
+}
 
 const sampleIssues: IssueCardData[] = [
   {
@@ -143,7 +171,17 @@ const sampleIssues: IssueCardData[] = [
 
 export function IssueCards() {
   const navigate = useNavigate();
+  const hydrated = useHydrated();
   const [customSource, setCustomSource] = useState("");
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+
+  const source = defaultSource("issues");
+
+  const descriptionQuery = useQuery({
+    queryKey: ["issue-label-markdown", source, hoveredLabel],
+    queryFn: ({ signal }) => fetchMarkdown(source, labelElementId(hoveredLabel!), signal),
+    enabled: hydrated && Boolean(hoveredLabel),
+  });
 
   const applyCustomSource = () => {
     const source = customSource.trim();
@@ -152,63 +190,109 @@ export function IssueCards() {
   };
 
   return (
-    <section className="issue-cards-page">
-      <header className="issue-cards-header">
-        <div>
-          <p className="eyebrow">Conventional commit naming</p>
-          <h1>Issues</h1>
-          <p>
-            Example issues whose titles follow{" "}
-            <Link to="/naming" className="inline-link">
-              the conventional-commit standard
-            </Link>
-            , tagged with priority, type and status labels.
-          </p>
-        </div>
-        <Link to="/naming" className="naming-cta">
-          Read the naming standard <ExternalLinkIcon aria-hidden="true" />
-        </Link>
-      </header>
-
-      <details className="gist-card load-card" open={false}>
-        <summary>
-          <div>
-            <h2>Load your structure</h2>
-            <p>Paste a public raw JSON URL to open it in the explorer.</p>
+    <div className="board-layout issue-board-layout">
+      <aside className="board-sidebar" aria-label="Issue label descriptions">
+        <header className="board-sidebar-header">
+          <div className="board-heading">
+            <TagsIcon aria-hidden="true" />
+            <div>
+              <h1>Label logic</h1>
+              <p>Hover a label to read what it means</p>
+            </div>
           </div>
-          <a
-            href="https://gist.github.com/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Create a GitHub Gist"
-          >
-            <SiGithub />
-          </a>
-        </summary>
-        <div className="source-control large">
-          <input
-            type="url"
-            value={customSource}
-            placeholder="https://gist.githubusercontent.com/…/settings.json"
-            onChange={(event) => setCustomSource(event.target.value)}
-            onKeyDown={(event) => event.key === "Enter" && applyCustomSource()}
-          />
-          <button type="button" onClick={applyCustomSource} disabled={!customSource.trim()}>
-            Load <ExternalLinkIcon />
-          </button>
+        </header>
+        <div className="board-doc-scroll" aria-live="polite">
+          {!hoveredLabel && <div className="sidebar-message">Hover a label to read its logic.</div>}
+          {hoveredLabel && descriptionQuery.isPending && <DocSkeleton />}
+          {hoveredLabel && descriptionQuery.isError && (
+            <div className="sidebar-message">
+              <strong>No description found</strong>
+              <span>{descriptionQuery.error.message}</span>
+              <button type="button" onClick={() => descriptionQuery.refetch()}>
+                Try again
+              </button>
+            </div>
+          )}
+          {hoveredLabel && descriptionQuery.data && (
+            <StructureMarkdown className="board-doc">{descriptionQuery.data}</StructureMarkdown>
+          )}
         </div>
-      </details>
+      </aside>
 
-      <div className="issue-card-list">
-        {sampleIssues.map((issue) => (
-          <IssueCard key={issue.number} issue={issue} />
-        ))}
-      </div>
-    </section>
+      <main className="board-main issue-board-main">
+        <section className="issue-cards-page">
+          <header className="issue-cards-header">
+            <div>
+              <p className="eyebrow">Conventional commit naming</p>
+              <h1>Issues</h1>
+              <p>
+                Example issues whose titles follow{" "}
+                <Link to="/naming" className="inline-link">
+                  the conventional-commit standard
+                </Link>
+                , tagged with priority, type and status labels. Hover any label to read its logic in
+                the sidebar.
+              </p>
+            </div>
+            <Link to="/naming" className="naming-cta">
+              Read the naming standard <ExternalLinkIcon aria-hidden="true" />
+            </Link>
+          </header>
+
+          <details className="gist-card load-card" open={false}>
+            <summary>
+              <div>
+                <h2>Load your structure</h2>
+                <p>Paste a public raw JSON URL to open it in the explorer.</p>
+              </div>
+              <a
+                href="https://gist.github.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Create a GitHub Gist"
+              >
+                <SiGithub />
+              </a>
+            </summary>
+            <div className="source-control large">
+              <input
+                type="url"
+                value={customSource}
+                placeholder="https://gist.githubusercontent.com/…/settings.json"
+                onChange={(event) => setCustomSource(event.target.value)}
+                onKeyDown={(event) => event.key === "Enter" && applyCustomSource()}
+              />
+              <button type="button" onClick={applyCustomSource} disabled={!customSource.trim()}>
+                Load <ExternalLinkIcon />
+              </button>
+            </div>
+          </details>
+
+          <div className="issue-card-list">
+            {sampleIssues.map((issue) => (
+              <IssueCard
+                key={issue.number}
+                issue={issue}
+                activeLabel={hoveredLabel}
+                onHoverLabel={setHoveredLabel}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 
-function IssueCard({ issue }: { issue: IssueCardData }) {
+function IssueCard({
+  issue,
+  activeLabel,
+  onHoverLabel,
+}: {
+  issue: IssueCardData;
+  activeLabel: string | null;
+  onHoverLabel: (label: string | null) => void;
+}) {
   const StatusIcon = issue.open ? CircleDotIcon : CheckCircleIcon;
   const statusColor = issue.open ? "var(--file)" : "var(--accent)";
   return (
@@ -230,9 +314,15 @@ function IssueCard({ issue }: { issue: IssueCardData }) {
 
         <div className="issue-card-labels">
           {issue.labels.map((label) => (
-            <span
+            <button
               key={label.name}
+              type="button"
               className="issue-label"
+              data-active={label.name === activeLabel || undefined}
+              onPointerEnter={() => onHoverLabel(label.name)}
+              onFocus={() => onHoverLabel(label.name)}
+              onPointerLeave={() => onHoverLabel(null)}
+              onBlur={() => onHoverLabel(null)}
               style={{
                 color: label.color,
                 backgroundColor: label.bgColor,
@@ -240,7 +330,7 @@ function IssueCard({ issue }: { issue: IssueCardData }) {
               }}
             >
               {label.name}
-            </span>
+            </button>
           ))}
         </div>
 
@@ -265,4 +355,26 @@ function formatDays(days: number) {
   if (days === 0) return "today";
   if (days === 1) return "yesterday";
   return `${days} days ago`;
+}
+
+function DocSkeleton() {
+  return (
+    <div className="tree-skeleton" aria-label="Loading description">
+      {Array.from({ length: 4 }, (_, index) => (
+        <span key={index} style={{ width: `${72 + ((index * 13) % 24)}%` }} />
+      ))}
+    </div>
+  );
+}
+
+function useHydrated() {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
+}
+
+function noopSubscribe() {
+  return () => {};
 }
