@@ -60,22 +60,21 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
   ],
 };
 
-export interface IssueTopic {
-  name: string;
-  library: string;
-  description: string;
-}
+export type IssueTopic =
+  | { name: string; view: "library"; library: string; description: string }
+  | { name: string; view: "board"; description: string };
 
 export const ISSUE_TOPICS: IssueTopic[] = [
   {
     name: "Labels",
+    view: "library",
     library: "software",
     description: "Browse the label taxonomy used to triage and prioritize issues.",
   },
   {
     name: "Kanban",
-    library: "software",
-    description: "Follow the board states an issue moves through from open to done.",
+    view: "board",
+    description: "Preview the board columns an issue moves through, from backlog to done.",
   },
 ];
 
