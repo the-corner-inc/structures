@@ -80,9 +80,9 @@ export function StructureBoard({
     const nextSource = sourceInput.trim();
     if (!nextSource) return;
     if (variant === "kanban") {
-      navigate({ to: "/issues/kanban", search: { source: nextSource } });
+      navigate({ to: "/kanban", search: { source: nextSource } });
     } else {
-      navigate({ to: "/issues/labels", search: { source: nextSource } });
+      navigate({ to: "/labels", search: { source: nextSource } });
     }
   };
 

@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
+import { Route as KanbanRouteImport } from './routes/kanban'
+import { Route as LabelsRouteImport } from './routes/labels'
 import { Route as AuthAccountRouteImport } from './routes/_auth/account'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestSignupRouteImport } from './routes/_guest/signup'
@@ -19,8 +21,6 @@ import { Route as FoldersIndexRouteImport } from './routes/folders/index'
 import { Route as FoldersLibraryRouteImport } from './routes/folders/$library'
 import { Route as IssuesIndexRouteImport } from './routes/issues/index'
 import { Route as IssuesLibraryRouteImport } from './routes/issues/$library'
-import { Route as IssuesKanbanRouteImport } from './routes/issues/kanban'
-import { Route as IssuesLabelsRouteImport } from './routes/issues/labels'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as FoldersLibraryElementRouteImport } from './routes/folders/$library_.$element'
 import { Route as IssuesLibraryElementRouteImport } from './routes/issues/$library_.$element'
@@ -36,6 +36,16 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KanbanRoute = KanbanRouteImport.update({
+  id: '/kanban',
+  path: '/kanban',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabelsRoute = LabelsRouteImport.update({
+  id: '/labels',
+  path: '/labels',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAccountRoute = AuthAccountRouteImport.update({
@@ -73,16 +83,6 @@ const IssuesLibraryRoute = IssuesLibraryRouteImport.update({
   path: '/issues/$library',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IssuesKanbanRoute = IssuesKanbanRouteImport.update({
-  id: '/issues/kanban',
-  path: '/issues/kanban',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IssuesLabelsRoute = IssuesLabelsRouteImport.update({
-  id: '/issues/labels',
-  path: '/issues/labels',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -101,13 +101,13 @@ const IssuesLibraryElementRoute = IssuesLibraryElementRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kanban': typeof KanbanRoute
+  '/labels': typeof LabelsRoute
   '/account': typeof AuthAccountRoute
   '/login': typeof GuestLoginRoute
   '/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
-  '/issues/kanban': typeof IssuesKanbanRoute
-  '/issues/labels': typeof IssuesLabelsRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -116,13 +116,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kanban': typeof KanbanRoute
+  '/labels': typeof LabelsRoute
   '/account': typeof AuthAccountRoute
   '/login': typeof GuestLoginRoute
   '/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
-  '/issues/kanban': typeof IssuesKanbanRoute
-  '/issues/labels': typeof IssuesLabelsRoute
   '/folders': typeof FoldersIndexRoute
   '/issues': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -134,13 +134,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
+  '/kanban': typeof KanbanRoute
+  '/labels': typeof LabelsRoute
   '/_auth/account': typeof AuthAccountRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/signup': typeof GuestSignupRoute
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
-  '/issues/kanban': typeof IssuesKanbanRoute
-  '/issues/labels': typeof IssuesLabelsRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -151,13 +151,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/kanban'
+    | '/labels'
     | '/account'
     | '/login'
     | '/signup'
     | '/folders/$library'
     | '/issues/$library'
-    | '/issues/kanban'
-    | '/issues/labels'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -166,13 +166,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/kanban'
+    | '/labels'
     | '/account'
     | '/login'
     | '/signup'
     | '/folders/$library'
     | '/issues/$library'
-    | '/issues/kanban'
-    | '/issues/labels'
     | '/folders'
     | '/issues'
     | '/api/auth/$'
@@ -183,13 +183,13 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_guest'
+    | '/kanban'
+    | '/labels'
     | '/_auth/account'
     | '/_guest/login'
     | '/_guest/signup'
     | '/folders/$library'
     | '/issues/$library'
-    | '/issues/kanban'
-    | '/issues/labels'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -201,10 +201,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
+  KanbanRoute: typeof KanbanRoute
+  LabelsRoute: typeof LabelsRoute
   FoldersLibraryRoute: typeof FoldersLibraryRoute
   IssuesLibraryRoute: typeof IssuesLibraryRoute
-  IssuesKanbanRoute: typeof IssuesKanbanRoute
-  IssuesLabelsRoute: typeof IssuesLabelsRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
   IssuesIndexRoute: typeof IssuesIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -233,6 +233,20 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kanban': {
+      id: '/kanban'
+      path: '/kanban'
+      fullPath: '/kanban'
+      preLoaderRoute: typeof KanbanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labels': {
+      id: '/labels'
+      path: '/labels'
+      fullPath: '/labels'
+      preLoaderRoute: typeof LabelsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/account': {
@@ -282,20 +296,6 @@ declare module '@tanstack/react-router' {
       path: '/issues/$library'
       fullPath: '/issues/$library'
       preLoaderRoute: typeof IssuesLibraryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/issues/kanban': {
-      id: '/issues/kanban'
-      path: '/issues/kanban'
-      fullPath: '/issues/kanban'
-      preLoaderRoute: typeof IssuesKanbanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/issues/labels': {
-      id: '/issues/labels'
-      path: '/issues/labels'
-      fullPath: '/issues/labels'
-      preLoaderRoute: typeof IssuesLabelsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -352,10 +352,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
+  KanbanRoute: KanbanRoute,
+  LabelsRoute: LabelsRoute,
   FoldersLibraryRoute: FoldersLibraryRoute,
   IssuesLibraryRoute: IssuesLibraryRoute,
-  IssuesKanbanRoute: IssuesKanbanRoute,
-  IssuesLabelsRoute: IssuesLabelsRoute,
   FoldersIndexRoute: FoldersIndexRoute,
   IssuesIndexRoute: IssuesIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

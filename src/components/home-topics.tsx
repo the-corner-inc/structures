@@ -1,27 +1,30 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
-import { useNavigate } from "@tanstack/react-router";
-import { ChevronRightIcon, ExternalLinkIcon, KanbanIcon, TagsIcon } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import {
+  ChevronRightIcon,
+  CircleDotIcon,
+  ExternalLinkIcon,
+  FolderTreeIcon,
+  GitBranchIcon,
+  KanbanIcon,
+  TagsIcon,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useState } from "react";
 
-import { ISSUE_TOPICS, type IssueTopic } from "#/lib/structures.ts";
+import { TOPICS, type Topic } from "#/lib/structures.ts";
 
-const TOPIC_ICONS: Record<IssueTopic["name"], LucideIcon> = {
+const TOPIC_ICONS: Record<Topic["name"], LucideIcon> = {
+  Folders: FolderTreeIcon,
   Labels: TagsIcon,
   Kanban: KanbanIcon,
+  Issues: CircleDotIcon,
+  Branches: GitBranchIcon,
 };
 
-export function IssuesTopics() {
+export function HomeTopics() {
   const navigate = useNavigate();
   const [customSource, setCustomSource] = useState("");
-
-  const openTopic = (topic: IssueTopic) => {
-    if (topic.board === "kanban") {
-      navigate({ to: "/issues/kanban", search: {} });
-    } else {
-      navigate({ to: "/issues/labels", search: {} });
-    }
-  };
 
   const applyCustomSource = () => {
     const source = customSource.trim();
@@ -30,13 +33,13 @@ export function IssuesTopics() {
   };
 
   return (
-    <section className="library-chooser issues-topics">
+    <section className="library-chooser topics-page">
       <div className="chooser-intro">
-        <p className="eyebrow">Issues</p>
-        <h1>Explore an issue workflow</h1>
+        <p className="eyebrow">Community knowledge, made navigable</p>
+        <h1>Project organization, explained</h1>
         <p>
-          Pick a topic to browse the software issue-management structure, or load a JSON structure
-          from a raw GitHub Gist.
+          Browse opinionated standards for folders, issues, and boards — every entry documented in
+          Markdown, or load your own structure from a raw GitHub Gist.
         </p>
       </div>
 
@@ -74,21 +77,25 @@ export function IssuesTopics() {
       </div>
 
       <div className="topic-grid">
-        {ISSUE_TOPICS.map((topic) => {
+        {TOPICS.map((topic) => {
           const Icon = TOPIC_ICONS[topic.name];
-          return (
-            <button
-              type="button"
-              className="topic-card"
-              key={topic.name}
-              onClick={() => openTopic(topic)}
-            >
+          return "to" in topic ? (
+            <Link key={topic.name} to={topic.to} className="topic-card">
               <span className="topic-icon">
                 <Icon aria-hidden="true" />
               </span>
               <span className="topic-name">{topic.name}</span>
               <p>{topic.description}</p>
               <ChevronRightIcon aria-hidden="true" />
+            </Link>
+          ) : (
+            <button key={topic.name} type="button" className="topic-card" disabled>
+              <span className="topic-icon">
+                <Icon aria-hidden="true" />
+              </span>
+              <span className="topic-name">{topic.name}</span>
+              <p>{topic.description}</p>
+              <small>Coming soon</small>
             </button>
           );
         })}
