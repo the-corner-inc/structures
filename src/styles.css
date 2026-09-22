@@ -1699,3 +1699,480 @@ input:focus-visible {
     background: transparent;
   }
 }
+
+/* ============================ Issues (GitHub-style cards) ============================ */
+
+.issue-cards-page {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+  padding: clamp(42px, 7vw, 86px) clamp(24px, 6vw, 78px) 70px;
+  height: calc(100svh - var(--topbar-height));
+  overflow-y: auto;
+}
+
+.issue-cards-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 780px;
+}
+
+.issue-cards-header h1,
+.naming-page-header h1 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 720;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+
+.issue-cards-header > div > p:last-child {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.inline-link {
+  color: var(--accent);
+}
+
+.inline-link:hover {
+  color: color-mix(in srgb, var(--accent) 78%, var(--foreground));
+}
+
+/* Naming call-to-action */
+.naming-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-raised);
+  color: var(--foreground);
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.naming-cta:hover {
+  border-color: var(--accent);
+}
+
+.naming-cta svg,
+.naming-external-link svg {
+  width: 15px;
+  color: var(--accent);
+}
+
+.naming-cta.naming-cta-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Collapsible load-control card */
+.load-card {
+  margin: 34px 0 26px;
+}
+
+.load-card summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.load-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.load-card summary::before {
+  content: "▸";
+  color: var(--muted);
+  font-size: 12px;
+  transition: rotate 130ms ease;
+  margin-top: 2px;
+}
+
+.load-card[open] summary::before {
+  rotate: 90deg;
+}
+
+.load-card summary h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.load-card summary p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.load-card summary a {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.load-card summary a:hover {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.load-card summary a svg {
+  width: 18px;
+}
+
+.load-card .source-control {
+  margin-top: 16px;
+}
+
+/* GitHub-style issue card list */
+.issue-card-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.issue-card {
+  display: flex;
+  gap: 14px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.issue-card:last-child {
+  border-bottom: 0;
+}
+
+.issue-card:hover {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.issue-card-state {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--file);
+  margin-top: 2px;
+}
+
+.issue-card-state svg {
+  width: 17px;
+  height: 17px;
+}
+
+.issue-card-main {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.issue-card-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.issue-card-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Label pill (mirrors .label-pill but standalone) */
+.issue-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.issue-card-title {
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.issue-card-title:hover {
+  color: var(--accent);
+}
+
+.issue-card-title::before {
+  content: "";
+  display: none;
+}
+
+.issue-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.issue-card-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.issue-card-meta svg {
+  width: 14px;
+  height: 14px;
+}
+
+.issue-card-kanban {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--foreground);
+  padding: 1px 9px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+/* ============================ Naming standard ============================ */
+
+.naming-page {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+  padding: clamp(42px, 7vw, 86px) clamp(24px, 6vw, 78px) 70px;
+  height: calc(100svh - var(--topbar-height));
+  overflow-y: auto;
+}
+
+.naming-page-header {
+  max-width: 720px;
+}
+
+.naming-page-header > p:last-of-type {
+  max-width: 640px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.naming-code {
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  padding: 1px 5px;
+}
+
+.naming-external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 22px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.naming-external-link:hover {
+  text-decoration: underline;
+}
+
+/* Anatomy: type(scope): description */
+.naming-anatomy {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 22px;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  background: var(--surface-raised);
+}
+
+.anatomy-token {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--tone) 9%, transparent);
+  padding: 7px 12px;
+}
+
+.anatomy-token strong {
+  color: var(--tone);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+}
+
+.anatomy-token small {
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.anatomy-paren {
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.anatomy-sep {
+  color: var(--foreground);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.commit-example {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-raised);
+  padding: 16px 18px;
+}
+
+.commit-example-check {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-top: 1px;
+}
+
+.commit-example-check svg {
+  width: 13px;
+  height: 13px;
+}
+
+.commit-example-line {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.commit-example p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.naming-section-title {
+  margin: 44px 0 18px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.naming-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.naming-type-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-raised);
+  padding: 15px 17px;
+}
+
+.naming-type-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.naming-type-prefix {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.naming-type-heading > span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.naming-type-example {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.naming-type-example code {
+  color: var(--foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  word-break: break-word;
+}
+
+.naming-section-card {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: start;
+  column-gap: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-raised);
+  padding: 16px 18px;
+}
+
+.naming-section-card > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  margin-top: 1px;
+}
+
+.naming-section-card h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 680;
+}
+
+.naming-section-card p {
+  grid-column: 2;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.naming-links-row {
+  margin-top: 30px;
+}

@@ -12,8 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
-import { Route as KanbanRouteImport } from './routes/kanban'
 import { Route as LabelsRouteImport } from './routes/labels'
+import { Route as NamingRouteImport } from './routes/naming'
+import { Route as StatusRouteImport } from './routes/status'
 import { Route as AuthAccountRouteImport } from './routes/_auth/account'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestSignupRouteImport } from './routes/_guest/signup'
@@ -38,14 +39,19 @@ const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KanbanRoute = KanbanRouteImport.update({
-  id: '/kanban',
-  path: '/kanban',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LabelsRoute = LabelsRouteImport.update({
   id: '/labels',
   path: '/labels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NamingRoute = NamingRouteImport.update({
+  id: '/naming',
+  path: '/naming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusRoute = StatusRouteImport.update({
+  id: '/status',
+  path: '/status',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAccountRoute = AuthAccountRouteImport.update({
@@ -101,8 +107,9 @@ const IssuesLibraryElementRoute = IssuesLibraryElementRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/kanban': typeof KanbanRoute
   '/labels': typeof LabelsRoute
+  '/naming': typeof NamingRoute
+  '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
   '/login': typeof GuestLoginRoute
   '/signup': typeof GuestSignupRoute
@@ -116,8 +123,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/kanban': typeof KanbanRoute
   '/labels': typeof LabelsRoute
+  '/naming': typeof NamingRoute
+  '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
   '/login': typeof GuestLoginRoute
   '/signup': typeof GuestSignupRoute
@@ -134,8 +142,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
-  '/kanban': typeof KanbanRoute
   '/labels': typeof LabelsRoute
+  '/naming': typeof NamingRoute
+  '/status': typeof StatusRoute
   '/_auth/account': typeof AuthAccountRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/signup': typeof GuestSignupRoute
@@ -151,8 +160,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/kanban'
     | '/labels'
+    | '/naming'
+    | '/status'
     | '/account'
     | '/login'
     | '/signup'
@@ -166,8 +176,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/kanban'
     | '/labels'
+    | '/naming'
+    | '/status'
     | '/account'
     | '/login'
     | '/signup'
@@ -183,8 +194,9 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_guest'
-    | '/kanban'
     | '/labels'
+    | '/naming'
+    | '/status'
     | '/_auth/account'
     | '/_guest/login'
     | '/_guest/signup'
@@ -201,8 +213,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
-  KanbanRoute: typeof KanbanRoute
   LabelsRoute: typeof LabelsRoute
+  NamingRoute: typeof NamingRoute
+  StatusRoute: typeof StatusRoute
   FoldersLibraryRoute: typeof FoldersLibraryRoute
   IssuesLibraryRoute: typeof IssuesLibraryRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
@@ -235,18 +248,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/kanban': {
-      id: '/kanban'
-      path: '/kanban'
-      fullPath: '/kanban'
-      preLoaderRoute: typeof KanbanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/labels': {
       id: '/labels'
       path: '/labels'
       fullPath: '/labels'
       preLoaderRoute: typeof LabelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/naming': {
+      id: '/naming'
+      path: '/naming'
+      fullPath: '/naming'
+      preLoaderRoute: typeof NamingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/status': {
+      id: '/status'
+      path: '/status'
+      fullPath: '/status'
+      preLoaderRoute: typeof StatusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/account': {
@@ -352,8 +372,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
-  KanbanRoute: KanbanRoute,
   LabelsRoute: LabelsRoute,
+  NamingRoute: NamingRoute,
+  StatusRoute: StatusRoute,
   FoldersLibraryRoute: FoldersLibraryRoute,
   IssuesLibraryRoute: IssuesLibraryRoute,
   FoldersIndexRoute: FoldersIndexRoute,

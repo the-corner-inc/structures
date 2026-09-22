@@ -7,6 +7,7 @@ import {
   FolderTreeIcon,
   GitBranchIcon,
   KanbanIcon,
+  PenLineIcon,
   TagsIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -17,8 +18,9 @@ import { TOPICS, type Topic } from "#/lib/structures.ts";
 const TOPIC_ICONS: Record<Topic["name"], LucideIcon> = {
   Folders: FolderTreeIcon,
   Labels: TagsIcon,
-  Kanban: KanbanIcon,
+  Status: KanbanIcon,
   Issues: CircleDotIcon,
+  Naming: PenLineIcon,
   Branches: GitBranchIcon,
 };
 

@@ -78,14 +78,19 @@ export const TOPICS: Topic[] = [
     description: "Preview the label taxonomy used to triage and prioritize issues.",
   },
   {
-    name: "Kanban",
-    to: "/kanban",
-    description: "Preview the board columns an issue moves through, from backlog to done.",
+    name: "Status",
+    to: "/status",
+    description: "Preview the status board an issue moves through, from backlog to done.",
   },
   {
     name: "Issues",
     to: "/issues",
     description: "Browse the software issue-management structure and its workflow.",
+  },
+  {
+    name: "Naming",
+    to: "/naming",
+    description: "The conventional-commit standard for issue and commit titles.",
   },
   {
     name: "Branches",
