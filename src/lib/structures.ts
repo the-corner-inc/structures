@@ -60,6 +60,25 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
   ],
 };
 
+export interface IssueTopic {
+  name: string;
+  library: string;
+  description: string;
+}
+
+export const ISSUE_TOPICS: IssueTopic[] = [
+  {
+    name: "Labels",
+    library: "software",
+    description: "Browse the label taxonomy used to triage and prioritize issues.",
+  },
+  {
+    name: "Kanban",
+    library: "software",
+    description: "Follow the board states an issue moves through from open to done.",
+  },
+];
+
 export function defaultSource(kind: ExplorerKind) {
   return kind === "folders" ? "/assets/user/" : "/assets/software/";
 }
