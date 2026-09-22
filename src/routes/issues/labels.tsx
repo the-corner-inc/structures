@@ -3,12 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StructureBoard } from "#/components/structure-board.tsx";
 import { validateExplorerSearch } from "#/lib/router-search.ts";
 
-export const Route = createFileRoute("/issues/kanban")({
+export const Route = createFileRoute("/issues/labels")({
   validateSearch: validateExplorerSearch,
-  component: KanbanPage,
+  component: LabelsPage,
 });
 
-function KanbanPage() {
+function LabelsPage() {
   const { source } = Route.useSearch();
-  return <StructureBoard variant="kanban" sourceOverride={source} />;
+  return <StructureBoard variant="labels" sourceOverride={source} />;
 }

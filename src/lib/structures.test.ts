@@ -34,6 +34,15 @@ describe("structure URLs", () => {
     );
   });
 
+  it("keeps label namespaces literal so the static middleware resolves them", () => {
+    expect(markdownDocumentUrl("/assets/software/", "s::Wont fix")).toBe(
+      "/assets/software/md/s::wont%20fix.md",
+    );
+    expect(markdownDocumentUrl("/assets/software/", "t::Bug")).toBe(
+      "/assets/software/md/t::bug.md",
+    );
+  });
+
   it("uses a remote JSON document without rewriting it", () => {
     const gist = "https://gist.githubusercontent.com/example/raw/settings.json";
     expect(settingsDocumentUrl(gist)).toBe(gist);

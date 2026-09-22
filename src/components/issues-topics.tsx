@@ -16,11 +16,11 @@ export function IssuesTopics() {
   const [customSource, setCustomSource] = useState("");
 
   const openTopic = (topic: IssueTopic) => {
-    if (topic.view === "board") {
+    if (topic.board === "kanban") {
       navigate({ to: "/issues/kanban", search: {} });
-      return;
+    } else {
+      navigate({ to: "/issues/labels", search: {} });
     }
-    navigate({ to: "/issues/$library", params: { library: topic.library }, search: {} });
   };
 
   const applyCustomSource = () => {

@@ -60,20 +60,23 @@ export const EXPLORER_FRAMEWORKS: Record<ExplorerKind, FrameworkGroup[]> = {
   ],
 };
 
-export type IssueTopic =
-  | { name: string; view: "library"; library: string; description: string }
-  | { name: string; view: "board"; description: string };
+export type BoardVariant = "kanban" | "labels";
+
+export interface IssueTopic {
+  name: string;
+  board: BoardVariant;
+  description: string;
+}
 
 export const ISSUE_TOPICS: IssueTopic[] = [
   {
     name: "Labels",
-    view: "library",
-    library: "software",
-    description: "Browse the label taxonomy used to triage and prioritize issues.",
+    board: "labels",
+    description: "Preview the label taxonomy used to triage and prioritize issues.",
   },
   {
     name: "Kanban",
-    view: "board",
+    board: "kanban",
     description: "Preview the board columns an issue moves through, from backlog to done.",
   },
 ];
@@ -104,9 +107,10 @@ export function markdownDocumentUrl(source: string, element: string) {
       ? trimmed
       : `${trimmed}/`;
 
-  // Vite's public asset lookup needs TanStack's route syntax to stay literal.
+  // Vite's public asset lookup needs TanStack's route syntax to stay literal, and the static
+  // middleware only resolves colons when they stay raw.
   const filename = encodeURIComponent(element.toLowerCase()).replace(
-    /%(?:24|5B|5D|7B|7D)/g,
+    /%(?:24|3A|5B|5D|7B|7D)/g,
     decodeURIComponent,
   );
   return `${base}md/${filename}.md`;

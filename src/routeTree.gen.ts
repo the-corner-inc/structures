@@ -20,6 +20,7 @@ import { Route as FoldersLibraryRouteImport } from './routes/folders/$library'
 import { Route as IssuesIndexRouteImport } from './routes/issues/index'
 import { Route as IssuesLibraryRouteImport } from './routes/issues/$library'
 import { Route as IssuesKanbanRouteImport } from './routes/issues/kanban'
+import { Route as IssuesLabelsRouteImport } from './routes/issues/labels'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as FoldersLibraryElementRouteImport } from './routes/folders/$library_.$element'
 import { Route as IssuesLibraryElementRouteImport } from './routes/issues/$library_.$element'
@@ -77,6 +78,11 @@ const IssuesKanbanRoute = IssuesKanbanRouteImport.update({
   path: '/issues/kanban',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IssuesLabelsRoute = IssuesLabelsRouteImport.update({
+  id: '/issues/labels',
+  path: '/issues/labels',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
   '/issues/kanban': typeof IssuesKanbanRoute
+  '/issues/labels': typeof IssuesLabelsRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
   '/issues/kanban': typeof IssuesKanbanRoute
+  '/issues/labels': typeof IssuesLabelsRoute
   '/folders': typeof FoldersIndexRoute
   '/issues': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/folders/$library': typeof FoldersLibraryRoute
   '/issues/$library': typeof IssuesLibraryRoute
   '/issues/kanban': typeof IssuesKanbanRoute
+  '/issues/labels': typeof IssuesLabelsRoute
   '/folders/': typeof FoldersIndexRoute
   '/issues/': typeof IssuesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/folders/$library'
     | '/issues/$library'
     | '/issues/kanban'
+    | '/issues/labels'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/folders/$library'
     | '/issues/$library'
     | '/issues/kanban'
+    | '/issues/labels'
     | '/folders'
     | '/issues'
     | '/api/auth/$'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/folders/$library'
     | '/issues/$library'
     | '/issues/kanban'
+    | '/issues/labels'
     | '/folders/'
     | '/issues/'
     | '/api/auth/$'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   FoldersLibraryRoute: typeof FoldersLibraryRoute
   IssuesLibraryRoute: typeof IssuesLibraryRoute
   IssuesKanbanRoute: typeof IssuesKanbanRoute
+  IssuesLabelsRoute: typeof IssuesLabelsRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
   IssuesIndexRoute: typeof IssuesIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -278,6 +291,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IssuesKanbanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/issues/labels': {
+      id: '/issues/labels'
+      path: '/issues/labels'
+      fullPath: '/issues/labels'
+      preLoaderRoute: typeof IssuesLabelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -335,6 +355,7 @@ const rootRouteChildren: RootRouteChildren = {
   FoldersLibraryRoute: FoldersLibraryRoute,
   IssuesLibraryRoute: IssuesLibraryRoute,
   IssuesKanbanRoute: IssuesKanbanRoute,
+  IssuesLabelsRoute: IssuesLabelsRoute,
   FoldersIndexRoute: FoldersIndexRoute,
   IssuesIndexRoute: IssuesIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
