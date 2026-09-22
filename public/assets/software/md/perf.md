@@ -1,2 +1,2 @@
-# t::Perf
+# Perf
 For performance improvements.

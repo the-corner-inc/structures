@@ -1,2 +1,2 @@
-# t::Chore
+# Chore
 Routine tasks or maintenance work.

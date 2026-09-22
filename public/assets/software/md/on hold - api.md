@@ -1,4 +1,4 @@
-# s::On hold - API
+# On hold - API
 This label is used to mark API-related issues that are temporarily paused or on hold.
 
 ## Guideline

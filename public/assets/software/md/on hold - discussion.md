@@ -1,2 +1,2 @@
-# s::On hold - Discussion
+# On hold - Discussion
 For issues on hold pending discussion.

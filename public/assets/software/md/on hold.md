@@ -1,4 +1,4 @@
-# s::On hold
+# On hold
 This label is used to mark issues that are temporarily paused or on hold.
 
 ## Guideline

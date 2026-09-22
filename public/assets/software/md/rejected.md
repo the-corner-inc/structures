@@ -1,4 +1,4 @@
-# s::Rejected
+# Rejected
 This label is used to mark issues or pull requests that have been reviewed and rejected.
 
 ## Guideline

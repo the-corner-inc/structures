@@ -1,2 +1,2 @@
-# t::Support
+# Support
 For support-related tasks.

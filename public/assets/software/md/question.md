@@ -1,2 +1,2 @@
-# t::Question
+# Question
 For questions or inquiries.

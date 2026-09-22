@@ -1,2 +1,2 @@
-# t::Analyse
+# Analyse
 For tasks that require analysis before action.

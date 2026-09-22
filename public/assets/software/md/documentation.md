@@ -1,2 +1,2 @@
-# t::Documentation
+# Documentation
 For documentation-related tasks.

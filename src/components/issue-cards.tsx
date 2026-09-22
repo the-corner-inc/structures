@@ -38,16 +38,10 @@ const LABEL_BY = (name: string, color: string, bgColor: string): IssueLabel => (
 
 // Every label shown on an issue card maps to an entry in the software "labels"
 // structure whose Markdown explains what the label means.
-// Most labels reuse their own entry; a few reuse a sibling or the kanban readme.
+// Most labels reuse their own entry; a few reuse a sibling readme.
 const LABEL_DOC: Record<string, string> = {
-  // Status labels read the matching kanban-status readme (there is no s::-prefixed
-  // readme for these), while s::On hold keeps its own s::on hold readme.
-  "s::In Review": "In Review",
-  "s::In Progress": "In Progress",
-  "s::To Do": "To Do",
-  "s::Done": "Done",
-  // The type taxonomy documents t::Documentation, so t::Docs reuses it.
-  "t::Docs": "t::Documentation",
+  // The type taxonomy documents "Documentation", so the Docs label reuses it.
+  Docs: "Documentation",
 };
 
 function labelElementId(name: string): string {
@@ -64,8 +58,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 6,
     labels: [
       LABEL_BY("P1", "#bd561d", "#bb800926"),
-      LABEL_BY("t::Feat", "#a97c3b", "#2f2920"),
-      LABEL_BY("s::In Review", "#bd561d", "#db6d281a"),
+      LABEL_BY("Feat", "#a97c3b", "#2f2920"),
+      LABEL_BY("In Review", "#bd561d", "#db6d281a"),
     ],
     kanban: "In Review",
   },
@@ -78,8 +72,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 12,
     labels: [
       LABEL_BY("P0", "#da3633", "#f851491a"),
-      LABEL_BY("t::Bug", "#c28088", "#321a20"),
-      LABEL_BY("s::In Progress", "#238636", "#2ea04326"),
+      LABEL_BY("Bug", "#c28088", "#321a20"),
+      LABEL_BY("In Progress", "#238636", "#2ea04326"),
     ],
     kanban: "In Progress",
   },
@@ -92,8 +86,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 2,
     labels: [
       LABEL_BY("P2", "#c99540", "#bb800926"),
-      LABEL_BY("t::Docs", "#3199e4", "#388bfd1a"),
-      LABEL_BY("s::To Do", "#1f6feb", "#388bfd1a"),
+      LABEL_BY("Docs", "#3199e4", "#388bfd1a"),
+      LABEL_BY("To Do", "#1f6feb", "#388bfd1a"),
     ],
     kanban: "To Do",
   },
@@ -106,8 +100,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 0,
     labels: [
       LABEL_BY("P2", "#c99540", "#bb800926"),
-      LABEL_BY("t::Perf", "#c87e64", "#31221e"),
-      LABEL_BY("s::To Do", "#1f6feb", "#388bfd1a"),
+      LABEL_BY("Perf", "#c87e64", "#31221e"),
+      LABEL_BY("To Do", "#1f6feb", "#388bfd1a"),
     ],
     kanban: "To Do",
   },
@@ -120,8 +114,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 3,
     labels: [
       LABEL_BY("P1", "#bd561d", "#bb800926"),
-      LABEL_BY("t::Refactor", "#facc03", "#37341c"),
-      LABEL_BY("s::In Review", "#bd561d", "#db6d281a"),
+      LABEL_BY("Refactor", "#facc03", "#37341c"),
+      LABEL_BY("In Review", "#bd561d", "#db6d281a"),
     ],
     kanban: "In Review",
   },
@@ -134,8 +128,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 1,
     labels: [
       LABEL_BY("P4", "#9198a1", "#656c7633"),
-      LABEL_BY("t::Style", "#e3a7fa", "#29133b"),
-      LABEL_BY("s::Done", "#8957e5", "#ab7df826"),
+      LABEL_BY("Style", "#e3a7fa", "#29133b"),
+      LABEL_BY("Done", "#8957e5", "#ab7df826"),
     ],
     kanban: "Done",
   },
@@ -148,8 +142,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 4,
     labels: [
       LABEL_BY("P3", "#3fb950", "#2ea04326"),
-      LABEL_BY("t::CI", "#0969da", "#388bfd1a"),
-      LABEL_BY("s::On hold", "#9198a1", "#656c7633"),
+      LABEL_BY("CI", "#0969da", "#388bfd1a"),
+      LABEL_BY("On hold", "#9198a1", "#656c7633"),
     ],
     kanban: "Backlog",
   },
@@ -162,8 +156,8 @@ const sampleIssues: IssueCardData[] = [
     comments: 0,
     labels: [
       LABEL_BY("P4", "#9198a1", "#656c7633"),
-      LABEL_BY("t::Chore", "#bd561d", "#db6d281a"),
-      LABEL_BY("s::Done", "#8957e5", "#ab7df826"),
+      LABEL_BY("Chore", "#bd561d", "#db6d281a"),
+      LABEL_BY("Done", "#8957e5", "#ab7df826"),
     ],
     kanban: "Done",
   },

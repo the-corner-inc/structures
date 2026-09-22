@@ -1,4 +1,4 @@
-# s::On hold - Design
+# On hold - Design
 This label is used to mark design-related issues that are temporarily paused or on hold.
 
 ## Guideline

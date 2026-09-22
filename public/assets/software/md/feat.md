@@ -1,2 +1,2 @@
-# t::Feature
+# Feature
 For tasks that add new features.

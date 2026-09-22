@@ -41,11 +41,11 @@ vi.mock("@tanstack/react-query", () => ({
 // readme body per resolved label element id (see labelElementId in issue-cards.tsx)
 const readmeByElement: Record<string, string> = {
   P1: "# P1\n\nHigh-priority item.",
-  "t::Feat": "# t::Feature\n\nAdds a new feature.",
+  Feat: "# Feature\n\nAdds a new feature.",
   "In Review": "# In Review\n\nAwaiting review.",
   "To Do": "# To Do\n\nPrioritized, not started.",
-  "s::On hold": "# s::On hold\n\nTemporarily paused.",
-  "t::Documentation": "# t::Documentation\n\nDocs-only change.",
+  "On hold": "# On hold\n\nTemporarily paused.",
+  Documentation: "# Documentation\n\nDocs-only change.",
 };
 
 vi.mock("#/lib/structures.ts", async (importOriginal) => {
@@ -77,15 +77,15 @@ describe("issue cards label sidenav", () => {
     expect(screen.getByText(/High-priority item/)).toBeTruthy();
   });
 
-  it("falls the status labels back to the matching kanban readme", async () => {
+  it("explains a hovered status label using its own readme", async () => {
     render(<IssueCards />);
-    fireEvent.pointerEnter(screen.getAllByRole("button", { name: "s::In Review" })[0]);
+    fireEvent.pointerEnter(screen.getAllByRole("button", { name: "In Review" })[0]);
     await waitFor(() => expect(screen.getByText(/Awaiting review/)).toBeTruthy());
   });
 
   it("shows a no-description message for a missing readme", async () => {
     render(<IssueCards />);
-    fireEvent.pointerEnter(screen.getAllByRole("button", { name: "t::CI" })[0]);
+    fireEvent.pointerEnter(screen.getAllByRole("button", { name: "CI" })[0]);
     await waitFor(() => expect(screen.getByText(/No description found/)).toBeTruthy());
   });
 });

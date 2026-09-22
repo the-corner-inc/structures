@@ -1,2 +1,2 @@
-# t::Test
+# Test
 For testing tasks.

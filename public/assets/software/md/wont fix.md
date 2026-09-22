@@ -1,4 +1,4 @@
-# s::Wont fix
+# Wont fix
 This label is used to mark issues or pull requests that will not be addressed or fixed.
 
 ## Guideline

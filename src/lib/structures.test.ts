@@ -34,13 +34,11 @@ describe("structure URLs", () => {
     );
   });
 
-  it("keeps label namespaces literal so the static middleware resolves them", () => {
-    expect(markdownDocumentUrl("/assets/software/", "s::Wont fix")).toBe(
-      "/assets/software/md/s::wont%20fix.md",
+  it("resolves unprefixed status and type labels to their markdown documents", () => {
+    expect(markdownDocumentUrl("/assets/software/", "Wont fix")).toBe(
+      "/assets/software/md/wont%20fix.md",
     );
-    expect(markdownDocumentUrl("/assets/software/", "t::Bug")).toBe(
-      "/assets/software/md/t::bug.md",
-    );
+    expect(markdownDocumentUrl("/assets/software/", "Bug")).toBe("/assets/software/md/bug.md");
   });
 
   it("uses a remote JSON document without rewriting it", () => {

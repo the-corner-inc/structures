@@ -1,4 +1,4 @@
-# t::Communication
+# Communication
 For communication-related tasks.
 
 ## Example
