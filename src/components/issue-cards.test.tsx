@@ -77,8 +77,10 @@ describe("issue cards label sidenav", () => {
     expect(screen.getByText(/High-priority item/)).toBeTruthy();
   });
 
-  it("explains a hovered status label using its own readme", async () => {
+  it("explains a hovered status badge using its own readme", async () => {
     render(<IssueCards />);
+    // The status is no longer a label pill; the only "In Review" control is the badge.
+    expect(screen.queryAllByRole("button", { name: "In Review" }).length).toBeGreaterThan(0);
     fireEvent.pointerEnter(screen.getAllByRole("button", { name: "In Review" })[0]);
     await waitFor(() => expect(screen.getByText(/Awaiting review/)).toBeTruthy());
   });

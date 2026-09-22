@@ -1,4 +1,3 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -50,32 +49,34 @@ function labelElementId(name: string): string {
 
 const sampleIssues: IssueCardData[] = [
   {
-    number: 142,
-    title: "feat: support custom markdown docs per element",
-    open: true,
-    author: "marta",
-    openedDaysAgo: 2,
-    comments: 6,
-    labels: [
-      LABEL_BY("P1", "#bd561d", "#bb800926"),
-      LABEL_BY("Feat", "#a97c3b", "#2f2920"),
-      LABEL_BY("In Review", "#bd561d", "#db6d281a"),
-    ],
-    kanban: "In Review",
-  },
-  {
     number: 141,
     title: "fix(auth): refresh session before token expires",
     open: true,
     author: "leo",
     openedDaysAgo: 4,
     comments: 12,
-    labels: [
-      LABEL_BY("P0", "#da3633", "#f851491a"),
-      LABEL_BY("Bug", "#c28088", "#321a20"),
-      LABEL_BY("In Progress", "#238636", "#2ea04326"),
-    ],
+    labels: [LABEL_BY("P0", "#da3633", "#f851491a"), LABEL_BY("Bug", "#c28088", "#321a20")],
     kanban: "In Progress",
+  },
+  {
+    number: 142,
+    title: "feat: support custom markdown docs per element",
+    open: true,
+    author: "marta",
+    openedDaysAgo: 2,
+    comments: 6,
+    labels: [LABEL_BY("P1", "#bd561d", "#bb800926"), LABEL_BY("Feat", "#a97c3b", "#2f2920")],
+    kanban: "In Review",
+  },
+  {
+    number: 138,
+    title: "refactor(explorer): extract sidebar props",
+    open: true,
+    author: "leo",
+    openedDaysAgo: 9,
+    comments: 3,
+    labels: [LABEL_BY("P1", "#bd561d", "#bb800926"), LABEL_BY("Refactor", "#facc03", "#37341c")],
+    kanban: "In Review",
   },
   {
     number: 140,
@@ -84,11 +85,7 @@ const sampleIssues: IssueCardData[] = [
     author: "marta",
     openedDaysAgo: 5,
     comments: 2,
-    labels: [
-      LABEL_BY("P2", "#c99540", "#bb800926"),
-      LABEL_BY("Docs", "#3199e4", "#388bfd1a"),
-      LABEL_BY("To Do", "#1f6feb", "#388bfd1a"),
-    ],
+    labels: [LABEL_BY("P2", "#c99540", "#bb800926"), LABEL_BY("Docs", "#3199e4", "#388bfd1a")],
     kanban: "To Do",
   },
   {
@@ -98,40 +95,8 @@ const sampleIssues: IssueCardData[] = [
     author: "isma",
     openedDaysAgo: 8,
     comments: 0,
-    labels: [
-      LABEL_BY("P2", "#c99540", "#bb800926"),
-      LABEL_BY("Perf", "#c87e64", "#31221e"),
-      LABEL_BY("To Do", "#1f6feb", "#388bfd1a"),
-    ],
+    labels: [LABEL_BY("P2", "#c99540", "#bb800926"), LABEL_BY("Perf", "#c87e64", "#31221e")],
     kanban: "To Do",
-  },
-  {
-    number: 138,
-    title: "refactor(explorer): extract sidebar props",
-    open: true,
-    author: "leo",
-    openedDaysAgo: 9,
-    comments: 3,
-    labels: [
-      LABEL_BY("P1", "#bd561d", "#bb800926"),
-      LABEL_BY("Refactor", "#facc03", "#37341c"),
-      LABEL_BY("In Review", "#bd561d", "#db6d281a"),
-    ],
-    kanban: "In Review",
-  },
-  {
-    number: 137,
-    title: "style: align card spacing on narrow screens",
-    open: false,
-    author: "isma",
-    openedDaysAgo: 14,
-    comments: 1,
-    labels: [
-      LABEL_BY("P4", "#9198a1", "#656c7633"),
-      LABEL_BY("Style", "#e3a7fa", "#29133b"),
-      LABEL_BY("Done", "#8957e5", "#ab7df826"),
-    ],
-    kanban: "Done",
   },
   {
     number: 136,
@@ -140,12 +105,18 @@ const sampleIssues: IssueCardData[] = [
     author: "marta",
     openedDaysAgo: 15,
     comments: 4,
-    labels: [
-      LABEL_BY("P3", "#3fb950", "#2ea04326"),
-      LABEL_BY("CI", "#0969da", "#388bfd1a"),
-      LABEL_BY("On hold", "#9198a1", "#656c7633"),
-    ],
+    labels: [LABEL_BY("P3", "#3fb950", "#2ea04326"), LABEL_BY("CI", "#0969da", "#388bfd1a")],
     kanban: "Backlog",
+  },
+  {
+    number: 137,
+    title: "style: align card spacing on narrow screens",
+    open: false,
+    author: "isma",
+    openedDaysAgo: 14,
+    comments: 1,
+    labels: [LABEL_BY("P4", "#9198a1", "#656c7633"), LABEL_BY("Style", "#e3a7fa", "#29133b")],
+    kanban: "Done",
   },
   {
     number: 135,
@@ -154,11 +125,7 @@ const sampleIssues: IssueCardData[] = [
     author: "leo",
     openedDaysAgo: 21,
     comments: 0,
-    labels: [
-      LABEL_BY("P4", "#9198a1", "#656c7633"),
-      LABEL_BY("Chore", "#bd561d", "#db6d281a"),
-      LABEL_BY("Done", "#8957e5", "#ab7df826"),
-    ],
+    labels: [LABEL_BY("P4", "#9198a1", "#656c7633"), LABEL_BY("Chore", "#bd561d", "#db6d281a")],
     kanban: "Done",
   },
 ];
@@ -194,6 +161,19 @@ export function IssueCards() {
               <p>Hover a label to read what it means</p>
             </div>
           </div>
+          <div className="source-control">
+            <input
+              type="url"
+              value={customSource}
+              aria-label="Structure settings URL"
+              placeholder="https://gist.githubusercontent.com/…/settings.json"
+              onChange={(event) => setCustomSource(event.target.value)}
+              onKeyDown={(event) => event.key === "Enter" && applyCustomSource()}
+            />
+            <button type="button" onClick={applyCustomSource}>
+              Load
+            </button>
+          </div>
         </header>
         <div className="board-doc-scroll" aria-live="polite">
           {!hoveredLabel && <div className="sidebar-message">Hover a label to read its logic.</div>}
@@ -224,43 +204,14 @@ export function IssueCards() {
                 <Link to="/naming" className="inline-link">
                   the conventional-commit standard
                 </Link>
-                , tagged with priority, type and status labels. Hover any label to read its logic in
-                the sidebar.
+                , tagged with priority and type labels and a status badge. Hover a label or the
+                status badge to read its logic in the sidebar.
               </p>
             </div>
             <Link to="/naming" className="naming-cta">
               Read the naming standard <ExternalLinkIcon aria-hidden="true" />
             </Link>
           </header>
-
-          <details className="gist-card load-card" open={false}>
-            <summary>
-              <div>
-                <h2>Load your structure</h2>
-                <p>Paste a public raw JSON URL to open it in the explorer.</p>
-              </div>
-              <a
-                href="https://gist.github.com/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Create a GitHub Gist"
-              >
-                <SiGithub />
-              </a>
-            </summary>
-            <div className="source-control large">
-              <input
-                type="url"
-                value={customSource}
-                placeholder="https://gist.githubusercontent.com/…/settings.json"
-                onChange={(event) => setCustomSource(event.target.value)}
-                onKeyDown={(event) => event.key === "Enter" && applyCustomSource()}
-              />
-              <button type="button" onClick={applyCustomSource} disabled={!customSource.trim()}>
-                Load <ExternalLinkIcon />
-              </button>
-            </div>
-          </details>
 
           <div className="issue-card-list">
             {sampleIssues.map((issue) => (
@@ -329,7 +280,17 @@ function IssueCard({
         </div>
 
         <div className="issue-card-meta">
-          <span className="issue-card-kanban">{issue.kanban}</span>
+          <button
+            type="button"
+            className="issue-card-kanban"
+            data-active={issue.kanban === activeLabel || undefined}
+            onPointerEnter={() => onHoverLabel(issue.kanban!)}
+            onFocus={() => onHoverLabel(issue.kanban!)}
+            onPointerLeave={() => onHoverLabel(null)}
+            onBlur={() => onHoverLabel(null)}
+          >
+            {issue.kanban}
+          </button>
           <span>
             #{issue.number} opened {formatDays(issue.openedDaysAgo)} by {issue.author}
           </span>
