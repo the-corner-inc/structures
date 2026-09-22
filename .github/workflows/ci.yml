@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    tags:
+      - "v*"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -48,7 +47,7 @@ jobs:
         run: pnpm prerender:static
 
       - name: ⬆️ Upload FTP
-        if: github.event_name == 'push' && github.ref_name == 'main'
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.SERVER_HOST }}
