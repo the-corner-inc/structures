@@ -2306,3 +2306,195 @@ input:focus-visible {
 .naming-links-row {
   margin-top: 30px;
 }
+
+/* Branch flow diagram */
+
+.branch-main {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(
+      circle at 88% 8%,
+      color-mix(in srgb, var(--accent) 6%, transparent),
+      transparent 30%
+    ),
+    var(--background);
+  scrollbar-color: var(--border) transparent;
+  scrollbar-width: thin;
+}
+
+.branch-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  min-width: 0;
+}
+
+.branch-graph {
+  width: 100%;
+  max-width: 860px;
+  margin: auto;
+}
+
+.branch-graph svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  color: var(--foreground);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.branch-flow-svg {
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  font-family: inherit;
+}
+
+.branch-flow-edge {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1.6;
+  transition: stroke 150ms ease;
+}
+
+.branch-flow-edge.active {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.branch-node {
+  cursor: pointer;
+}
+
+.branch-node rect {
+  fill: var(--surface-raised);
+  stroke: var(--border);
+  stroke-width: 1.4;
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease;
+}
+
+.branch-node text {
+  fill: var(--foreground);
+  font-size: 13px;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+}
+
+.branch-node.highlighted rect,
+.branch-node.selected rect {
+  stroke: var(--accent);
+  stroke-width: 2;
+  fill: color-mix(in srgb, var(--accent) 8%, var(--surface-raised));
+}
+
+/* Classic git-flow: every branch is a line, commits are dots, and the branch
+   name sits beside a commit dot. */
+.branch-line {
+  stroke: var(--border);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke 150ms ease;
+}
+
+.branch-node.selected .branch-line,
+.branch-node.highlighted .branch-line {
+  stroke: var(--accent);
+}
+
+.branch-hit {
+  fill: transparent;
+}
+
+.branch-commit {
+  fill: var(--muted);
+  transition: fill 150ms ease;
+}
+
+.branch-node.selected .branch-commit,
+.branch-node.highlighted .branch-commit {
+  fill: var(--accent);
+}
+
+.branch-label {
+  fill: var(--foreground);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--background);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.branch-axis {
+  stroke: var(--border);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.branch-axis text {
+  fill: var(--muted);
+  font-size: 11px;
+  font-style: italic;
+  stroke: none;
+}
+
+.branch-doc-kind {
+  display: inline-flex;
+  margin: 0 0 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--muted);
+  padding: 2px 10px;
+  font-size: 10.5px;
+  font-weight: 680;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.branch-change {
+  margin-top: 10px;
+  align-self: flex-start;
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--accent);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.branch-change:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .branch-page.board-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: calc(100svh - var(--topbar-height));
+  }
+
+  .branch-main {
+    padding: 16px;
+  }
+}

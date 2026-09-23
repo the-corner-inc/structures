@@ -1,0 +1,57 @@
+{
+  "libraryName": "GitLab Flow",
+  "branches": [
+    {
+      "id": "main",
+      "label": "main",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The integration branch. Features merge here; changes are then promoted through environment branches."
+    },
+    {
+      "id": "feature",
+      "label": "feature/*",
+      "kind": "feature",
+      "color": "#8957e5",
+      "description": "Short-lived branch opened as a merge request into main. Deleted after merge."
+    },
+    {
+      "id": "pre-production",
+      "label": "pre-production",
+      "kind": "integration",
+      "color": "#0969da",
+      "description": "An environment branch where the next release is validated before reaching production."
+    },
+    {
+      "id": "production",
+      "label": "production",
+      "kind": "integration",
+      "color": "#1f6feb",
+      "description": "The environment branch representing the live deploy. Only promoted changes land here."
+    },
+    {
+      "id": "release",
+      "label": "release/*",
+      "kind": "release",
+      "color": "#db6d28",
+      "description": "Optional branch cut from main to deliver an already-released version that must keep receiving fixes."
+    },
+    {
+      "id": "hotfix",
+      "label": "hotfix/*",
+      "kind": "fix",
+      "color": "#cf222e",
+      "description": "Branches from production or main to fix a live incident immediately."
+    }
+  ],
+  "edges": [
+    { "from": "feature", "to": "main" },
+    { "from": "main", "to": "pre-production" },
+    { "from": "pre-production", "to": "production" },
+    { "from": "release", "to": "production" },
+    { "from": "release", "to": "main" },
+    { "from": "hotfix", "to": "production" },
+    { "from": "hotfix", "to": "main" }
+  ]
+}

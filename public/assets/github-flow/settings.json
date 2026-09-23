@@ -1,0 +1,21 @@
+{
+  "libraryName": "GitHub Flow",
+  "branches": [
+    {
+      "id": "main",
+      "label": "main",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The single long-lived branch and always deployable. Everything merges here via pull request."
+    },
+    {
+      "id": "feature",
+      "label": "feature/*",
+      "kind": "feature",
+      "color": "#8957e5",
+      "description": "A short-lived branch per change, created from main, opened as a pull request, and deleted after merge. No develop or release branches."
+    }
+  ],
+  "edges": [{ "from": "feature", "to": "main" }]
+}

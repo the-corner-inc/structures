@@ -1,0 +1,50 @@
+{
+  "libraryName": "Git Flow",
+  "branches": [
+    {
+      "id": "main",
+      "label": "main",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The long-lived production line. Every commit here is considered deployable and matches a released state."
+    },
+    {
+      "id": "develop",
+      "label": "develop",
+      "kind": "integration",
+      "protected": true,
+      "color": "#0969da",
+      "description": "The integration line for the next release. Feature branches merge here before a release is cut."
+    },
+    {
+      "id": "feature",
+      "label": "feature/*",
+      "kind": "feature",
+      "color": "#8957e5",
+      "description": "Short-lived branch for a single feature or improvement. Branches from and merges back into develop."
+    },
+    {
+      "id": "release",
+      "label": "release/*",
+      "kind": "release",
+      "color": "#db6d28",
+      "description": "Prepared from develop when a release is imminent. Only bug fixes, docs, and release metadata; merged into main and develop."
+    },
+    {
+      "id": "hotfix",
+      "label": "hotfix/*",
+      "kind": "fix",
+      "color": "#cf222e",
+      "description": "Branches from main to fix a production incident immediately. Merged into both main and develop."
+    }
+  ],
+  "edges": [
+    { "from": "feature", "to": "develop" },
+    { "from": "develop", "to": "main" },
+    { "from": "release", "to": "main" },
+    { "from": "release", "to": "develop" },
+    { "from": "hotfix", "to": "main" },
+    { "from": "hotfix", "to": "develop" }
+  ]
+}

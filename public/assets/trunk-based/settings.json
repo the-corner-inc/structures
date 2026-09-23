@@ -1,0 +1,21 @@
+{
+  "libraryName": "Trunk-Based Development",
+  "branches": [
+    {
+      "id": "main",
+      "label": "trunk (main)",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The single shared line everyone integrates into, at least daily. Always kept green by automated tests and feature flags."
+    },
+    {
+      "id": "feature",
+      "label": "short-lived branch",
+      "kind": "feature",
+      "color": "#8957e5",
+      "description": "Optional, hours-to-days-lived branch for work that cannot be committed directly. Merged back to trunk frequently; often avoided in favor of branch-by-abstraction."
+    }
+  ],
+  "edges": [{ "from": "feature", "to": "main" }]
+}

@@ -1,0 +1,33 @@
+{
+  "libraryName": "Trunk-Based with Releases",
+  "branches": [
+    {
+      "id": "main",
+      "label": "trunk (main)",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The daily integration line. Development stays on trunk; a release branch is cut only when a version needs hardening."
+    },
+    {
+      "id": "release",
+      "label": "release/*",
+      "kind": "release",
+      "color": "#db6d28",
+      "description": "Cut from main when a release is stabilization-bound. Only bug fixes and cherry-picks land here; fixes are promoted back to main."
+    },
+    {
+      "id": "hotfix",
+      "label": "hotfix/*",
+      "kind": "fix",
+      "color": "#cf222e",
+      "description": "Branches from a release or main for a production incident, merged back into both."
+    }
+  ],
+  "edges": [
+    { "from": "main", "to": "release" },
+    { "from": "release", "to": "main" },
+    { "from": "hotfix", "to": "release" },
+    { "from": "hotfix", "to": "main" }
+  ]
+}

@@ -23,6 +23,9 @@
     "resolvePackageJsonImports": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    "paths": {
+      "@gitgraph/react": ["./src/types/gitgraph-react.d.ts"]
+    },
     "types": ["node", "vite/client"]
   }
 }

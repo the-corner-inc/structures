@@ -89,7 +89,7 @@ export const TOPICS: Topic[] = [
   },
   {
     name: "Branches",
-    disabled: true,
+    to: "/branches",
     description: "Branch naming and organization standards.",
   },
 ];

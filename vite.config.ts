@@ -69,6 +69,7 @@ export default defineConfig(({ mode }) => {
         ".output/",
         "dist/",
         "public/assets/",
+        "packages/",
       ],
     },
     lint: {
