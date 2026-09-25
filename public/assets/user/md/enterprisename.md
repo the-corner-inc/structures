@@ -1,5 +1,8 @@
 # EnterpriseName
 
-We're devs, so side projects will often come by. 
+Keep enterprise-related work together, separate from personal and open-source projects.
 
-Keeping a clear distinction between personal and enterprise-related projects is often useful.
+- `Project` represents a standalone project or a monorepo.
+- `Product` groups multiple projects that make up one product, with shared specifications and assets.
+
+Replace these example names with your enterprise, project, and product names.

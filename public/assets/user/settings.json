@@ -18,7 +18,39 @@
             },
             {
               "name": "EnterpriseName",
-              "type": "folder"
+              "type": "folder",
+              "children": [
+                {
+                  "name": "Project",
+                  "type": "folder"
+                },
+                {
+                  "name": "Product",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "shared-spec",
+                      "type": "folder"
+                    },
+                    {
+                      "name": "shared-assets",
+                      "type": "folder"
+                    },
+                    {
+                      "name": "product-api",
+                      "type": "folder"
+                    },
+                    {
+                      "name": "product-app",
+                      "type": "folder"
+                    },
+                    {
+                      "name": "product-docs",
+                      "type": "folder"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
