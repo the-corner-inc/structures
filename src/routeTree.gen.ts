@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
+import { Route as BranchesRouteImport } from './routes/branches'
 import { Route as NamingRouteImport } from './routes/naming'
 import { Route as StatusRouteImport } from './routes/status'
 import { Route as AuthAccountRouteImport } from './routes/_auth/account'
@@ -38,6 +39,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BranchesRoute = BranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NamingRoute = NamingRouteImport.update({
@@ -113,6 +119,7 @@ const IssuesLibraryElementRoute = IssuesLibraryElementRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/account': typeof AuthAccountRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
+  '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
   '/_auth/account': typeof AuthAccountRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/branches'
     | '/naming'
     | '/status'
     | '/account'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/branches'
     | '/naming'
     | '/status'
     | '/account'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_guest'
+    | '/branches'
     | '/naming'
     | '/status'
     | '/_auth/account'
@@ -225,6 +237,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
+  BranchesRoute: typeof BranchesRoute
   NamingRoute: typeof NamingRoute
   StatusRoute: typeof StatusRoute
   FoldersLibraryRoute: typeof FoldersLibraryRoute
@@ -259,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/branches': {
+      id: '/branches'
+      path: '/branches'
+      fullPath: '/branches'
+      preLoaderRoute: typeof BranchesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/naming': {
@@ -392,6 +412,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
+  BranchesRoute: BranchesRoute,
   NamingRoute: NamingRoute,
   StatusRoute: StatusRoute,
   FoldersLibraryRoute: FoldersLibraryRoute,

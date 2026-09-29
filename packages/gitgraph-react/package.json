@@ -1,0 +1,60 @@
+{
+  "name": "@gitgraph/react",
+  "version": "1.6.0",
+  "description": "Draw pretty git graphs in the browser, with React",
+  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
+  "contributors": [
+    {
+      "name": "Fabien Bernard",
+      "email": "fabien0102@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+  },
+  "keywords": [
+    "react",
+    "git",
+    "graph",
+    "javascript"
+  ],
+  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@gitgraph/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "16.8.8",
+    "@types/react-dom": "16.8.3",
+    "react": "16.8.4",
+    "react-dom": "16.8.4",
+    "typescript": "6.0.3",
+    "vitest": "^3.0.0"
+  }
+}

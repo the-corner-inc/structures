@@ -1,0 +1,50 @@
+{
+  "name": "@gitgraph/core",
+  "version": "1.5.0",
+  "description": "Core of gitgraph, a JavaScript library to draw pretty git graphs",
+  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
+  "contributors": [
+    {
+      "name": "Fabien Bernard",
+      "email": "fabien0102@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+  },
+  "keywords": [
+    "git",
+    "graph",
+    "javascript"
+  ],
+  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@types/node": "26.2.0",
+    "typescript": "6.0.3",
+    "vitest": "^3.0.0"
+  }
+}

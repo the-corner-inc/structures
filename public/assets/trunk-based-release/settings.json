@@ -1,0 +1,34 @@
+{
+  "libraryName": "Trunk-Based with Releases",
+  "description": "This strategy keeps daily development on trunk while a release branch stabilizes or maintains a specific version. Features continue on main; release branches receive only fixes and selected changes needed for that version. Fixes are also brought back to main so they are not lost in future releases. It suits teams that want frequent integration while supporting a separate release schedule or older versions.",
+  "branches": [
+    {
+      "id": "main",
+      "label": "trunk (main)",
+      "kind": "trunk",
+      "protected": true,
+      "color": "#3fb950",
+      "description": "The daily integration line. Development stays on trunk; a release branch is cut only when a version needs hardening."
+    },
+    {
+      "id": "release",
+      "label": "release/*",
+      "kind": "release",
+      "color": "#db6d28",
+      "description": "Cut from main when a release is stabilization-bound. Only bug fixes and cherry-picks land here; fixes are promoted back to main."
+    },
+    {
+      "id": "hotfix",
+      "label": "hotfix/*",
+      "kind": "fix",
+      "color": "#cf222e",
+      "description": "Branches from a release or main for a production incident, merged back into both."
+    }
+  ],
+  "edges": [
+    { "from": "main", "to": "release" },
+    { "from": "release", "to": "main" },
+    { "from": "hotfix", "to": "release" },
+    { "from": "hotfix", "to": "main" }
+  ]
+}
