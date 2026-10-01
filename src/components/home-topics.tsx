@@ -8,6 +8,7 @@ import {
   GitBranchIcon,
   KanbanIcon,
   PenLineIcon,
+  BotIcon,
   TagsIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -22,6 +23,7 @@ const TOPIC_ICONS: Record<Topic["name"], LucideIcon> = {
   Issues: CircleDotIcon,
   Naming: PenLineIcon,
   Branches: GitBranchIcon,
+  Agentic: BotIcon,
 };
 
 export function HomeTopics() {

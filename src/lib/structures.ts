@@ -92,6 +92,11 @@ export const TOPICS: Topic[] = [
     to: "/branches",
     description: "Branch naming and organization standards.",
   },
+  {
+    name: "Agentic",
+    to: "/agentic",
+    description: "Understand agents, their building blocks, and the files that guide them.",
+  },
 ];
 
 export function defaultSource(kind: ExplorerKind) {

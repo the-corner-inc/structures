@@ -44,6 +44,7 @@ async function builtInRoutes() {
     "/issues/priorities",
     "/naming",
     "/status",
+    "/agentic",
   ]);
   const libraries = [
     { kind: "folders", library: "angular" },

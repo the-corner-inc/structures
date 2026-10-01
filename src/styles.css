@@ -2307,6 +2307,235 @@ input:focus-visible {
   margin-top: 30px;
 }
 
+/* Agentic building blocks */
+
+.agentic-page {
+  width: min(100%, 1240px);
+  padding-inline: clamp(24px, 5vw, 64px);
+}
+
+.agentic-page .page-title-intro {
+  max-width: 760px;
+}
+
+.agentic-explore {
+  margin-top: 40px;
+}
+
+.agentic-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 16px;
+}
+
+.agentic-section-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 680;
+  letter-spacing: -0.025em;
+}
+
+.agentic-section-heading > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.agentic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.agentic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--foreground);
+  padding: 20px;
+  text-align: left;
+}
+
+.agentic-card:first-child {
+  grid-column: 1 / -1;
+}
+
+.agentic-card:hover,
+.agentic-card[aria-pressed="true"] {
+  border-color: var(--accent);
+}
+
+.agentic-card[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.agentic-card-heading,
+.agentic-card-footer,
+.agentic-card-footer > span:last-child,
+.agentic-readme-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agentic-card-heading strong {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.agentic-card-heading > svg {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.agentic-card-heading .agentic-selected {
+  margin-left: auto;
+  color: var(--accent);
+}
+
+.agentic-card-description {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.agentic-card-footer {
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 11px;
+}
+
+.agentic-card-footer > span:first-child {
+  color: var(--muted);
+}
+
+.agentic-card-footer > span:last-child {
+  gap: 4px;
+  color: var(--accent);
+}
+
+.agentic-card-footer svg {
+  width: 13px;
+  height: 13px;
+}
+
+.agentic-readme {
+  margin-top: 28px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.agentic-readme-toolbar {
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px 22px;
+}
+
+.agentic-readme-toolbar > svg {
+  width: 17px;
+  height: 17px;
+  color: var(--muted);
+}
+
+.agentic-readme-toolbar h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.agentic-readme-toolbar h2 span {
+  color: var(--muted);
+  font-weight: 450;
+}
+
+.agentic-template-label {
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 2px 8px;
+  font-size: 10px;
+}
+
+.agentic-distinction {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 24px clamp(22px, 5vw, 54px);
+}
+
+.agentic-distinction h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.agentic-distinction p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.agentic-distinction a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.agentic-distinction a:hover {
+  text-decoration: underline;
+}
+
+.agentic-distinction a svg {
+  width: 14px;
+  height: 14px;
+}
+
+.agentic-readme .markdown-body {
+  max-width: none;
+  min-height: 0;
+  padding: 32px clamp(22px, 5vw, 54px);
+  font-size: 15px;
+}
+
+.agentic-readme-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 16px 22px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .agentic-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .agentic-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Branch flow diagram */
 
 .branch-main {

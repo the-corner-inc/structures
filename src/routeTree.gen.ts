@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
+import { Route as AgenticRouteImport } from './routes/agentic'
 import { Route as BranchesRouteImport } from './routes/branches'
 import { Route as NamingRouteImport } from './routes/naming'
 import { Route as StatusRouteImport } from './routes/status'
@@ -39,6 +40,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgenticRoute = AgenticRouteImport.update({
+  id: '/agentic',
+  path: '/agentic',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BranchesRoute = BranchesRouteImport.update({
@@ -119,6 +125,7 @@ const IssuesLibraryElementRoute = IssuesLibraryElementRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agentic': typeof AgenticRoute
   '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agentic': typeof AgenticRoute
   '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
+  '/agentic': typeof AgenticRoute
   '/branches': typeof BranchesRoute
   '/naming': typeof NamingRoute
   '/status': typeof StatusRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/agentic'
     | '/branches'
     | '/naming'
     | '/status'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agentic'
     | '/branches'
     | '/naming'
     | '/status'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_guest'
+    | '/agentic'
     | '/branches'
     | '/naming'
     | '/status'
@@ -237,6 +249,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
+  AgenticRoute: typeof AgenticRoute
   BranchesRoute: typeof BranchesRoute
   NamingRoute: typeof NamingRoute
   StatusRoute: typeof StatusRoute
@@ -272,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agentic': {
+      id: '/agentic'
+      path: '/agentic'
+      fullPath: '/agentic'
+      preLoaderRoute: typeof AgenticRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/branches': {
@@ -412,6 +432,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
+  AgenticRoute: AgenticRoute,
   BranchesRoute: BranchesRoute,
   NamingRoute: NamingRoute,
   StatusRoute: StatusRoute,
