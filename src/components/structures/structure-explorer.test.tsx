@@ -119,7 +119,10 @@ describe("portable structure explorer", () => {
     );
     await screen.findByRole("alert");
     fireEvent.click(screen.getByRole("button", { name: "Try again" }));
-    await screen.findByRole("heading", { name: "Loaded" });
+    const heading = await screen.findByRole("heading", { name: "Loaded" });
+    expect(heading.id).toBe("loaded");
+    const anchor = within(heading).getByTitle("Copy link");
+    expect(anchor.getAttribute("href")).toBe(`${location.pathname}#loaded`);
     expect(view.container.querySelector("script")).toBeNull();
     expect(view.container.querySelector('a[href^="javascript:"]')).toBeNull();
   });

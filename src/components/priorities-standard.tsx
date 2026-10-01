@@ -3,8 +3,8 @@ import { BookOpenIcon, FileCode2Icon, GaugeIcon, TrendingUpIcon } from "lucide-r
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { AnchorHeading } from "#/components/anchor-heading.tsx";
 import { PageTitle } from "#/components/page-title.tsx";
+import { AnchorHeading } from "#/components/structures/anchor-heading.tsx";
 
 const PRIORITIES: Array<{
   level: string;

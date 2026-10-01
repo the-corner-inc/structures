@@ -113,7 +113,8 @@ input, manages its own search, and reuses the same tree as the website. Document
 in an effect, abort on cleanup, ignore stale results, and support missing/error/retry states.
 
 `StructureMarkdown` uses react-markdown, GFM, and syntax highlighting, skips raw HTML, and adds
-copy controls. The component stylesheet uses scoped selectors and host theme variables. The
+copy controls. Its shared `anchor-heading.tsx` is included in the registry with scoped heading-link
+styles. The component stylesheet uses scoped selectors and host theme variables. The
 intended consumer contract is React 18+ and Tailwind 4, with no required TanStack providers or
 website assets; see [docs/registry.md](docs/registry.md) for API details.
 
@@ -162,9 +163,6 @@ FTP artifact. See [CONTRIBUTING.md](CONTRIBUTING.md) and the
 
 - The Copilot instructions still describe the removed Angular implementation. Follow the current
   React source and tooling configuration for development.
-- `structure-markdown.tsx` currently imports `#/components/anchor-heading.tsx`, which is outside
-  the registry file list. This conflicts with the portable component contract and the registry
-  import validator; resolve that boundary before relying on a new registry release.
 - `/branches` is routed by the app but is absent from the explicit prerender route list. Static
   hosting currently relies on the Apache fallback for that page.
 - Playwright scripts/dependencies exist, but no app E2E configuration or specs are present.

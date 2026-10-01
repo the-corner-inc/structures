@@ -31,6 +31,11 @@
           "target": "@components/structures/structure-markdown.tsx"
         },
         {
+          "path": "src/components/structures/anchor-heading.tsx",
+          "type": "registry:component",
+          "target": "@components/structures/anchor-heading.tsx"
+        },
+        {
           "path": "src/components/structures/structure-data.ts",
           "type": "registry:file",
           "target": "@components/structures/structure-data.ts"

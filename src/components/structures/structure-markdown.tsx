@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 
-import { MarkdownHeadings } from "#/components/anchor-heading.tsx";
+import { MarkdownHeadings } from "./anchor-heading";
 
 import "./structure-explorer.css";
 

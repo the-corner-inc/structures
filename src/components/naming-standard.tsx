@@ -10,8 +10,8 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 
-import { AnchorHeading } from "#/components/anchor-heading.tsx";
 import { PageTitle } from "#/components/page-title.tsx";
+import { AnchorHeading } from "#/components/structures/anchor-heading.tsx";
 
 const PREFIXES: Array<{
   prefix: string;
@@ -90,7 +90,8 @@ export function NamingStandard() {
         intro={
           <p>
             A lightweight convention over how to write commit, branch and issue titles. Every title
-            starts with a <Code>type</Code>, an optional <Code>scope</Code>, and a short description.
+            starts with a <Code>type</Code>, an optional <Code>scope</Code>, and a short
+            description.
           </p>
         }
         action={

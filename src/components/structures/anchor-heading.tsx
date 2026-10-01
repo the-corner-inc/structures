@@ -30,7 +30,7 @@ function textFromChildren(children: ReactNode): string {
 /**
  * Heading that exposes a hover-visible "#" anchor link to its right.
  * Clicking it copies the canonical link; opening it in a new tab loads the page
- * and (via the global hash-scroll hook) jumps straight to this heading.
+ * and (via the website's hash-scroll hook) jumps straight to this heading.
  */
 export function AnchorHeading({
   level,
