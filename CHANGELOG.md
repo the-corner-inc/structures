@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## [1.2.1](https://github.com/the-corner-inc/structures/compare/v1.2.0...v1.2.1) (2026-10-01)
+
+### Features
+
+* **agentic:** show dependencies ([032d42e](https://github.com/the-corner-inc/structures/commit/032d42eeaab809a226a40f7360f45c49bfe3d2cf))
+
+### Refactoring
+
+* remove bin ([7ba259a](https://github.com/the-corner-inc/structures/commit/7ba259af8233adde200b9d59bee08d99bd87426d))
 ## [1.2.0](https://github.com/the-corner-inc/structures/compare/v1.1.1...v1.2.0) (2026-10-01)
 
 ### Features
