@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## [1.2.0](https://github.com/the-corner-inc/structures/compare/v1.1.1...v1.2.0) (2026-10-01)
+
+### Features
+
+* agentic ([6c574b8](https://github.com/the-corner-inc/structures/commit/6c574b8f8eede0df30ea0dd723598afd59b49836))
+* branches ([32feddd](https://github.com/the-corner-inc/structures/commit/32feddd5fefd284ddb99bad899fb1faaf6c53d2f))
+
+### Continuous Integration
+
+* **workflows:** release on tag ([4b887ab](https://github.com/the-corner-inc/structures/commit/4b887abc4abc879f8cf00fad4a0cce184fc5bd1b))
 ## [1.1.0](https://github.com/the-corner-inc/structures/compare/v1.0.0...v1.1.0) (2026-09-22)
 
 ### Features
