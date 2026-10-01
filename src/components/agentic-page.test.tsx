@@ -7,6 +7,66 @@ import { AgenticPage } from "./agentic-page.tsx";
 
 afterEach(cleanup);
 
+it("highlights the elements each card can include without changing the selected template", () => {
+  const { container } = render(<AgenticPage />);
+  const highlighted = () =>
+    Array.from(container.querySelectorAll('[data-embedded="true"] .agentic-card-select')).map(
+      (button) => button.getAttribute("aria-label"),
+    );
+  const conditional = () =>
+    Array.from(container.querySelectorAll('[data-conditional="true"] .agentic-card-select')).map(
+      (button) => button.getAttribute("aria-label"),
+    );
+  const relationships: Array<[string, string[], string[]]> = [
+    [
+      "Harness",
+      ["Plugins", "Agents", "MCP Servers", "Skills", "Instructions", "Hooks", "Tools"],
+      [],
+    ],
+    ["Plugins", ["Agents", "MCP Servers", "Skills", "Instructions", "Hooks", "Tools"], []],
+    ["Agents", ["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"], ["Hooks"]],
+    ["MCP Servers", ["Skills", "Instructions", "Tools"], ["Skills"]],
+    ["Skills", ["Instructions", "Hooks", "Tools"], ["Hooks", "Tools"]],
+    ["Instructions", [], []],
+    ["Hooks", ["Instructions"], ["Instructions"]],
+    ["Tools", ["Instructions"], []],
+  ];
+
+  expect(highlighted()).toEqual([]);
+  for (const [name, children, extensions] of relationships) {
+    const button = screen.getByRole("button", { name });
+    fireEvent.pointerEnter(button);
+    expect(highlighted()).toEqual(children);
+    expect(conditional()).toEqual(extensions);
+    expect(screen.getByRole("status").textContent).toContain(`${name}:`);
+    expect(screen.getByRole("button", { name: "Harness", pressed: true })).toBeTruthy();
+    fireEvent.pointerLeave(button);
+    expect(highlighted()).toEqual([]);
+    expect(conditional()).toEqual([]);
+    expect(screen.getByRole("status").textContent).toContain("Hover or focus a card");
+    fireEvent.focus(button);
+    expect(highlighted()).toEqual(children);
+    expect(conditional()).toEqual(extensions);
+    fireEvent.blur(button);
+    expect(highlighted()).toEqual([]);
+    expect(conditional()).toEqual([]);
+  }
+
+  const agents = screen.getByRole("button", { name: "Agents" });
+  const prompt = screen.getByRole("button", { name: "Prompt" });
+  fireEvent.focus(agents);
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  fireEvent.blur(agents, { relatedTarget: prompt });
+  fireEvent.focus(prompt);
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  fireEvent.pointerEnter(screen.getByRole("button", { name: "Tools" }));
+  expect(highlighted()).toEqual(["Instructions"]);
+  fireEvent.pointerLeave(screen.getByRole("button", { name: "Tools" }));
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  fireEvent.blur(prompt);
+  expect(highlighted()).toEqual([]);
+});
+
 it("selects each building block and updates its README and Markdown download", () => {
   render(<AgenticPage />);
   expect(screen.getByRole("heading", { level: 1, name: "Agentic" })).toBeTruthy();

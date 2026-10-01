@@ -12,6 +12,73 @@ import {
   ZapIcon,
 } from 'lucide-react';
 
+// Highlight contents and capability configuration, not calls or transitive dependencies.
+// Conditional links are host extensions or custom content delivery, explained per card.
+export const AGENTIC_RELATIONSHIPS: Record<
+  string,
+  { includes: string[]; conditional?: string[]; description: string }
+> = {
+  harness: {
+    includes: [
+      'plugins',
+      'agents',
+      'mcp-servers',
+      'skills',
+      'instructions',
+      'hooks',
+      'tools',
+    ],
+    description:
+      'Hosts agents and tools, loads instructions and skills, connects MCP servers, and can support plugins and lifecycle hooks.',
+  },
+  plugins: {
+    includes: [
+      'agents',
+      'mcp-servers',
+      'skills',
+      'instructions',
+      'hooks',
+      'tools',
+    ],
+    description:
+      'Can package agent definitions, MCP servers, skills, instructions, hooks, and tools. The host determines which bundled components it loads.',
+  },
+  agents: {
+    includes: ['mcp-servers', 'skills', 'instructions', 'tools'],
+    conditional: ['hooks'],
+    description:
+      'Agent definitions supply instructions and configure skills, tool access, and MCP connections. Agent-scoped hooks are a host extension; the harness executes them. Support also depends on how the agent is installed.',
+  },
+  'mcp-servers': {
+    includes: ['instructions', 'tools'],
+    conditional: ['skills'],
+    description:
+      'Expose tools, resources, prompts, and server instructions. A custom server can deliver skill files as resources, but the host must load them; Skills is not a native MCP capability.',
+  },
+  skills: {
+    includes: ['instructions'],
+    conditional: ['hooks', 'tools'],
+    description:
+      'Contain instructions, references, assets, and scripts. Host extensions can declare hooks or configure allowed tools. A script does not automatically become a registered tool; an agent or MCP server is configured separately.',
+  },
+  tools: {
+    includes: ['instructions'],
+    description:
+      'Tool descriptions can include usage instructions alongside an input/output contract. Calling an agent or returning a skill file does not make that agent or skill part of the tool definition.',
+  },
+  instructions: {
+    includes: [],
+    description:
+      'Contain guidance and context, including prompts and examples. Mentioning an agent, skill, server, hook, or tool does not install or configure that capability.',
+  },
+  hooks: {
+    includes: [],
+    conditional: ['instructions'],
+    description:
+      'Define event handlers executed by the harness. Hosts with prompt-based hooks allow embedded instructions. Calling a tool, contacting an MCP server, or launching an agent is execution, not containment.',
+  },
+};
+
 export const AGENTIC_ELEMENTS = [
   {
     id: 'harness',
@@ -128,7 +195,7 @@ For each actionable finding, include its location, impact, and a concrete correc
     kind: 'Connection',
     icon: ServerIcon,
     description:
-      'Connect agents to external tools and data through MCP servers. Manage the servers available to your agent.',
+      'Connect agents to tools, resources, and reusable prompts through MCP servers. Servers can also deliver instructions and skill content.',
     distinction:
       'MCP is the connection protocol. A server can expose several capabilities; a tool is one callable operation, which can also exist without MCP.',
     source: 'https://modelcontextprotocol.io/docs/learn/server-concepts',
@@ -166,7 +233,7 @@ Connect from an MCP client, list the capabilities, and run a sample documentatio
     description:
       'Add reusable knowledge and workflows for specialized tasks. Agents load relevant skills when needed.',
     distinction:
-      'A skill teaches how to do a task when relevant. It can use tools, but it does not create a separate agent or grant permissions.',
+      'A skill supplies instructions and supporting files for a task. The host controls execution and permissions; its extensions may configure tools, hooks, or an agent to run the skill.',
     source: 'https://agentskills.io/home',
     sourceLabel: 'Agent Skills format',
     readme: `# Review changes skill
@@ -240,46 +307,6 @@ Use the host's permission controls to restrict actions. Written guidance alone i
 `,
   },
   {
-    id: 'hooks',
-    name: 'Hooks',
-    kind: 'Automation',
-    icon: ZapIcon,
-    description:
-      'Run automated commands at key points in the agent lifecycle. Use hooks to validate, format, or coordinate work.',
-    distinction:
-      'Hooks react to events in the harness. Instructions ask the agent to follow guidance; a hook is invoked by the host at a configured event.',
-    source: 'https://code.claude.com/docs/en/hooks',
-    sourceLabel: 'Hook lifecycle and configuration example',
-    readme: `# Post-edit validation hook
-
-Run a project check after an edit completes.
-
-## Trigger
-
-Use the host's supported post-tool event and match its file-editing tools. Event names and matching rules are host-specific.
-
-## Handler
-
-Run from the project root. For a project with a lint script, the command could be:
-
-\`\`\`sh
-pnpm lint
-\`\`\`
-
-## Failure behavior
-
-Return the check output to the agent and report a nonzero exit status when validation fails. A post-edit hook reports a problem after the edit; it does not undo the change.
-
-## Configuration
-
-Document the event, matcher, working directory, and timeout. Use the host's documented rules if a pre-action hook must block execution.
-
-## Verification
-
-Make one valid edit and one intentionally invalid edit in a disposable workspace. Confirm that the hook runs and exposes the failure.
-`,
-  },
-  {
     id: 'tools',
     name: 'Tools',
     kind: 'Action',
@@ -316,6 +343,46 @@ Validate the query and search only authorized project documents. Return an empty
 ## Integration
 
 Expose the operation as a native host tool or through an MCP server. Describe its inputs and results so the agent knows when to use it.
+`,
+  },
+  {
+    id: 'hooks',
+    name: 'Hooks',
+    kind: 'Automation',
+    icon: ZapIcon,
+    description:
+      'Trigger actions at key points in the agent lifecycle. Depending on the host, hooks can run commands, evaluate prompts, call MCP tools, or launch agents.',
+    distinction:
+      'Hooks react to events in the harness. Instructions ask the agent to follow guidance; a hook is invoked by the host at a configured event.',
+    source: 'https://code.claude.com/docs/en/hooks',
+    sourceLabel: 'Hook lifecycle and configuration example',
+    readme: `# Post-edit validation hook
+
+Run a project check after an edit completes.
+
+## Trigger
+
+Use the host's supported post-tool event and match its file-editing tools. Event names and matching rules are host-specific.
+
+## Handler
+
+Run from the project root. For a project with a lint script, the command could be:
+
+\`\`\`sh
+pnpm lint
+\`\`\`
+
+## Failure behavior
+
+Return the check output to the agent and report a nonzero exit status when validation fails. A post-edit hook reports a problem after the edit; it does not undo the change.
+
+## Configuration
+
+Document the event, matcher, working directory, and timeout. Use the host's documented rules if a pre-action hook must block execution.
+
+## Verification
+
+Make one valid edit and one intentionally invalid edit in a disposable workspace. Confirm that the hook runs and exposes the failure.
 `,
   },
 ];

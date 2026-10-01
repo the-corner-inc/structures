@@ -2310,6 +2310,7 @@ input:focus-visible {
 /* Agentic building blocks */
 
 .agentic-page {
+  --agentic-secondary: light-dark(#9a6700, #d29922);
   width: min(100%, 1240px);
   padding-inline: clamp(24px, 5vw, 64px);
 }
@@ -2341,6 +2342,18 @@ input:focus-visible {
 .agentic-section-heading > span {
   color: var(--muted);
   font-size: 12px;
+}
+
+.agentic-relationships {
+  min-height: 3.2em;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.agentic-relationships strong {
+  color: var(--agentic-secondary);
 }
 
 .agentic-grid {
@@ -2393,6 +2406,15 @@ input:focus-visible {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
+.agentic-card[data-embedded="true"] {
+  border-color: var(--agentic-secondary);
+  background: color-mix(in srgb, var(--agentic-secondary) 10%, var(--surface));
+}
+
+.agentic-card[data-conditional="true"] {
+  border-style: dashed;
+}
+
 .agentic-card-heading,
 .agentic-card-footer,
 .agentic-card-footer > span:last-child,
@@ -2412,6 +2434,10 @@ input:focus-visible {
   height: 21px;
   flex-shrink: 0;
   color: var(--muted);
+}
+
+.agentic-card[data-embedded="true"] .agentic-card-heading > svg {
+  color: var(--agentic-secondary);
 }
 
 .agentic-card-heading .agentic-selected {

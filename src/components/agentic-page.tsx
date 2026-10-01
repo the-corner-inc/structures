@@ -9,10 +9,21 @@ import { useState } from "react";
 
 import { PageTitle } from "#/components/page-title.tsx";
 import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
-import { AGENT_PROMPT, AGENTIC_ELEMENTS, INSTRUCTION_FILES } from "#/lib/agentic.ts";
+import {
+  AGENT_PROMPT,
+  AGENTIC_ELEMENTS,
+  AGENTIC_RELATIONSHIPS,
+  INSTRUCTION_FILES,
+} from "#/lib/agentic.ts";
 
 export function AgenticPage() {
   const [selected, setSelected] = useState(AGENTIC_ELEMENTS[0]);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
+  const explored = hovered ?? focused;
+  const relationship = AGENTIC_RELATIONSHIPS[explored ?? ""];
+  const embedded = relationship?.includes ?? [];
+  const conditional = relationship?.conditional ?? [];
   const isInstructionFile = INSTRUCTION_FILES.some((file) => file.id === selected.id);
   const selectedGroup = isInstructionFile
     ? "Instructions"
@@ -31,7 +42,7 @@ export function AgenticPage() {
       <section className="agentic-explore" aria-labelledby="agentic-explore-title">
         <div className="agentic-section-heading">
           <h2 id="agentic-explore-title">Explore Customizations</h2>
-          <span>Manage what the active agent knows and can do.</span>
+          <span>Yellow: contents or configuration. Dashed: host extension or custom delivery.</span>
         </div>
         <div className="agentic-grid">
           {AGENTIC_ELEMENTS.map((element) => {
@@ -43,6 +54,14 @@ export function AgenticPage() {
                 key={element.id}
                 className="agentic-card"
                 data-selected={active || element.name === selectedGroup}
+                data-embedded={embedded.includes(element.id) || conditional.includes(element.id)}
+                data-conditional={conditional.includes(element.id)}
+                onPointerEnter={() => setHovered(element.id)}
+                onPointerLeave={() => setHovered(null)}
+                onFocus={() => setFocused(element.id)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null);
+                }}
               >
                 <button
                   type="button"
@@ -105,6 +124,16 @@ export function AgenticPage() {
             );
           })}
         </div>
+        <p className="agentic-relationships" role="status" aria-atomic="true">
+          {relationship ? (
+            <>
+              <strong>{AGENTIC_ELEMENTS.find((element) => element.id === explored)?.name}: </strong>
+              {relationship.description}
+            </>
+          ) : (
+            "Hover or focus a card to explore its contents and configuration. Dashed highlights need the host extension or custom delivery described here. Calling another component does not imply containment."
+          )}
+        </p>
       </section>
 
       <section
