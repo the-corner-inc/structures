@@ -1,11 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  BookOpenIcon,
-  FileCode2Icon,
-  GaugeIcon,
-  ListOrderedIcon,
-  TrendingUpIcon,
-} from "lucide-react";
+import { BookOpenIcon, FileCode2Icon, GaugeIcon, TrendingUpIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 

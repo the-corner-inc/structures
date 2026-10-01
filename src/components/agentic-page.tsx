@@ -9,10 +9,16 @@ import { useState } from "react";
 
 import { PageTitle } from "#/components/page-title.tsx";
 import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
-import { AGENTIC_ELEMENTS } from "#/lib/agentic.ts";
+import { AGENT_PROMPT, AGENTIC_ELEMENTS, INSTRUCTION_FILES } from "#/lib/agentic.ts";
 
 export function AgenticPage() {
   const [selected, setSelected] = useState(AGENTIC_ELEMENTS[0]);
+  const isInstructionFile = INSTRUCTION_FILES.some((file) => file.id === selected.id);
+  const selectedGroup = isInstructionFile
+    ? "Instructions"
+    : selected.id === AGENT_PROMPT.id
+      ? "Agents"
+      : null;
 
   return (
     <main className="library-chooser topics-page agentic-page">
@@ -31,32 +37,71 @@ export function AgenticPage() {
           {AGENTIC_ELEMENTS.map((element) => {
             const Icon = element.icon;
             const active = selected.id === element.id;
+            const instructions = element.id === "instructions";
             return (
-              <button
+              <div
                 key={element.id}
-                type="button"
                 className="agentic-card"
-                aria-label={element.name}
-                aria-describedby={`${element.id}-description`}
-                aria-pressed={active}
-                aria-controls="agentic-readme"
-                onClick={() => setSelected(element)}
+                data-selected={active || element.name === selectedGroup}
               >
-                <span className="agentic-card-heading">
-                  <Icon aria-hidden="true" />
-                  <strong>{element.name}</strong>
-                  {active && <CheckIcon className="agentic-selected" aria-hidden="true" />}
-                </span>
-                <span id={`${element.id}-description`} className="agentic-card-description">
-                  {element.description}
-                </span>
+                <button
+                  type="button"
+                  className="agentic-card-select"
+                  aria-label={element.name}
+                  aria-describedby={`${element.id}-description`}
+                  aria-pressed={active}
+                  aria-controls="agentic-readme"
+                  onClick={() => setSelected(element)}
+                >
+                  <span className="agentic-card-heading">
+                    <Icon aria-hidden="true" />
+                    <strong>{element.name}</strong>
+                    {active && <CheckIcon className="agentic-selected" aria-hidden="true" />}
+                  </span>
+                  <span id={`${element.id}-description`} className="agentic-card-description">
+                    {element.description}
+                  </span>
+                </button>
+                {element.id === "agents" && (
+                  <button
+                    type="button"
+                    className="agentic-file-badge agentic-prompt-badge"
+                    title={AGENT_PROMPT.description}
+                    aria-pressed={selected.id === AGENT_PROMPT.id}
+                    aria-controls="agentic-readme"
+                    onClick={() => setSelected(AGENT_PROMPT)}
+                  >
+                    {AGENT_PROMPT.name}
+                  </button>
+                )}
+                {instructions && (
+                  <div
+                    className="agentic-instruction-files"
+                    role="group"
+                    aria-label="Instruction files"
+                  >
+                    {INSTRUCTION_FILES.map((file) => (
+                      <button
+                        key={file.id}
+                        type="button"
+                        className="agentic-file-badge"
+                        aria-pressed={selected.id === file.id}
+                        aria-controls="agentic-readme"
+                        onClick={() => setSelected(file)}
+                      >
+                        {file.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <span className="agentic-card-footer">
                   <span>{element.kind}</span>
                   <span>
-                    {active ? "Selected" : "Read template"} <ArrowDownIcon aria-hidden="true" />
+                    {active ? "Selected" : instructions ? "Read description" : "Read template"}{" "}
+                    <ArrowDownIcon aria-hidden="true" />
                   </span>
                 </span>
-              </button>
+              </div>
             );
           })}
         </div>
@@ -70,7 +115,8 @@ export function AgenticPage() {
         <header className="agentic-readme-toolbar">
           <FileTextIcon aria-hidden="true" />
           <h2 id="agentic-readme-title">
-            {selected.name} <span>/ README.md</span>
+            {selectedGroup ?? selected.name}{" "}
+            <span>/ {selectedGroup ? selected.name : "README.md"}</span>
           </h2>
           <span className="agentic-template-label">Example template</span>
           <a

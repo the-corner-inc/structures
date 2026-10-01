@@ -4,24 +4,26 @@ import {
   FileTextIcon,
   LayersIcon,
   LightbulbIcon,
+  MessageSquareIcon,
   NotebookTextIcon,
   PlugIcon,
   ServerIcon,
   WrenchIcon,
   ZapIcon,
-} from "lucide-react";
+} from 'lucide-react';
 
 export const AGENTIC_ELEMENTS = [
   {
-    id: "harness",
-    name: "Harness",
-    kind: "Runtime",
+    id: 'harness',
+    name: 'Harness',
+    kind: 'Runtime',
     icon: LayersIcon,
-    description: "Runs the agent loop. Manages models, context, tool execution, and permissions.",
+    description:
+      'Runs the agent loop. Manages models, context, tool execution, and permissions.',
     distinction:
-      "The harness is the surrounding software. An agent pursues a goal inside it; the model supplies the reasoning.",
-    source: "https://www.anthropic.com/engineering/managed-agents",
-    sourceLabel: "How an agent harness works",
+      'The harness is the surrounding software. An agent pursues a goal inside it; the model supplies the reasoning.',
+    source: 'https://www.anthropic.com/engineering/managed-agents',
+    sourceLabel: 'How an agent harness works',
     readme: `# Project workspace harness
 
 Runs a coding agent in a local project workspace.
@@ -49,51 +51,16 @@ Report the changed files, checks run, and any remaining work. Keep credentials o
 `,
   },
   {
-    id: "agents",
-    name: "Agents",
-    kind: "Role",
-    icon: BotIcon,
-    description:
-      "Create specialized agents for focused development tasks. Control their instructions, tools, and behavior.",
-    distinction:
-      "An agent decides what to do next. A skill supplies a procedure, and a tool performs an individual operation.",
-    source: "https://code.claude.com/docs/en/sub-agents",
-    sourceLabel: "Specialized agent definitions",
-    readme: `# Code review agent
-
-Review a proposed change for correctness, security, and maintainability.
-
-## Inputs
-
-- The diff and the intended behavior.
-- Relevant project instructions and test commands.
-
-## Working approach
-
-1. Read the changed code and its callers.
-2. Trace failure cases and check assumptions against the implementation.
-3. Run focused checks using the available tools.
-
-## Tools and scope
-
-Read files, search code, and run checks. Recommend fixes; leave source edits to the implementation task.
-
-## Output
-
-For each actionable finding, include its location, impact, and a concrete correction. If none are found, state what was reviewed and any verification gaps.
-`,
-  },
-  {
-    id: "plugins",
-    name: "Plugins",
-    kind: "Package",
+    id: 'plugins',
+    name: 'Plugins',
+    kind: 'Package',
     icon: PlugIcon,
     description:
-      "Install reusable packages that extend the agent. Plugins can add tools, skills, agents, hooks, and MCP servers.",
+      'Install reusable packages that extend the agent. Plugins can add agents, MCP servers, skills, instructions, hooks and tools.',
     distinction:
-      "A plugin distributes capabilities together. Its contents do the work; supported contents and installation formats depend on the host.",
-    source: "https://code.claude.com/docs/en/plugins",
-    sourceLabel: "Plugin packaging example",
+      'A plugin distributes capabilities together. Its contents do the work; supported contents and installation formats depend on the host.',
+    source: 'https://code.claude.com/docs/en/plugins',
+    sourceLabel: 'Plugin packaging example',
     readme: `# Team development plugin
 
 A reusable package for the team's review workflow.
@@ -121,16 +88,51 @@ Document the supported host version, required configuration, and changes in each
 `,
   },
   {
-    id: "mcp-servers",
-    name: "MCP Servers",
-    kind: "Connection",
+    id: 'agents',
+    name: 'Agents',
+    kind: 'Role',
+    icon: BotIcon,
+    description:
+      'Create specialized agents for focused development tasks. Control their instructions, tools, and behavior.',
+    distinction:
+      'An agent decides what to do next. A skill supplies a procedure, and a tool performs an individual operation.',
+    source: 'https://code.claude.com/docs/en/sub-agents',
+    sourceLabel: 'Specialized agent definitions',
+    readme: `# Code review agent
+
+Review a proposed change for correctness, security, and maintainability.
+
+## Inputs
+
+- The diff and the intended behavior.
+- Relevant project instructions and test commands.
+
+## Working approach
+
+1. Read the changed code and its callers.
+2. Trace failure cases and check assumptions against the implementation.
+3. Run focused checks using the available tools.
+
+## Tools and scope
+
+Read files, search code, and run checks. Recommend fixes; leave source edits to the implementation task.
+
+## Output
+
+For each actionable finding, include its location, impact, and a concrete correction. If none are found, state what was reviewed and any verification gaps.
+`,
+  },
+  {
+    id: 'mcp-servers',
+    name: 'MCP Servers',
+    kind: 'Connection',
     icon: ServerIcon,
     description:
-      "Connect agents to external tools and data through MCP servers. Manage the servers available to your agent.",
+      'Connect agents to external tools and data through MCP servers. Manage the servers available to your agent.',
     distinction:
-      "MCP is the connection protocol. A server can expose several capabilities; a tool is one callable operation, which can also exist without MCP.",
-    source: "https://modelcontextprotocol.io/docs/learn/server-concepts",
-    sourceLabel: "MCP server concepts",
+      'MCP is the connection protocol. A server can expose several capabilities; a tool is one callable operation, which can also exist without MCP.',
+    source: 'https://modelcontextprotocol.io/docs/learn/server-concepts',
+    sourceLabel: 'MCP server concepts',
     readme: `# Project knowledge MCP server
 
 Connect an agent app to project documentation and issue data.
@@ -157,16 +159,16 @@ Connect from an MCP client, list the capabilities, and run a sample documentatio
 `,
   },
   {
-    id: "skills",
-    name: "Skills",
-    kind: "Workflow",
+    id: 'skills',
+    name: 'Skills',
+    kind: 'Workflow',
     icon: LightbulbIcon,
     description:
-      "Add reusable knowledge and workflows for specialized tasks. Agents load relevant skills when needed.",
+      'Add reusable knowledge and workflows for specialized tasks. Agents load relevant skills when needed.',
     distinction:
-      "A skill teaches how to do a task when relevant. It can use tools, but it does not create a separate agent or grant permissions.",
-    source: "https://agentskills.io/home",
-    sourceLabel: "Agent Skills format",
+      'A skill teaches how to do a task when relevant. It can use tools, but it does not create a separate agent or grant permissions.',
+    source: 'https://agentskills.io/home',
+    sourceLabel: 'Agent Skills format',
     readme: `# Review changes skill
 
 A repeatable checklist for reviewing a code change.
@@ -199,16 +201,16 @@ Add reference documents or scripts only when the workflow needs them. Link to th
 `,
   },
   {
-    id: "instructions",
-    name: "Instructions",
-    kind: "Guidance",
+    id: 'instructions',
+    name: 'Instructions',
+    kind: 'Guidance',
     icon: BookOpenIcon,
     description:
-      "Define guidance that shapes how agents work. Apply it across a workspace or keep it in your user profile.",
+      'Define guidance that shapes how agents work. Apply it across a workspace or keep it in your user profile.',
     distinction:
-      "Instructions are the guidance itself. AGENTS.md is one place to store it; a skill packages guidance for a particular task.",
-    source: "https://agents.md/",
-    sourceLabel: "Project instruction examples",
+      'Instructions are the guidance itself. AGENTS.md is one place to store it; a skill packages guidance for a particular task.',
+    source: 'https://agents.md/',
+    sourceLabel: 'Project instruction examples',
     readme: `# Team working instructions
 
 Shared expectations for work in this project.
@@ -238,16 +240,16 @@ Use the host's permission controls to restrict actions. Written guidance alone i
 `,
   },
   {
-    id: "hooks",
-    name: "Hooks",
-    kind: "Automation",
+    id: 'hooks',
+    name: 'Hooks',
+    kind: 'Automation',
     icon: ZapIcon,
     description:
-      "Run automated commands at key points in the agent lifecycle. Use hooks to validate, format, or coordinate work.",
+      'Run automated commands at key points in the agent lifecycle. Use hooks to validate, format, or coordinate work.',
     distinction:
-      "Hooks react to events in the harness. Instructions ask the agent to follow guidance; a hook is invoked by the host at a configured event.",
-    source: "https://code.claude.com/docs/en/hooks",
-    sourceLabel: "Hook lifecycle and configuration example",
+      'Hooks react to events in the harness. Instructions ask the agent to follow guidance; a hook is invoked by the host at a configured event.',
+    source: 'https://code.claude.com/docs/en/hooks',
+    sourceLabel: 'Hook lifecycle and configuration example',
     readme: `# Post-edit validation hook
 
 Run a project check after an edit completes.
@@ -278,16 +280,16 @@ Make one valid edit and one intentionally invalid edit in a disposable workspace
 `,
   },
   {
-    id: "tools",
-    name: "Tools",
-    kind: "Action",
+    id: 'tools',
+    name: 'Tools',
+    kind: 'Action',
     icon: WrenchIcon,
     description:
-      "Review the tools available to the active agent. Enable or disable configurable tool groups.",
+      'Review the tools available to the active agent. Enable or disable configurable tool groups.',
     distinction:
-      "A tool defines an operation with inputs and a result. The agent chooses when to call it; the harness executes it, subject to permissions.",
-    source: "https://modelcontextprotocol.io/docs/learn/server-concepts",
-    sourceLabel: "Callable tools and their schemas",
+      'A tool defines an operation with inputs and a result. The agent chooses when to call it; the harness executes it, subject to permissions.',
+    source: 'https://modelcontextprotocol.io/docs/learn/server-concepts',
+    sourceLabel: 'Callable tools and their schemas',
     readme: `# Search project docs tool
 
 Find relevant passages in the project's documentation.
@@ -316,16 +318,61 @@ Validate the query and search only authorized project documents. Return an empty
 Expose the operation as a native host tool or through an MCP server. Describe its inputs and results so the agent knows when to use it.
 `,
   },
+];
+
+export const AGENT_PROMPT = {
+  id: 'prompt',
+  name: 'Prompt',
+  kind: 'Input',
+  icon: MessageSquareIcon,
+  description: 'The request you give an agent.',
+  distinction:
+    'A prompt is the input you give an agent. It can contain instructions, a question, context, examples, or data. The agent uses that input to decide what to do next.',
+  source:
+    'https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview',
+  sourceLabel: 'Prompt engineering overview',
+  readme: `# Prompt
+
+A prompt starts or continues an interaction with an agent. It tells the agent what you need and can provide the information needed to do the work.
+
+## Prompt, instructions, and context
+
+| Concept | Purpose | Example |
+| --- | --- | --- |
+| Prompt | The input given to the agent | Review this change. |
+| Instructions | Guidance on how to work | Prioritize correctness and accessibility. |
+| Context | Background that helps with the task | This project uses React 19. |
+
+A single prompt can include all three. Project instructions such as AGENTS.md can also provide guidance across many tasks.
+
+## Example prompt
+
+\`\`\`text
+Review the proposed login-page change.
+
+Context: this project uses React 19, and the page must work with a keyboard.
+Instructions: check correctness and accessibility. Do not edit files.
+Output: list actionable findings with file locations and suggested fixes.
+\`\`\`
+
+## Writing a useful prompt
+
+State the task, include relevant context, and describe the expected result. Add examples or constraints when they help clarify what you need.
+`,
+};
+
+export const INSTRUCTION_FILES = [
   {
-    id: "agents-md",
-    name: "AGENTS.md",
-    kind: "Project instructions",
+    id: 'agents-md',
+    name: 'AGENTS.md',
+    kind: 'Project instructions',
     icon: FileTextIcon,
-    description: "A conventional Markdown file for project guidance, commands, and coding rules.",
+    description:
+      'A conventional Markdown file for project guidance, commands, and coding rules.',
     distinction:
-      "AGENTS.md guides agents working in a repository; it does not define or launch an agent. Discovery and directory scope depend on the host.",
-    source: "https://agents.md/",
-    sourceLabel: "AGENTS.md specification and examples",
+      'AGENTS.md guides agents working in a repository; it does not define or launch an agent. Discovery and directory scope depend on the host.',
+    source: 'https://agents.md/',
+    sourceLabel: 'AGENTS.md specification and examples',
     readme: `# AGENTS.md
 
 ## Project
@@ -357,16 +404,17 @@ Read CONTEXT.md for current architecture and decisions. Treat its progress notes
 `,
   },
   {
-    id: "context-md",
-    name: "CONTEXT.md",
-    kind: "Project knowledge",
+    id: 'context-md',
+    name: 'CONTEXT.md',
+    kind: 'Project knowledge',
     icon: NotebookTextIcon,
     description:
-      "Record architecture, decisions, and current state so work can resume with context.",
+      'Record architecture, decisions, and current state so work can resume with context.',
     distinction:
-      "Here, CONTEXT.md holds project facts and handoff notes, while AGENTS.md holds working guidance. CONTEXT.md is a project convention: explicitly reference or load it.",
-    source: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
-    sourceLabel: "Using artifacts to carry context between sessions",
+      'Here, CONTEXT.md holds project facts and handoff notes, while AGENTS.md holds working guidance. CONTEXT.md is a project convention: explicitly reference or load it.',
+    source:
+      'https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents',
+    sourceLabel: 'Using artifacts to carry context between sessions',
     readme: `# CONTEXT.md
 
 ## Project overview

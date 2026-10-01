@@ -90,7 +90,8 @@ export default defineConfig(({ mode }) => {
         "eslint-tanstack-query/exhaustive-deps": "warn",
         "eslint-tanstack-query/stable-query-client": "warn",
       },
-      ignorePatterns: [".output", "dist", "scripts", "src/routeTree.gen.ts"],
+      // Vendored Gitgraph packages use their own build configs and React 16 typings.
+      ignorePatterns: [".output", "dist", "scripts", "packages", "src/routeTree.gen.ts"],
     },
     define: {
       __APP_VERSION__: JSON.stringify(version),

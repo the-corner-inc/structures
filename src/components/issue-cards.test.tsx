@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 import { IssueCards } from "./issue-cards";
 
 vi.mock("@tanstack/react-router", () => ({
-  Link: ({ to, params, search, className, children }: any) => (
+  Link: ({ to, className, children }: any) => (
     <a href={`#${to}`} className={className} onClick={(event) => event.preventDefault()}>
       {children}
     </a>

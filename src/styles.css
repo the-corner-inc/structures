@@ -2345,20 +2345,38 @@ input:focus-visible {
 
 .agentic-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 14px;
 }
 
 .agentic-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
   color: var(--foreground);
+}
+
+.agentic-card-select {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
   padding: 20px;
   text-align: left;
+}
+
+.agentic-card-select::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
 }
 
 .agentic-card:first-child {
@@ -2366,11 +2384,11 @@ input:focus-visible {
 }
 
 .agentic-card:hover,
-.agentic-card[aria-pressed="true"] {
+.agentic-card[data-selected="true"] {
   border-color: var(--accent);
 }
 
-.agentic-card[aria-pressed="true"] {
+.agentic-card[data-selected="true"] {
   background: color-mix(in srgb, var(--accent) 7%, var(--surface));
   box-shadow: inset 0 0 0 1px var(--accent);
 }
@@ -2412,7 +2430,7 @@ input:focus-visible {
   justify-content: space-between;
   gap: 8px;
   margin-top: auto;
-  padding-top: 6px;
+  padding: 6px 20px 20px;
   font-size: 11px;
 }
 
@@ -2428,6 +2446,37 @@ input:focus-visible {
 .agentic-card-footer svg {
   width: 13px;
   height: 13px;
+}
+
+.agentic-instruction-files {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 20px 12px;
+}
+
+.agentic-file-badge {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.agentic-file-badge:hover,
+.agentic-file-badge[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  color: var(--accent);
+}
+
+.agentic-prompt-badge {
+  align-self: flex-end;
+  margin: 0 20px 12px;
 }
 
 .agentic-readme {
@@ -2522,6 +2571,16 @@ input:focus-visible {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
+}
+
+@media (min-width: 901px) {
+  .agentic-card {
+    grid-column: span 3;
+  }
+
+  .agentic-card:nth-child(n + 2):nth-child(-n + 4) {
+    grid-column: span 4;
+  }
 }
 
 @media (max-width: 900px) {
