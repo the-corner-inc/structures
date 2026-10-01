@@ -6,59 +6,63 @@ All notable changes to this project are documented here.
 
 ### Features
 
-* **agentic:** show dependencies ([032d42e](https://github.com/the-corner-inc/structures/commit/032d42eeaab809a226a40f7360f45c49bfe3d2cf))
+- **agentic:** show dependencies ([032d42e](https://github.com/the-corner-inc/structures/commit/032d42eeaab809a226a40f7360f45c49bfe3d2cf))
 
 ### Refactoring
 
-* remove bin ([7ba259a](https://github.com/the-corner-inc/structures/commit/7ba259af8233adde200b9d59bee08d99bd87426d))
+- remove bin ([7ba259a](https://github.com/the-corner-inc/structures/commit/7ba259af8233adde200b9d59bee08d99bd87426d))
+
 ## [1.2.0](https://github.com/the-corner-inc/structures/compare/v1.1.1...v1.2.0) (2026-10-01)
 
 ### Features
 
-* agentic ([6c574b8](https://github.com/the-corner-inc/structures/commit/6c574b8f8eede0df30ea0dd723598afd59b49836))
-* branches ([32feddd](https://github.com/the-corner-inc/structures/commit/32feddd5fefd284ddb99bad899fb1faaf6c53d2f))
+- agentic ([6c574b8](https://github.com/the-corner-inc/structures/commit/6c574b8f8eede0df30ea0dd723598afd59b49836))
+- branches ([32feddd](https://github.com/the-corner-inc/structures/commit/32feddd5fefd284ddb99bad899fb1faaf6c53d2f))
 
 ### Continuous Integration
 
-* **workflows:** release on tag ([4b887ab](https://github.com/the-corner-inc/structures/commit/4b887abc4abc879f8cf00fad4a0cce184fc5bd1b))
+- **workflows:** release on tag ([4b887ab](https://github.com/the-corner-inc/structures/commit/4b887abc4abc879f8cf00fad4a0cce184fc5bd1b))
+
 ## [1.1.0](https://github.com/the-corner-inc/structures/compare/v1.0.0...v1.1.0) (2026-09-22)
 
 ### Features
 
-* **issues:** hover explanation ([f2bd082](https://github.com/the-corner-inc/structures/commit/f2bd0828b2b01ee39654b52f87b27c77f6ba2208))
-* **issues:** kanban ([ae1cfed](https://github.com/the-corner-inc/structures/commit/ae1cfeda1fb5feca946ed250cb0c891880f3e5b1))
-* **issues:** labels ([f379c57](https://github.com/the-corner-inc/structures/commit/f379c5795c6e72182e65a634b72d46c2d761f42c))
-* **issues:** sub pages ([487992d](https://github.com/the-corner-inc/structures/commit/487992d512d595241f3ba8fce2f2a798674bb46c))
-* **issues:** topic ([5671ce1](https://github.com/the-corner-inc/structures/commit/5671ce179d670f2318224d8c652dda62467aab13))
-* **navbar:** list topic ([8676148](https://github.com/the-corner-inc/structures/commit/86761483bff2e815e4d39ffac735e482f23e5856))
-* **topic:** status, issues & Naming ([8656200](https://github.com/the-corner-inc/structures/commit/8656200718406bd4855c8f92b98cecb5f8a7b722))
+- **issues:** hover explanation ([f2bd082](https://github.com/the-corner-inc/structures/commit/f2bd0828b2b01ee39654b52f87b27c77f6ba2208))
+- **issues:** kanban ([ae1cfed](https://github.com/the-corner-inc/structures/commit/ae1cfeda1fb5feca946ed250cb0c891880f3e5b1))
+- **issues:** labels ([f379c57](https://github.com/the-corner-inc/structures/commit/f379c5795c6e72182e65a634b72d46c2d761f42c))
+- **issues:** sub pages ([487992d](https://github.com/the-corner-inc/structures/commit/487992d512d595241f3ba8fce2f2a798674bb46c))
+- **issues:** topic ([5671ce1](https://github.com/the-corner-inc/structures/commit/5671ce179d670f2318224d8c652dda62467aab13))
+- **navbar:** list topic ([8676148](https://github.com/the-corner-inc/structures/commit/86761483bff2e815e4d39ffac735e482f23e5856))
+- **topic:** status, issues & Naming ([8656200](https://github.com/the-corner-inc/structures/commit/8656200718406bd4855c8f92b98cecb5f8a7b722))
 
 ### Refactoring
 
-* **status, issues:** naming ([c3b96e6](https://github.com/the-corner-inc/structures/commit/c3b96e6a8e807273cec891734db36dd0ba4947b3))
+- **status, issues:** naming ([c3b96e6](https://github.com/the-corner-inc/structures/commit/c3b96e6a8e807273cec891734db36dd0ba4947b3))
 
 ### Documentation
 
-* **skills:** release ([8fa2e1a](https://github.com/the-corner-inc/structures/commit/8fa2e1a3f204203fbabd801a7a187219d4d17fc4))
+- **skills:** release ([8fa2e1a](https://github.com/the-corner-inc/structures/commit/8fa2e1a3f204203fbabd801a7a187219d4d17fc4))
+
 ## [1.0.0](https://github.com/the-corner-inc/structures/compare/v0.8.3...v1.0.0) (2026-09-17)
 
 ### Features
 
-* **sidenav:** version ([5b8375d](https://github.com/the-corner-inc/structures/commit/5b8375dc6e02c97c16efdfe4c20f7db24d10f614))
-* **stack:** tanStack start ([bacbc20](https://github.com/the-corner-inc/structures/commit/bacbc20951c2f7d4b0fda89079de9e6b42410a3f))
+- **sidenav:** version ([5b8375d](https://github.com/the-corner-inc/structures/commit/5b8375dc6e02c97c16efdfe4c20f7db24d10f614))
+- **stack:** tanStack start ([bacbc20](https://github.com/the-corner-inc/structures/commit/bacbc20951c2f7d4b0fda89079de9e6b42410a3f))
 
 ### Bug Fixes
 
-* icons ([13fe12d](https://github.com/the-corner-inc/structures/commit/13fe12de54ca1396c9ca67fbb95c4187c3eea637))
+- icons ([13fe12d](https://github.com/the-corner-inc/structures/commit/13fe12de54ca1396c9ca67fbb95c4187c3eea637))
 
 ### Refactoring
 
-* **folder/issues:** into software ([0c9b043](https://github.com/the-corner-inc/structures/commit/0c9b043911ae26e7d6eac23780783914965033dc))
+- **folder/issues:** into software ([0c9b043](https://github.com/the-corner-inc/structures/commit/0c9b043911ae26e7d6eac23780783914965033dc))
 
 ### Build System
 
-* **angular:** v22 ([79a8888](https://github.com/the-corner-inc/structures/commit/79a8888bd923573294b04cf2232ec11b7ed50e8c))
-* tanstackSart ([98bcf33](https://github.com/the-corner-inc/structures/commit/98bcf33d539f45f9cfcc07bdfe8d17a78fde0358))
+- **angular:** v22 ([79a8888](https://github.com/the-corner-inc/structures/commit/79a8888bd923573294b04cf2232ec11b7ed50e8c))
+- tanstackSart ([98bcf33](https://github.com/the-corner-inc/structures/commit/98bcf33d539f45f9cfcc07bdfe8d17a78fde0358))
+
 ## [0.8.3](https://github.com/the-corner-inc/structures/compare/v0.8.2...v0.8.3) (2025-11-06)
 
 ### Bug Fixes

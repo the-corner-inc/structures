@@ -9,8 +9,8 @@ import {
 } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
 
-import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
 import { PageTitle } from "#/components/page-title.tsx";
+import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
 import { defaultSource, fetchMarkdown } from "#/lib/structures.ts";
 
 interface IssueLabel {

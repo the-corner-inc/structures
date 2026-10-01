@@ -8,8 +8,8 @@
  * runtime still resolves to the real compiled package via node_modules.
  */
 declare module "@gitgraph/react" {
-  import type * as React from "react";
   import type { GitgraphOptions, GitgraphUserApi } from "@gitgraph/core";
+  import type * as React from "react";
 
   /** Node type rendered by the React renderer. */
   export type ReactSvgElement = React.ReactElement<SVGElement>;

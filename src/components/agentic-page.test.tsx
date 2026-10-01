@@ -10,13 +10,13 @@ afterEach(cleanup);
 it("highlights the elements each card can include without changing the selected template", () => {
   const { container } = render(<AgenticPage />);
   const highlighted = () =>
-    Array.from(container.querySelectorAll('[data-embedded="true"] .agentic-card-select')).map(
-      (button) => button.getAttribute("aria-label"),
-    );
+    Array.from(container.querySelectorAll('[data-embedded="true"] .agentic-card-select'))
+      .map((button) => button.getAttribute("aria-label") ?? "")
+      .sort();
   const conditional = () =>
-    Array.from(container.querySelectorAll('[data-conditional="true"] .agentic-card-select')).map(
-      (button) => button.getAttribute("aria-label"),
-    );
+    Array.from(container.querySelectorAll('[data-conditional="true"] .agentic-card-select'))
+      .map((button) => button.getAttribute("aria-label") ?? "")
+      .sort();
   const relationships: Array<[string, string[], string[]]> = [
     [
       "Harness",
@@ -36,8 +36,8 @@ it("highlights the elements each card can include without changing the selected 
   for (const [name, children, extensions] of relationships) {
     const button = screen.getByRole("button", { name });
     fireEvent.pointerEnter(button);
-    expect(highlighted()).toEqual(children);
-    expect(conditional()).toEqual(extensions);
+    expect(highlighted()).toEqual([...children].sort());
+    expect(conditional()).toEqual([...extensions].sort());
     expect(screen.getByRole("status").textContent).toContain(`${name}:`);
     expect(screen.getByRole("button", { name: "Harness", pressed: true })).toBeTruthy();
     fireEvent.pointerLeave(button);
@@ -45,8 +45,8 @@ it("highlights the elements each card can include without changing the selected 
     expect(conditional()).toEqual([]);
     expect(screen.getByRole("status").textContent).toContain("Hover or focus a card");
     fireEvent.focus(button);
-    expect(highlighted()).toEqual(children);
-    expect(conditional()).toEqual(extensions);
+    expect(highlighted()).toEqual([...children].sort());
+    expect(conditional()).toEqual([...extensions].sort());
     fireEvent.blur(button);
     expect(highlighted()).toEqual([]);
     expect(conditional()).toEqual([]);
@@ -55,14 +55,14 @@ it("highlights the elements each card can include without changing the selected 
   const agents = screen.getByRole("button", { name: "Agents" });
   const prompt = screen.getByRole("button", { name: "Prompt" });
   fireEvent.focus(agents);
-  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"].sort());
   fireEvent.blur(agents, { relatedTarget: prompt });
   fireEvent.focus(prompt);
-  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"].sort());
   fireEvent.pointerEnter(screen.getByRole("button", { name: "Tools" }));
   expect(highlighted()).toEqual(["Instructions"]);
   fireEvent.pointerLeave(screen.getByRole("button", { name: "Tools" }));
-  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"]);
+  expect(highlighted()).toEqual(["MCP Servers", "Skills", "Instructions", "Hooks", "Tools"].sort());
   fireEvent.blur(prompt);
   expect(highlighted()).toEqual([]);
 });

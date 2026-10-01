@@ -118,7 +118,10 @@ describe("portable structure explorer", () => {
       <StructureExplorer items={items} getDocumentation={retry} selectedId="auth-layout" />,
     );
     await screen.findByRole("alert");
-    fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+    });
+    await act(() => vi.dynamicImportSettled());
     const heading = await screen.findByRole("heading", { name: "Loaded" });
     expect(heading.id).toBe("loaded");
     const anchor = within(heading).getByTitle("Copy link");

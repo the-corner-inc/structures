@@ -3,7 +3,6 @@ name: Registry consumers
 on:
   pull_request:
   push:
-    branches: [main]
     tags: ["v*"]
 
 permissions:

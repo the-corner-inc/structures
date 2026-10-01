@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vp dev",
-    "build": "vp build",
+    "build": "vp -C . build",
     "prerender:static": "node scripts/prerender-static.mjs",
     "preview": "vp preview",
     "start": "node --env-file-if-exists=.env .output/server/index.mjs",

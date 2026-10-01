@@ -2,8 +2,9 @@ import { readFile } from "node:fs/promises";
 
 import { describe, expect, it } from "vite-plus/test";
 
-import { layoutBranchFlow } from "./branch-flow.tsx";
 import { parseBranchFlow } from "#/lib/branches.ts";
+
+import { layoutBranchFlow } from "./branch-flow.tsx";
 
 const FLOWS = ["git-flow", "github-flow", "gitlab-flow", "trunk-based", "trunk-based-release"];
 

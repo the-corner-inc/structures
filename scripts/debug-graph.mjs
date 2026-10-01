@@ -1,4 +1,9 @@
-import { GitgraphCore, TemplateName, templateExtend, MergeStyle } from "../packages/gitgraph-core/lib/index.js";
+import {
+  GitgraphCore,
+  TemplateName,
+  templateExtend,
+  MergeStyle,
+} from "../packages/gitgraph-core/lib/index.js";
 
 const COLORS = ["#0969da", "#1a7f37", "#8250df", "#cf222e", "#bf8700", "#57606a"];
 
@@ -92,7 +97,9 @@ for (const e of flow.edges) {
 const data = core.getRenderedData();
 console.log("\n=== BRANCHES (computedColor) ===");
 for (const [name, branch] of data.branchesPaths) {
-  console.log(`  ${name.padEnd(12)} style.color=${branch.style.color} computedColor=${branch.computedColor}`);
+  console.log(
+    `  ${name.padEnd(12)} style.color=${branch.style.color} computedColor=${branch.computedColor}`,
+  );
 }
 
 console.log("\n=== COMMITS ===");
