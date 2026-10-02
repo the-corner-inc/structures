@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## [1.3.1](https://github.com/the-corner-inc/structures/compare/v1.3.0...v1.3.1) (2026-10-02)
+
+### Build System
+
+* portless ([80b3dbc](https://github.com/the-corner-inc/structures/commit/80b3dbccbc2c699d6960773b503174572a3eaa84))
+* **vite-plus:** 1.0 ([e6069da](https://github.com/the-corner-inc/structures/commit/e6069dabd7e6546219134200982542a4d95d4551))
+* **vite-plus:** 1.0 ([a3d1c63](https://github.com/the-corner-inc/structures/commit/a3d1c631ae0bfa65355c0973ea78087189299c2e))
+
 ## [1.3.0](https://github.com/the-corner-inc/structures/compare/v1.2.1...v1.3.0) (2026-10-02)
 
 ### Features
