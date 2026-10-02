@@ -4,9 +4,12 @@ import {
   CheckIcon,
   DownloadIcon,
   FileTextIcon,
+  LayoutGridIcon,
+  NetworkIcon,
 } from "lucide-react";
 import { useState } from "react";
 
+import { AgenticMap } from "#/components/agentic-map.tsx";
 import { PageTitle } from "#/components/page-title.tsx";
 import { StructureMarkdown } from "#/components/structures/structure-markdown.tsx";
 import {
@@ -17,6 +20,7 @@ import {
 } from "#/lib/agentic.ts";
 
 export function AgenticPage() {
+  const [view, setView] = useState("map");
   const [selected, setSelected] = useState(AGENTIC_ELEMENTS[0]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
@@ -36,104 +40,153 @@ export function AgenticPage() {
       <PageTitle
         eyebrow="Agent systems, explained"
         title="Agentic"
-        intro="Understand the pieces behind an agent: what runs it, what it can do, and what guides its work. Select a building block to explore a README template."
+        intro="Understand the pieces behind an agent: what runs it, what it can do, and what guides its work. Follow the connections, then explore each building block."
       />
 
       <section className="agentic-explore" aria-labelledby="agentic-explore-title">
         <div className="agentic-section-heading">
-          <h2 id="agentic-explore-title">Explore Customizations</h2>
-          <span>Yellow: contents or configuration. Dashed: host extension or custom delivery.</span>
-        </div>
-        <div className="agentic-grid">
-          {AGENTIC_ELEMENTS.map((element) => {
-            const Icon = element.icon;
-            const active = selected.id === element.id;
-            const instructions = element.id === "instructions";
-            return (
-              <div
-                key={element.id}
-                className="agentic-card"
-                data-selected={active || element.name === selectedGroup}
-                data-embedded={embedded.includes(element.id) || conditional.includes(element.id)}
-                data-conditional={conditional.includes(element.id)}
-                onPointerEnter={() => setHovered(element.id)}
-                onPointerLeave={() => setHovered(null)}
-                onFocus={() => setFocused(element.id)}
-                onBlur={(event) => {
-                  if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null);
+          <div>
+            <h2 id="agentic-explore-title">
+              {view === "map" ? "Anatomy of an agent system" : "Explore customizations"}
+            </h2>
+            <p>
+              {view === "map"
+                ? "Nine building blocks. One connected system."
+                : "Explore contents, configuration, and example templates."}
+            </p>
+          </div>
+          <fieldset className="agentic-view-switch" aria-label="Explore view">
+            <label>
+              <input
+                className="sr-only"
+                type="radio"
+                name="agentic-view"
+                value="map"
+                checked={view === "map"}
+                onChange={() => {
+                  setView("map");
+                  setHovered(null);
+                  setFocused(null);
                 }}
-              >
-                <button
-                  type="button"
-                  className="agentic-card-select"
-                  aria-label={element.name}
-                  aria-describedby={`${element.id}-description`}
-                  aria-pressed={active}
-                  aria-controls="agentic-readme"
-                  onClick={() => setSelected(element)}
-                >
-                  <span className="agentic-card-heading">
-                    <Icon aria-hidden="true" />
-                    <strong>{element.name}</strong>
-                    {active && <CheckIcon className="agentic-selected" aria-hidden="true" />}
-                  </span>
-                  <span id={`${element.id}-description`} className="agentic-card-description">
-                    {element.description}
-                  </span>
-                </button>
-                {element.id === "agents" && (
-                  <button
-                    type="button"
-                    className="agentic-file-badge agentic-prompt-badge"
-                    title={AGENT_PROMPT.description}
-                    aria-pressed={selected.id === AGENT_PROMPT.id}
-                    aria-controls="agentic-readme"
-                    onClick={() => setSelected(AGENT_PROMPT)}
-                  >
-                    {AGENT_PROMPT.name}
-                  </button>
-                )}
-                {instructions && (
-                  <div
-                    className="agentic-instruction-files"
-                    role="group"
-                    aria-label="Instruction files"
-                  >
-                    {INSTRUCTION_FILES.map((file) => (
-                      <button
-                        key={file.id}
-                        type="button"
-                        className="agentic-file-badge"
-                        aria-pressed={selected.id === file.id}
-                        aria-controls="agentic-readme"
-                        onClick={() => setSelected(file)}
-                      >
-                        {file.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                <span className="agentic-card-footer">
-                  <span>{element.kind}</span>
-                  <span>
-                    {active ? "Selected" : instructions ? "Read description" : "Read template"}{" "}
-                    <ArrowDownIcon aria-hidden="true" />
-                  </span>
-                </span>
-              </div>
-            );
-          })}
+              />
+              <NetworkIcon aria-hidden="true" /> System map
+            </label>
+            <label>
+              <input
+                className="sr-only"
+                type="radio"
+                name="agentic-view"
+                value="cards"
+                checked={view === "cards"}
+                onChange={() => setView("cards")}
+              />
+              <LayoutGridIcon aria-hidden="true" /> Cards & templates
+            </label>
+          </fieldset>
         </div>
-        <p className="agentic-relationships" role="status" aria-atomic="true">
-          {relationship ? (
-            <>
-              <strong>{AGENTIC_ELEMENTS.find((element) => element.id === explored)?.name}: </strong>
-              {relationship.description}
-            </>
-          ) : (
-            "Hover or focus a card to explore its contents and configuration. Dashed highlights need the host extension or custom delivery described here. Calling another component does not imply containment."
-          )}
-        </p>
+        {view === "map" ? (
+          <AgenticMap selected={selected} onSelect={setSelected} />
+        ) : (
+          <>
+            <p className="agentic-card-legend">
+              Yellow: contents or configuration. Dashed: host extension or custom delivery.
+            </p>
+            <div className="agentic-grid">
+              {AGENTIC_ELEMENTS.map((element) => {
+                const Icon = element.icon;
+                const active = selected.id === element.id;
+                const instructions = element.id === "instructions";
+                return (
+                  <div
+                    key={element.id}
+                    className="agentic-card"
+                    data-selected={active || element.name === selectedGroup}
+                    data-embedded={
+                      embedded.includes(element.id) || conditional.includes(element.id)
+                    }
+                    data-conditional={conditional.includes(element.id)}
+                    onPointerEnter={() => setHovered(element.id)}
+                    onPointerLeave={() => setHovered(null)}
+                    onFocus={() => setFocused(element.id)}
+                    onBlur={(event) => {
+                      if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null);
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="agentic-card-select"
+                      aria-label={element.name}
+                      aria-describedby={`${element.id}-description`}
+                      aria-pressed={active}
+                      aria-controls="agentic-readme"
+                      onClick={() => setSelected(element)}
+                    >
+                      <span className="agentic-card-heading">
+                        <Icon aria-hidden="true" />
+                        <strong>{element.name}</strong>
+                        {active && <CheckIcon className="agentic-selected" aria-hidden="true" />}
+                      </span>
+                      <span id={`${element.id}-description`} className="agentic-card-description">
+                        {element.description}
+                      </span>
+                    </button>
+                    {element.id === "agents" && (
+                      <button
+                        type="button"
+                        className="agentic-file-badge agentic-prompt-badge"
+                        title={AGENT_PROMPT.description}
+                        aria-pressed={selected.id === AGENT_PROMPT.id}
+                        aria-controls="agentic-readme"
+                        onClick={() => setSelected(AGENT_PROMPT)}
+                      >
+                        {AGENT_PROMPT.name}
+                      </button>
+                    )}
+                    {instructions && (
+                      <div
+                        className="agentic-instruction-files"
+                        role="group"
+                        aria-label="Instruction files"
+                      >
+                        {INSTRUCTION_FILES.map((file) => (
+                          <button
+                            key={file.id}
+                            type="button"
+                            className="agentic-file-badge"
+                            aria-pressed={selected.id === file.id}
+                            aria-controls="agentic-readme"
+                            onClick={() => setSelected(file)}
+                          >
+                            {file.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    <span className="agentic-card-footer">
+                      <span>{element.kind}</span>
+                      <span>
+                        {active ? "Selected" : instructions ? "Read description" : "Read template"}{" "}
+                        <ArrowDownIcon aria-hidden="true" />
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="agentic-relationships" role="status" aria-atomic="true">
+              {relationship ? (
+                <>
+                  <strong>
+                    {AGENTIC_ELEMENTS.find((element) => element.id === explored)?.name}:{" "}
+                  </strong>
+                  {relationship.description}
+                </>
+              ) : (
+                "Hover or focus a card to explore its contents and configuration. Dashed highlights need the host extension or custom delivery described here. Calling another component does not imply containment."
+              )}
+            </p>
+          </>
+        )}
       </section>
 
       <section

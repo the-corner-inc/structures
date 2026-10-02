@@ -12,8 +12,10 @@ Gist or another CORS-enabled endpoint, download settings, and print the expanded
 
 The site also explains issue labels, priorities, statuses, naming conventions, branching strategies,
 and agent concepts. Issue cards and boards are educational examples, not a persisted issue tracker.
-The Agentic page offers selectable explanations and downloadable Markdown templates; it does not
-execute agents. Accounts are scaffolded but disabled by default.
+The Agentic page opens with an interactive system map, with concept cards and downloadable
+Markdown templates also available. Selecting a map block highlights its directed connections and opens the matching
+example; a text connection list also supports small screens and assistive technology. The page
+does not execute agents. Accounts are scaffolded but disabled by default.
 
 A second deliverable is `structure-explorer`, an editable React component distributed through the
 root shadcn registry. It is source copied into consumer projects, not a hosted service or npm package.
