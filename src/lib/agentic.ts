@@ -496,3 +496,17 @@ Keep these notes current and link to the source files behind each decision. Load
 `,
   },
 ];
+
+export const AGENTIC_TEMPLATES = [...AGENTIC_ELEMENTS, AGENT_PROMPT, ...INSTRUCTION_FILES];
+
+export interface AgenticSearch {
+  view?: "map" | "cards";
+  template?: string;
+}
+
+export function validateAgenticSearch(search: Record<string, unknown>): AgenticSearch {
+  return {
+    view: search.view === "map" || search.view === "cards" ? search.view : undefined,
+    template: AGENTIC_TEMPLATES.find((template) => template.id === search.template)?.id,
+  };
+}

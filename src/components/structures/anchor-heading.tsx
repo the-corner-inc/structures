@@ -51,16 +51,13 @@ export function AnchorHeading({
   const [copied, setCopied] = useState(false);
   const resolvedId =
     id ?? (slugify(textFromChildren(children)) || fallbackId(textFromChildren(children)));
-  const href =
-    typeof window === "undefined" ? `#${resolvedId}` : `${location.pathname}#${resolvedId}`;
-
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const H = `h${level}` as "h1" | "h2" | "h3" | "h4";
 
   const copyLink = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    const url = `${location.origin}${location.pathname}#${resolvedId}`;
+    const url = `${location.origin}${location.pathname}${location.search}#${resolvedId}`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -83,7 +80,7 @@ export function AnchorHeading({
       <span>{children}</span>
       <a
         className="anchor-link"
-        href={href}
+        href={`#${resolvedId}`}
         tabIndex={-1}
         aria-hidden="true"
         title={copied ? "Copied!" : "Copy link"}

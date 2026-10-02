@@ -1,3 +1,4 @@
+import { getRouteApi } from "@tanstack/react-router";
 import {
   ArrowDownIcon,
   ArrowUpRightIcon,
@@ -16,12 +17,28 @@ import {
   AGENT_PROMPT,
   AGENTIC_ELEMENTS,
   AGENTIC_RELATIONSHIPS,
+  AGENTIC_TEMPLATES,
   INSTRUCTION_FILES,
+  type AgenticSearch,
 } from "#/lib/agentic.ts";
 
+const route = getRouteApi("/agentic");
+
 export function AgenticPage() {
-  const [view, setView] = useState("map");
-  const [selected, setSelected] = useState(AGENTIC_ELEMENTS[0]);
+  const { view = "map", template } = route.useSearch();
+  const navigate = route.useNavigate();
+  const selected = AGENTIC_TEMPLATES.find((item) => item.id === template) ?? AGENTIC_ELEMENTS[0];
+  const updateSearch = (next: AgenticSearch) =>
+    navigate({
+      search: (previous) => ({ ...previous, ...next }),
+      hash: true,
+      resetScroll: false,
+      hashScrollIntoView: false,
+    });
+  const setView = (next: "map" | "cards") =>
+    updateSearch({ view: next === "map" ? undefined : next });
+  const setSelected = (next: (typeof AGENTIC_ELEMENTS)[number]) =>
+    updateSearch({ template: next.id === AGENTIC_ELEMENTS[0].id ? undefined : next.id });
   const [hovered, setHovered] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
   const explored = hovered ?? focused;

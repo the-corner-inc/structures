@@ -11,7 +11,9 @@ pnpm install
 pnpm dev
 ```
 
-Node.js 24+ and pnpm 11.23+ are required. Before opening a pull request, run:
+Node.js 24+ and pnpm 11.23+ are required. `pnpm dev` serves the app through Portless at
+`https://structures.localhost`; see [Development](README.md#development) for first-run setup and
+the direct localhost fallback. Before opening a pull request, run:
 
 ```bash
 pnpm lint

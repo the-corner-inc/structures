@@ -29,7 +29,15 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [https://structures.localhost](https://structures.localhost).
+[Portless](https://github.com/vercel-labs/portless) assigns Vite+ a free port and proxies this URL
+to it. The first run sets up a local certificate authority and may request administrator access
+to trust it and bind port 443. Linked Git worktrees get a branch-prefixed hostname; use the URL
+printed in the terminal.
+
+To bypass the proxy, run `PORTLESS=0 pnpm dev` and open
+[http://localhost:3000](http://localhost:3000). When enabling accounts, set `VITE_BASE_URL` in `.env`
+to the browser URL, including any worktree prefix or fallback port.
 
 Useful checks:
 

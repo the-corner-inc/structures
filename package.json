@@ -7,7 +7,7 @@
     "#/*": "./src/*"
   },
   "scripts": {
-    "dev": "vp dev",
+    "dev": "portless run --name structures vp dev",
     "build": "vp -C . build",
     "prerender:static": "node scripts/prerender-static.mjs",
     "preview": "vp preview",
@@ -68,6 +68,7 @@
     "jsdom": "29.0.0",
     "nitro": "3.0.260610-beta",
     "oxc-transform-react": "0.145.0",
+    "portless": "0.15.6",
     "shadcn": "4.21.0",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",

@@ -4,6 +4,7 @@ import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
+import { AnchorHeading } from "./anchor-heading";
 import {
   StructureExplorer,
   parseStructures,
@@ -125,9 +126,35 @@ describe("portable structure explorer", () => {
     const heading = await screen.findByRole("heading", { name: "Loaded" });
     expect(heading.id).toBe("loaded");
     const anchor = within(heading).getByTitle("Copy link");
-    expect(anchor.getAttribute("href")).toBe(`${location.pathname}#loaded`);
+    expect(anchor.getAttribute("href")).toBe("#loaded");
     expect(view.container.querySelector("script")).toBeNull();
     expect(view.container.querySelector('a[href^="javascript:"]')).toBeNull();
+  });
+  it.each([
+    "/folders/custom/src?source=https%3A%2F%2Fexample.com%2Fsettings.json",
+    "/agentic?view=cards&template=agents-md",
+  ])("preserves query state in heading links and clipboard URLs for %s", async (path) => {
+    const originalUrl = location.href;
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    try {
+      history.replaceState(null, "", `${path}#previous`);
+      render(<AnchorHeading level={2}>Configuration</AnchorHeading>);
+      const anchor = screen.getByTitle("Copy link") as HTMLAnchorElement;
+      const expectedUrl = `${location.origin}${path}#configuration`;
+      expect(anchor.getAttribute("href")).toBe("#configuration");
+      expect(anchor.href).toBe(expectedUrl);
+      fireEvent.click(anchor);
+      await screen.findByTitle("Copied!");
+      expect(writeText).toHaveBeenCalledWith(expectedUrl);
+
+      writeText.mockRejectedValueOnce(new Error("Clipboard unavailable"));
+      fireEvent.click(anchor);
+      await waitFor(() => expect(location.href).toBe(expectedUrl));
+    } finally {
+      vi.unstubAllGlobals();
+      history.replaceState(null, "", originalUrl);
+    }
   });
   it("server-renders and hydrates two instances without mismatches or eager documentation requests", async () => {
     const error = vi.spyOn(console, "error").mockImplementation(() => {});

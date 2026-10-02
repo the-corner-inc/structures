@@ -48,9 +48,19 @@ builds, linting, formatting, and tests. Vite configuration also enables the Reac
 Tailwind CSS 4, and Nitro's Node server output. The workspace pins its Vite implementation through
 the catalog in `pnpm-workspace.yaml`.
 
+`pnpm dev` runs Vite+ through Portless at `https://structures.localhost`, with a free backend port
+and branch-prefixed hostnames for linked Git worktrees. `PORTLESS=0 pnpm dev` uses port 3000 directly.
+
 `src/routes/__root.tsx` owns the HTML document, metadata, CSS, theme provider, and application shell.
 `AppShell` renders navigation from `TOPICS`, theme controls, and presentation mode. Theme choice is
 stored under `structures-theme` in local storage; an early script applies it before hydration.
+
+Shareable page configuration belongs in validated TanStack Router search state. The Agentic page
+uses `view=map|cards` and `template=<id>` (a building block, `prompt`, `agents-md`, or `context-md`),
+for example `/agentic?view=cards&template=agents-md`. Missing or invalid values show the system map
+and Harness. Controls update the URL without resetting scroll; reloads and Back/Forward restore
+the view and template together. The defaults are omitted when controls update the URL. Hover and
+focus stay local. Heading links and copied heading URLs preserve the current query parameters.
 
 Each page supplies a content-specific title and description through route `head` metadata.
 `src/lib/seo.ts` keeps search and social titles/descriptions aligned and resolves explorer library,

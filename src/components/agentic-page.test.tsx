@@ -1,15 +1,118 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, expect, it } from "vite-plus/test";
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  RouterProvider,
+} from "@tanstack/react-router";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 
-import { AgenticPage } from "./agentic-page.tsx";
+import { AGENTIC_TEMPLATES, validateAgenticSearch } from "#/lib/agentic.ts";
+import { Route } from "#/routes/agentic.tsx";
 
-afterEach(cleanup);
+beforeEach(() => {
+  vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+});
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
 
-it("highlights the elements each card can include without changing the selected template", () => {
-  const { container } = render(<AgenticPage />);
-  fireEvent.click(screen.getByRole("radio", { name: "Cards & templates" }));
+async function renderPage(url = "/agentic") {
+  const root = createRootRoute();
+  const route = createRoute({
+    getParentRoute: () => root,
+    path: "/agentic",
+    validateSearch: Route.options.validateSearch,
+    component: Route.options.component,
+  });
+  const router = createRouter({
+    routeTree: root.addChildren([route]),
+    history: createMemoryHistory({ initialEntries: [url] }),
+  });
+  await router.load();
+  return { ...render(<RouterProvider router={router} />), router };
+}
+
+async function click(element: HTMLElement) {
+  await act(async () => {
+    fireEvent.click(element);
+  });
+}
+
+it.each(AGENTIC_TEMPLATES)("restores $id from a direct link in either view", async (template) => {
+  for (const view of ["map", "cards"]) {
+    const page = await renderPage(`/agentic?view=${view}&template=${template.id}`);
+    expect(
+      screen.getByRole("radio", {
+        name: view === "map" ? "System map" : "Cards & templates",
+        checked: true,
+      }),
+    ).toBeTruthy();
+    const download = screen.getByRole("link", { name: `Download ${template.name} template` });
+    expect(decodeURIComponent(download.getAttribute("href")!)).toContain(template.readme);
+    page.unmount();
+  }
+});
+
+it("keeps view and template in the URL through selection, history, and reload", async () => {
+  const page = await renderPage("/agentic#agentic-readme");
+  vi.mocked(window.scrollTo).mockClear();
+  await click(screen.getByRole("button", { name: "Prompt" }));
+  expect(page.router.state.location.search).toEqual({ template: "prompt" });
+  await click(screen.getByRole("radio", { name: "Cards & templates" }));
+  expect(page.router.state.location.search).toEqual({ view: "cards", template: "prompt" });
+  await click(screen.getByRole("button", { name: "Skills" }));
+  expect(page.router.state.location.search).toEqual({ view: "cards", template: "skills" });
+  expect(page.router.state.location.hash).toBe("agentic-readme");
+  expect(window.scrollTo).not.toHaveBeenCalled();
+
+  await act(async () => page.router.history.back());
+  await waitFor(() =>
+    expect(screen.getByRole("button", { name: "Prompt", pressed: true })).toBeTruthy(),
+  );
+  await act(async () => page.router.history.back());
+  await waitFor(() =>
+    expect(screen.getByRole("radio", { name: "System map", checked: true })).toBeTruthy(),
+  );
+  expect(screen.getByRole("link", { name: "Download Prompt template" })).toBeTruthy();
+  await act(async () => page.router.history.forward());
+  await waitFor(() =>
+    expect(screen.getByRole("radio", { name: "Cards & templates", checked: true })).toBeTruthy(),
+  );
+
+  const url = page.router.state.location.href;
+  page.unmount();
+  const reloaded = await renderPage(url);
+  expect(screen.getByRole("radio", { name: "Cards & templates", checked: true })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Prompt", pressed: true })).toBeTruthy();
+  await click(screen.getByRole("button", { name: "Harness" }));
+  expect(reloaded.router.state.location.search).toEqual({ view: "cards" });
+  await click(screen.getByRole("radio", { name: "System map" }));
+  expect(reloaded.router.state.location.href).toBe("/agentic#agentic-readme");
+});
+
+it.each([
+  {},
+  { view: "unknown", template: "missing" },
+  { view: ["cards"], template: { id: "skills" } },
+  { view: 1, template: true },
+])("ignores invalid configuration: %j", (search) => {
+  expect(validateAgenticSearch(search)).toEqual({ view: undefined, template: undefined });
+});
+
+it("falls back to the system map and Harness for invalid query parameters", async () => {
+  await renderPage("/agentic?view=unknown&template=missing");
+  expect(screen.getByRole("radio", { name: "System map", checked: true })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Harness", pressed: true })).toBeTruthy();
+});
+
+it("highlights the elements each card can include without changing the selected template", async () => {
+  const { container } = await renderPage();
+  await click(screen.getByRole("radio", { name: "Cards & templates" }));
   const highlighted = () =>
     Array.from(container.querySelectorAll('[data-embedded="true"] .agentic-card-select'))
       .map((button) => button.getAttribute("aria-label") ?? "")
@@ -68,9 +171,9 @@ it("highlights the elements each card can include without changing the selected 
   expect(highlighted()).toEqual([]);
 });
 
-it("selects each building block and updates its README and Markdown download", () => {
-  render(<AgenticPage />);
-  fireEvent.click(screen.getByRole("radio", { name: "Cards & templates" }));
+it("selects each building block and updates its README and Markdown download", async () => {
+  await renderPage();
+  await click(screen.getByRole("radio", { name: "Cards & templates" }));
   expect(screen.getByRole("heading", { level: 1, name: "Agentic" })).toBeTruthy();
 
   const examples = [
@@ -90,7 +193,7 @@ it("selects each building block and updates its README and Markdown download", (
   expect(screen.getByRole("button", { name: "Harness", pressed: true })).toBeTruthy();
   for (const [name, heading, filename] of examples) {
     const card = screen.getByRole("button", { name });
-    fireEvent.click(card);
+    await click(card);
 
     expect(screen.getAllByRole("button", { pressed: true })).toEqual([card]);
     const readme = screen.getByRole("region", {
@@ -111,16 +214,16 @@ it("selects each building block and updates its README and Markdown download", (
   }
 });
 
-it("selects the Prompt badge inside Agents and can return to the agent template", () => {
-  render(<AgenticPage />);
-  fireEvent.click(screen.getByRole("radio", { name: "Cards & templates" }));
+it("selects the Prompt badge inside Agents and can return to the agent template", async () => {
+  await renderPage();
+  await click(screen.getByRole("radio", { name: "Cards & templates" }));
   const agents = screen.getByRole("button", { name: "Agents" });
   const card = agents.closest<HTMLElement>(".agentic-card")!;
   const prompt = within(card).getByRole("button", {
     name: "Prompt",
     description: "The request you give an agent.",
   });
-  fireEvent.click(prompt);
+  await click(prompt);
 
   expect(screen.getAllByRole("button", { pressed: true })).toEqual([prompt]);
   expect(card.getAttribute("data-selected")).toBe("true");
@@ -130,14 +233,14 @@ it("selects the Prompt badge inside Agents and can return to the agent template"
   ).toBeTruthy();
   expect(within(readme).getByRole("heading", { name: "Example prompt" })).toBeTruthy();
 
-  fireEvent.click(agents);
+  await click(agents);
   expect(screen.getAllByRole("button", { pressed: true })).toEqual([agents]);
   expect(screen.getByRole("region", { name: "Agents / README.md" })).toBeTruthy();
 });
 
-it("groups instruction files as badges and can return to the Instructions description", () => {
-  const { container } = render(<AgenticPage />);
-  fireEvent.click(screen.getByRole("radio", { name: "Cards & templates" }));
+it("groups instruction files as badges and can return to the Instructions description", async () => {
+  const { container } = await renderPage();
+  await click(screen.getByRole("radio", { name: "Cards & templates" }));
   const instructions = screen.getByRole("button", { name: "Instructions" });
   const card = instructions.closest(".agentic-card")!;
   const files = within(card as HTMLElement).getByRole("group", { name: "Instruction files" });
@@ -146,20 +249,20 @@ it("groups instruction files as badges and can return to the Instructions descri
   expect(container.querySelector("button button")).toBeNull();
   for (const name of ["AGENTS.md", "CONTEXT.md"]) {
     const badge = within(files).getByRole("button", { name });
-    fireEvent.click(badge);
+    await click(badge);
 
     expect(screen.getAllByRole("button", { pressed: true })).toEqual([badge]);
     expect(card.getAttribute("data-selected")).toBe("true");
     expect(screen.getByRole("region", { name: `Instructions / ${name}` })).toBeTruthy();
   }
 
-  fireEvent.click(instructions);
+  await click(instructions);
   expect(screen.getAllByRole("button", { pressed: true })).toEqual([instructions]);
   expect(screen.getByRole("region", { name: "Instructions / README.md" })).toBeTruthy();
 });
 
-it("traces the sketch's directed connections and opens their existing templates", () => {
-  const { container } = render(<AgenticPage />);
+it("traces the sketch's directed connections and opens their existing templates", async () => {
+  const { container } = await renderPage();
   expect(screen.getByRole("radio", { name: "System map", checked: true })).toBeTruthy();
   const map = screen.getByRole("group", { name: "Agent system building blocks" });
   expect(within(map).getAllByRole("button")).toHaveLength(12);
@@ -180,7 +283,7 @@ it("traces the sketch's directed connections and opens their existing templates"
   ] as const;
 
   for (const [name, relationship, template, count] of examples) {
-    fireEvent.click(within(map).getByRole("button", { name }));
+    await click(within(map).getByRole("button", { name }));
     expect(within(map).getByRole("button", { name, pressed: true })).toBeTruthy();
     const list = screen.getByRole("list", { name: `${name} connections` });
     expect(list.textContent).toContain(relationship);
@@ -193,8 +296,8 @@ it("traces the sketch's directed connections and opens their existing templates"
   expect(screen.getByRole("link", { name: "Download CONTEXT.md template" })).toBeTruthy();
 });
 
-it("defaults to the system map and preserves templates when switching views", () => {
-  render(<AgenticPage />);
+it("defaults to the system map and preserves templates when switching views", async () => {
+  await renderPage();
   expect(screen.getByRole("radio", { name: "System map", checked: true })).toBeTruthy();
   expect(screen.getByRole("radio", { name: "Cards & templates", checked: false })).toBeTruthy();
 
@@ -203,13 +306,13 @@ it("defaults to the system map and preserves templates when switching views", ()
     ["AGENTS.md", "Instructions"],
     ["CONTEXT.md", "Specs & context"],
   ]) {
-    fireEvent.click(screen.getByRole("button", { name }));
-    fireEvent.click(screen.getByRole("radio", { name: "Cards & templates" }));
+    await click(screen.getByRole("button", { name }));
+    await click(screen.getByRole("radio", { name: "Cards & templates" }));
     expect(screen.queryByRole("group", { name: "Agent system building blocks" })).toBeNull();
     expect(screen.getByRole("button", { name, pressed: true })).toBeTruthy();
     expect(screen.getByRole("link", { name: `Download ${name} template` })).toBeTruthy();
 
-    fireEvent.click(screen.getByRole("radio", { name: "System map" }));
+    await click(screen.getByRole("radio", { name: "System map" }));
     const map = screen.getByRole("group", { name: "Agent system building blocks" });
     expect(within(map).getByRole("button", { name: parent, pressed: true })).toBeTruthy();
     expect(within(map).getByRole("button", { name, pressed: true })).toBeTruthy();
@@ -217,8 +320,8 @@ it("defaults to the system map and preserves templates when switching views", ()
   }
 });
 
-it("opens Prompt and Markdown files directly from their graph blocks", () => {
-  const { container } = render(<AgenticPage />);
+it("opens Prompt and Markdown files directly from their graph blocks", async () => {
+  const { container } = await renderPage();
   const map = screen.getByRole("group", { name: "Agent system building blocks" });
   expect(container.querySelector("button button")).toBeNull();
 
@@ -231,7 +334,7 @@ it("opens Prompt and Markdown files directly from their graph blocks", () => {
       .getByRole("button", { name: parent })
       .closest<HTMLElement>(".agentic-map-node")!;
     const badge = within(block).getByRole("button", { name });
-    fireEvent.click(badge);
+    await click(badge);
 
     expect(badge.getAttribute("aria-pressed")).toBe("true");
     expect(block.getAttribute("data-selected")).toBe("true");
@@ -240,7 +343,7 @@ it("opens Prompt and Markdown files directly from their graph blocks", () => {
     expect(within(readme).getByRole("heading", { level: 1, name })).toBeTruthy();
     expect(within(readme).getByRole("link", { name: `Download ${name} template` })).toBeTruthy();
 
-    fireEvent.click(within(block).getByRole("button", { name: parent }));
+    await click(within(block).getByRole("button", { name: parent }));
     expect(screen.getByRole("list", { name: `${parent} connections` })).toBeTruthy();
     if (name !== "CONTEXT.md") expect(badge.getAttribute("aria-pressed")).toBe("false");
   }
