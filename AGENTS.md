@@ -7,7 +7,7 @@ shadcn registry explorer. Read [CONTEXT.md](CONTEXT.md) for the architecture and
 
 ## Use the current stack
 
-- Use Node.js 24+ and the pnpm version pinned in `package.json` (currently 11.23.0).
+- Use Node.js 24.15+ (24.x) or 26+ and the pnpm version pinned in `package.json` (currently 11.23.0).
 - The app uses React 19, TypeScript, TanStack Start/Router/Query, Tailwind CSS 4, Vite+, and Nitro.
 - `package.json`, `vite.config.ts`, and the implementation describe the active tooling.
   `.github/instructions/copilot-instructions.md` still describes the previous Angular application;
@@ -41,8 +41,9 @@ changes; include the registry checks when touching distributed files. Documentat
 need formatting and reference checks, not new application tests. Consumer tests install packages
 and need registry access; `pnpm registry:test vite` runs only one consumer.
 
-Tests use `vite-plus/test`; DOM tests opt into jsdom with `// @vitest-environment jsdom` and use
-Testing Library. Add regression coverage to the existing relevant test file for behavior changes.
+Tests use Vitest 5 through `vite-plus/test`; DOM tests opt into jsdom with
+`// @vitest-environment jsdom` and use Testing Library. Add regression coverage to the existing
+relevant test file for behavior changes.
 The `test:e2e` script exists, but there is currently no app Playwright configuration or E2E suite.
 
 ## Implementation boundaries

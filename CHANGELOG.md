@@ -6,7 +6,8 @@ All notable changes to this project are documented here.
 
 ### Features
 
-* **agentic:** graph ([f951a7d](https://github.com/the-corner-inc/structures/commit/f951a7d0664db1012e8c912d55f473d679de39dd))
+- **agentic:** graph ([f951a7d](https://github.com/the-corner-inc/structures/commit/f951a7d0664db1012e8c912d55f473d679de39dd))
+
 ## [1.2.1](https://github.com/the-corner-inc/structures/compare/v1.2.0...v1.2.1) (2026-10-01)
 
 ### Features

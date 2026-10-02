@@ -9,7 +9,7 @@
       "title": "Structure Explorer",
       "description": "An accessible folder explorer with search and optional Markdown documentation. Bring your own data, icons and theme.",
       "dependencies": [
-        "lucide-react@1.34.0",
+        "lucide-react@1.49.0",
         "react-markdown@10.1.0",
         "rehype-highlight@7.0.2",
         "remark-gfm@4.0.1"

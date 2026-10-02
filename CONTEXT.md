@@ -43,9 +43,10 @@ root shadcn registry. It is source copied into consumer projects, not a hosted s
 ## Runtime and navigation
 
 The application uses React 19 and strict TypeScript, with TanStack Start for server rendering,
-TanStack Router for file routing, and TanStack Query for remote state. Vite+ drives development,
-builds, linting, formatting, and tests. Vite configuration also enables the React compiler,
-Tailwind CSS 4, and Nitro's Node server output. The workspace pins its Vite implementation through
+TanStack Router for file routing, and TanStack Query for remote state. Vite+ 1 drives development,
+builds, linting, formatting, and Vitest 5 tests. Development requires Node.js 24.15+ (24.x) or 26+.
+Vite configuration also enables the React compiler, Tailwind CSS 4, and Nitro's Node server output.
+The workspace pins its Vite implementation through
 the catalog in `pnpm-workspace.yaml`.
 
 `pnpm dev` runs Vite+ through Portless at `https://structures.localhost`, with a free backend port

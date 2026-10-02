@@ -22,7 +22,7 @@ Drizzle boundaries for the future account and sharing experience.
 
 ## Development
 
-Requirements: Node.js 24+ and pnpm 11.23+.
+Requirements: Node.js 24.15+ (24.x) or 26+, and pnpm 11.23+.
 
 ```bash
 pnpm install
