@@ -3,6 +3,7 @@ import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/reac
 
 import { AppShell } from "#/components/app-shell.tsx";
 import { ThemeProvider } from "#/components/theme-provider.tsx";
+import { pageHead } from "#/lib/seo.ts";
 
 import appCss from "#/styles.css?url";
 
@@ -11,11 +12,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Structures — project organization, explained" },
-      {
-        name: "description",
-        content: "Explore, document, and share maintainable folder and issue structures.",
-      },
+      ...pageHead(
+        "Project Organization Standards",
+        "Explore documented standards for project folders, issue labels, priorities, Git workflows, and AI agents. Browse examples or load your own structure.",
+      ).meta,
     ],
     links: [
       { rel: "icon", type: "image/x-icon", sizes: "48x48", href: "/favicon.ico?v=corner" },

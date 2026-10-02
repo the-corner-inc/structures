@@ -1,4 +1,4 @@
-# shared-spec
+# shared-specs
 
 Keep the product's shared specifications here using
 [OpenSpec](https://github.com/Fission-AI/OpenSpec). These specifications describe behavior and

@@ -50,6 +50,11 @@ the catalog in `pnpm-workspace.yaml`.
 `AppShell` renders navigation from `TOPICS`, theme controls, and presentation mode. Theme choice is
 stored under `structures-theme` in local storage; an early script applies it before hydration.
 
+Each page supplies a content-specific title and description through route `head` metadata.
+`src/lib/seo.ts` keeps search and social titles/descriptions aligned and resolves explorer library,
+document, and branch-preset metadata from route parameters and the selected source. This metadata
+is server-rendered and included in the static pages without fetching custom sources on the server.
+
 | URL                                               | Main behavior                                                  |
 | ------------------------------------------------- | -------------------------------------------------------------- |
 | `/`                                               | Topic chooser and custom structure input.                      |
@@ -163,8 +168,6 @@ FTP artifact. See [CONTRIBUTING.md](CONTRIBUTING.md) and the
 
 - The Copilot instructions still describe the removed Angular implementation. Follow the current
   React source and tooling configuration for development.
-- `/branches` is routed by the app but is absent from the explicit prerender route list. Static
-  hosting currently relies on the Apache fallback for that page.
 - Playwright scripts/dependencies exist, but no app E2E configuration or specs are present.
 - The vendored Gitgraph React package uses React 16 typings; the app supplies a React 19 type
   shim. Package `lib/` output is tracked and consumed at runtime, so source-only edits are incomplete.

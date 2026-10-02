@@ -2,8 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { FolderPlusIcon } from "lucide-react";
 
 import { useAuthSuspense } from "#/lib/auth/hooks.ts";
+import { pageHead } from "#/lib/seo.ts";
 
-export const Route = createFileRoute("/_auth/account")({ component: AccountPage });
+export const Route = createFileRoute("/_auth/account")({
+  head: () =>
+    pageHead(
+      "Your Account",
+      "Visit your Structures account and browse public project templates. Personal structure storage is coming soon.",
+    ),
+  component: AccountPage,
+});
 
 function AccountPage() {
   const { user } = useAuthSuspense();

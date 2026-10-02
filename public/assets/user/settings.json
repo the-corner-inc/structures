@@ -29,7 +29,7 @@
                   "type": "folder",
                   "children": [
                     {
-                      "name": "shared-spec",
+                      "name": "shared-specs",
                       "type": "folder"
                     },
                     {

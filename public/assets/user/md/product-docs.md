@@ -3,5 +3,5 @@
 The product's documentation project, such as a documentation site with user guides, tutorials, and API
 reference material.
 
-Keep published guidance aligned with the behavior described in `shared-spec` and reuse common assets
+Keep published guidance aligned with the behavior described in `shared-specs` and reuse common assets
 from `shared-assets`.

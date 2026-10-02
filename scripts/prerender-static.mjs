@@ -44,9 +44,11 @@ async function builtInRoutes() {
     "/issues/priorities",
     "/naming",
     "/status",
+    "/branches",
     "/agentic",
   ]);
   const libraries = [
+    { kind: "folders", library: "user" },
     { kind: "folders", library: "angular" },
     { kind: "folders", library: "go" },
     { kind: "folders", library: "tanstack-react" },
@@ -83,7 +85,10 @@ async function renderRoute(route) {
   }
 
   const html = await response.text();
-  if (!html.includes("<title>Structures")) {
+  if (
+    !/<title>[^<]+ \| Structures<\/title>/.test(html) ||
+    !/<meta name="description" content="[^"]+"/.test(html)
+  ) {
     throw new Error(`The built server returned an unexpected document for ${route}.`);
   }
 

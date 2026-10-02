@@ -5,8 +5,16 @@ import { useState } from "react";
 
 import { env } from "#/env/client.ts";
 import { authClient } from "#/lib/auth/auth-client.ts";
+import { pageHead } from "#/lib/seo.ts";
 
-export const Route = createFileRoute("/_guest/signup")({ component: SignupPage });
+export const Route = createFileRoute("/_guest/signup")({
+  head: () =>
+    pageHead(
+      "Create an Account",
+      "Create a Structures account when registration is enabled. Explore public folder structures and project organization standards without signing up.",
+    ),
+  component: SignupPage,
+});
 
 function SignupPage() {
   const { redirectUrl } = Route.useRouteContext();
