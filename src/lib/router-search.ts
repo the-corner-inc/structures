@@ -1,10 +1,11 @@
 interface ExplorerSearch {
   source?: string;
+  q?: string;
 }
 
 export function validateExplorerSearch(search: Record<string, unknown>): ExplorerSearch {
-  if (typeof search.source === "string" && search.source.trim()) {
-    return { source: search.source };
-  }
-  return {};
+  return {
+    source: typeof search.source === "string" && search.source.trim() ? search.source : undefined,
+    q: typeof search.q === "string" && search.q ? search.q : undefined,
+  };
 }

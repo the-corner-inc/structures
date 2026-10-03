@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import {
   CheckIcon,
   DownloadIcon,
@@ -42,9 +42,9 @@ export function StructureExplorer({
   sourceOverride,
 }: StructureExplorerProps) {
   const navigate = useNavigate();
+  const { q: query = "" } = useSearch({ strict: false });
   const hydrated = useHydrated();
   const source = sourceOverride ?? (library ? librarySource(library) : defaultSource(kind));
-  const [query, setQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const [actionMessage, setActionMessage] = useState("");
@@ -74,47 +74,61 @@ export function StructureExplorer({
       .find((entry) => entry.library === routeLibrary)?.name ?? settings?.libraryName;
 
   const selectElement = (selected: string) => {
-    const search = { source: sourceOverride };
+    const search = { source: sourceOverride, q: query || undefined };
     if (kind === "folders") {
       navigate({
         to: "/folders/$library/$element",
         params: { library: routeLibrary, element: selected },
         search,
+        resetScroll: false,
       });
     } else {
       navigate({
         to: "/issues/$library/$element",
         params: { library: routeLibrary, element: selected },
         search,
+        resetScroll: false,
       });
     }
   };
 
   const applySource = () => {
     const nextSource = sourceInput.trim();
-    if (!nextSource) return;
-    if (kind === "folders") {
-      navigate({ to: "/folders", search: { source: nextSource } });
-    } else {
-      navigate({ to: "/issues", search: { source: nextSource } });
-    }
+    if (nextSource) loadCustomSource(nextSource);
   };
 
   const selectLibrary = (selectedLibrary: string) => {
+    const search = { q: query || undefined };
     if (kind === "folders") {
-      navigate({ to: "/folders/$library", params: { library: selectedLibrary }, search: {} });
+      navigate({ to: "/folders/$library", params: { library: selectedLibrary }, search });
     } else {
-      navigate({ to: "/issues/$library", params: { library: selectedLibrary }, search: {} });
+      navigate({ to: "/issues/$library", params: { library: selectedLibrary }, search });
     }
   };
 
   const loadCustomSource = (nextSource: string) => {
+    const search = { source: nextSource, q: query || undefined };
     if (kind === "folders") {
-      navigate({ to: "/folders", search: { source: nextSource } });
+      navigate({ to: "/folders", search, resetScroll: false });
     } else {
-      navigate({ to: "/issues", search: { source: nextSource } });
+      navigate({
+        to: "/issues/$library",
+        params: { library: routeLibrary },
+        search,
+        resetScroll: false,
+      });
     }
   };
+
+  const setQuery = (q: string) =>
+    navigate({
+      to: ".",
+      search: (previous) => ({ ...previous, q: q || undefined }),
+      hash: true,
+      replace: true,
+      resetScroll: false,
+      hashScrollIntoView: false,
+    });
 
   const showActionMessage = (message: string) => {
     if (actionMessageTimer.current) clearTimeout(actionMessageTimer.current);

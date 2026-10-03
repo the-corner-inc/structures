@@ -1,12 +1,12 @@
 ---
 name: release
-description: Prepare and publish a release for the "structures" repo (the-corner-inc/structures). Use whenever the user asks to cut, prepare, or publish a release, tag, or version bump, or to run or troubleshoot the release process. Covers branch hygiene, commit-and-tag-version dry-run and release, pushing tags, and post-release registry validation.
+description: Prepare and publish a release for the "structures" repo (the-corner-factory/structures). Use whenever the user asks to cut, prepare, or publish a release, tag, or version bump, or to run or troubleshoot the release process. Covers branch hygiene, commit-and-tag-version dry-run and release, pushing tags, and post-release registry validation.
 ---
 
-# Release — the-corner-inc/structures
+# Release — the-corner-factory/structures
 
 This skill captures the exact, project-specific release procedure for the
-[`structures`](https://github.com/the-corner-inc/structures) explorer repo. The authoritative
+[`structures`](https://github.com/the-corner-factory/structures) explorer repo. The authoritative
 "Releases" checklist lives in [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) and [`README.md`](../../../README.md);
 this skill operationalizes it for the agent and encodes project-specific gotchas observed in practice.
 
@@ -15,13 +15,14 @@ this skill operationalizes it for the agent and encodes project-specific gotchas
 - Release tool: **`commit-and-tag-version`** via pnpm scripts (`release`, `release:dry-run`).
 - The package version in `package.json` is injected into the application at build time and shows in
   the explorer footer — it must never drift from a release.
-- Repo: `https://github.com/the-corner-inc/structures`. Registry block:
-  `the-corner-inc/structures/structure-explorer`.
+- Repo: `https://github.com/the-corner-factory/structures`. Registry block:
+  `the-corner-factory/structures/structure-explorer`.
 - Only maintainers create releases. Start from a clean, up-to-date `main` branch.
 
-## Always confirm scope first
+## Resolve scope before cutting a new version
 
-Before doing anything, clarify with the user:
+Before creating a new version commit or tag, resolve these points with the user. Reuse clear
+authorization already given in the conversation; do not ask for it again:
 
 1. **Which work to include** — the approved/merged commits are released from `main`. Check for
    feature branches and **uncommitted working-tree changes** (e.g. in-flight features). Ask whether
@@ -31,7 +32,9 @@ Before doing anything, clarify with the user:
    prepare without merging.
 3. **How far to go** — dry-run only, commit + tag locally, or full publish including push.
 
-Do not mutate anything until the user has answered and confirmed the plan.
+Do not create a new version commit or tag while its scope or publication intent is unresolved.
+Read-only troubleshooting, workflow repairs, and restoring GitHub Releases for existing tags do
+not cut a new version. Preserve the historical tags and use their version-specific notes.
 
 ## Step 1 — Ensure a clean, up-to-date `main`
 
@@ -107,11 +110,32 @@ After the tag is on the remote, validate that the shadcn block can be installed 
 (substitute the real `X.Y.Z`):
 
 ```bash
-pnpm dlx shadcn@4.21.0 registry validate the-corner-inc/structures#vX.Y.Z
+pnpm dlx shadcn@4.21.0 registry validate the-corner-factory/structures#vX.Y.Z
 ```
 
-Then create the GitHub release for `vX.Y.Z`. Consumers can pin that tag. There is **no** npm
-publish and **no** separate registry server — the GitHub tag is the distribution channel.
+The tag-push CI workflow verifies and deploys the website and calls the registry consumer matrix.
+After both jobs succeed, `publish-release` automatically creates the GitHub Release from the
+matching `CHANGELOG.md` section. It checks the package version, verifies the remote tag, uses the
+built-in GitHub token with job-scoped `contents: write`, and skips existing releases on reruns.
+Verify the entry on GitHub; if publication failed, rerun the failed job after fixing the cause.
+Consumers can pin that tag. There is **no** npm publish and **no** separate registry server — the
+GitHub tag is the distribution channel.
+
+## Restore missing GitHub Releases
+
+Compare the repository tags with all GitHub Releases, including drafts. For each missing entry,
+review the matching changelog section and publish against the existing tag:
+
+```bash
+node scripts/release-notes.mjs vX.Y.Z > /tmp/structures-release-notes.md
+gh release create vX.Y.Z --repo the-corner-factory/structures --verify-tag \
+  --title vX.Y.Z --notes-file /tmp/structures-release-notes.md --latest=false
+```
+
+If the current changelog lacks a historical version, review the commits since the preceding tag
+and restore that section before publishing. Publish oldest first, keep older entries from taking
+the latest label, and mark the newest stable release as latest. Creating a release for an existing
+tag does not rerun the tag-push FTP deployment. Do not recreate, move, or push historical tags.
 
 ## Post-release consistency checks
 
@@ -122,10 +146,9 @@ publish and **no** separate registry server — the GitHub tag is the distributi
 
 ## Pitfalls observed in this repo
 
-- The last release `v1.0.0` includes a sizeable migration (Angular → TanStack Start). More work often
-  sits on long-lived feature branches (e.g. `feat/issues/v2`) ahead of `main` with uncommitted
-  changes. Releasing from `main` only captures merged work, so always reconcile branch state and the
-  working tree with the user before cutting.
+- Releases from `main` only capture merged work. Preserve unrelated in-flight changes and
+  reconcile branch state before cutting a new version. Historical tags can exist without GitHub
+  Release entries; restoring those entries does not require a new version or deployment.
 - `pnpm release:dry-run` is harmless and read-only; use it liberally to preview before committing.
 - After any release, confirm no CI/registry consumer matrix is expected to pass before publishing —
   the consumer CI must be green first (see `CONTRIBUTING.md`).

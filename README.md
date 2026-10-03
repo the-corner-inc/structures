@@ -84,6 +84,9 @@ server build instead of the static FTP build.
 
 Releases use `commit-and-tag-version`. The package version is injected into the application at
 build time and appears at the bottom of the explorer, so it cannot drift from `package.json`.
+Pushing a stable version tag runs deployment and registry consumer checks, then automatically
+publishes the matching changelog section to
+[GitHub Releases](https://github.com/the-corner-factory/structures/releases).
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and contribution guidelines.
 

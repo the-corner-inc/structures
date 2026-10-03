@@ -11,6 +11,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  registry-consumers:
+    uses: ./.github/workflows/registry.yml
+    permissions:
+      contents: read
+
   verify-and-deploy:
     runs-on: ubuntu-latest
     permissions:
@@ -57,3 +62,30 @@ jobs:
           server-dir: ./
           # The previous manifest was left inconsistent by an interrupted deployment.
           state-name: .ftp-deploy-sync-state-tanstack.json
+
+  publish-release:
+    needs: [verify-and-deploy, registry-consumers]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Publish GitHub release from the changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          test "$RELEASE_TAG" = "v$(node -p "require('./package.json').version")"
+          node --test scripts/release-notes.test.mjs
+          node scripts/release-notes.mjs "$RELEASE_TAG" > "$RUNNER_TEMP/release-notes.md"
+          releases=$(gh api --paginate "repos/$GH_REPO/releases" --jq '.[].tag_name')
+          if printf '%s\n' "$releases" | grep -Fxq "$RELEASE_TAG"; then
+            echo "Release $RELEASE_TAG already exists."
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" \
+              --notes-file "$RUNNER_TEMP/release-notes.md"
+          fi

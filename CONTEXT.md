@@ -63,6 +63,12 @@ and Harness. Controls update the URL without resetting scroll; reloads and Back/
 the view and template together. The defaults are omitted when controls update the URL. Hover and
 focus stay local. Heading links and copied heading URLs preserve the current query parameters.
 
+Folder and issue explorers store their search filter in `q`, for example
+`/folders/tanstack-react?q=components`. The input reads directly from the URL, so direct links,
+reloads, and Back/Forward restore the filtered tree. Typing replaces the current history entry
+without resetting scroll or the heading anchor. Selecting a file or folder preserves `q` and
+the custom `source`; changing the library or loading another source also retains the filter.
+
 Each page supplies a content-specific title and description through route `head` metadata.
 `src/lib/seo.ts` keeps search and social titles/descriptions aligned and resolves explorer library,
 document, and branch-preset metadata from route parameters and the selected source. This metadata
@@ -171,9 +177,12 @@ directory `index.html` files. It skips catalog entries named `index.html` to avo
 including explorer entries whose names contain file extensions.
 
 The main CI workflow runs lint, tests, build, and prerender on `v*` tags, then uploads
-`.output/public` to FTP. The registry consumer matrix runs on PRs, pushes to `main`, and version
-tags. `commit-and-tag-version` updates the package version and changelog; that same tag identifies
-the registry source. Account-enabled deployments must run the Node server instead of the static
+`.output/public` to FTP. It also calls the reusable registry consumer workflow, which runs directly
+on PRs. After deployment and all registry consumers succeed, a separate job publishes a GitHub
+Release with the matching changelog section via `scripts/release-notes.mjs`. Only that job receives
+`contents: write`; reruns skip existing releases. `commit-and-tag-version` updates the package
+version and changelog; that same stable version tag identifies the registry source and release.
+Account-enabled deployments must run the Node server instead of the static
 FTP artifact. See [CONTRIBUTING.md](CONTRIBUTING.md) and the
 [release skill](.agents/skills/release/SKILL.md) for the release procedure.
 

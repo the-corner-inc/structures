@@ -2,8 +2,7 @@ name: Registry consumers
 
 on:
   pull_request:
-  push:
-    tags: ["v*"]
+  workflow_call:
 
 permissions:
   contents: read

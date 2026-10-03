@@ -6,9 +6,9 @@ All notable changes to this project are documented here.
 
 ### Build System
 
-* portless ([80b3dbc](https://github.com/the-corner-inc/structures/commit/80b3dbccbc2c699d6960773b503174572a3eaa84))
-* **vite-plus:** 1.0 ([e6069da](https://github.com/the-corner-inc/structures/commit/e6069dabd7e6546219134200982542a4d95d4551))
-* **vite-plus:** 1.0 ([a3d1c63](https://github.com/the-corner-inc/structures/commit/a3d1c631ae0bfa65355c0973ea78087189299c2e))
+- portless ([80b3dbc](https://github.com/the-corner-inc/structures/commit/80b3dbccbc2c699d6960773b503174572a3eaa84))
+- **vite-plus:** 1.0 ([e6069da](https://github.com/the-corner-inc/structures/commit/e6069dabd7e6546219134200982542a4d95d4551))
+- **vite-plus:** 1.0 ([a3d1c63](https://github.com/the-corner-inc/structures/commit/a3d1c631ae0bfa65355c0973ea78087189299c2e))
 
 ## [1.3.0](https://github.com/the-corner-inc/structures/compare/v1.2.1...v1.3.0) (2026-10-02)
 
@@ -36,6 +36,12 @@ All notable changes to this project are documented here.
 ### Continuous Integration
 
 - **workflows:** release on tag ([4b887ab](https://github.com/the-corner-inc/structures/commit/4b887abc4abc879f8cf00fad4a0cce184fc5bd1b))
+
+## [1.1.1](https://github.com/the-corner-factory/structures/compare/v1.1.0...v1.1.1) (2026-09-22)
+
+### Bug Fixes
+
+- **scripts:** correct the issue, priority, and status routes used by static prerendering ([0dcfbe8](https://github.com/the-corner-factory/structures/commit/0dcfbe87e7c3b8c402e4b9fd2c96448eaa7d2c1b))
 
 ## [1.1.0](https://github.com/the-corner-inc/structures/compare/v1.0.0...v1.1.0) (2026-09-22)
 
