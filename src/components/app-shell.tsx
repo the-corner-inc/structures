@@ -47,8 +47,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <header className="topbar">
           <div className="brand-and-nav">
-            <Link to="/" search={{}} aria-label="Structures home" className="brand-link">
+            <Link
+              to="/"
+              search={{}}
+              aria-label="Structures home"
+              aria-describedby="site-version"
+              className="brand-link"
+            >
               <img src="/the_corner-logo.webp" alt="The Corner" />
+              <span id="site-version" className="brand-version">
+                v{__APP_VERSION__}
+              </span>
             </Link>
             <nav aria-label="Primary navigation" className="primary-nav">
               {TOPICS.map((topic) =>

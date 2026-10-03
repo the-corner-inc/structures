@@ -114,6 +114,21 @@ input:focus-visible {
   gap: 34px;
 }
 
+.brand-link {
+  position: relative;
+}
+
+.brand-version {
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+  padding: 1px 4px;
+  background: var(--background);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1;
+}
+
 .brand-link img {
   display: block;
   width: auto;
